@@ -1,0 +1,178 @@
+---
+title: FOSS For Spectroscopy
+author: Bryan A. Hanson, DePauw University
+date: "`r Sys.time()`"
+output:
+  html_document:
+    theme: united
+---
+
+<!-- See https://kryogenix.org/code/browser/sorttable/ -->
+<script src="sorttable.js"></script>
+
+The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  Unless otherwise noted, the software mentioned here can be used with one or more of the following instruments: NMR, IR, Raman, ESR/EPR, fluorescence and UV-Vis.  Mass *spectrometry* software is not included here.  All information is taken from the respective websites and/or repositories.  Some softwares have been described in publications.  If so, a link is provided but keep in mind the document may be behind a paywall.
+
+Software mentioned here appears to be regularly maintained, as evidenced by one of the following:
+
+* a commit to a repository within the past year,
+* a web site updated within the past year, or
+* successful continuous integration.
+
+Additions or corrections?  Please contact [hanson@depauw.edu](mailto:hanson@depauw.edu) or submit a pull request at XXX.
+
+Include CI Badge
+
+Abbreviations:
+
+* __EDA:__ Exploratory data analysis (unsupervised chemometrics)
+
+\hrule
+
+*Click on a header to sort the table*
+
+```{r setup, echo = FALSE}
+suppressPackageStartupMessages(library("knitr"))
+suppressPackageStartupMessages(library("kableExtra"))
+```
+
+```{r inputValues, echo = FALSE}
+# This section contains the information about the software
+
+# Contribution Rules: One item per line, never change the order!
+# Add new entries to the end of each vector
+# Add a comment + line number every 5 entries
+# You must add an entry to each vector, if the information is not available please add an empty string: ""
+
+# The name of the software package or resource
+name <- c(
+  "ChemoSpec",
+  "ChemoSpec2D",
+  "speaq",
+  "OpenVnmrJ",
+  "nmrGlue", # 5
+  "hyperSpec",
+  "readJDX",
+  "hyperChemoBridge",
+  "nmrPipe"
+  )
+
+website <- c(
+    "https://bryanhanson.github.io/ChemoSpec/",
+    "https://bryanhanson.github.io/ChemoSpec2D/",
+    "",
+    "https://openvnmrj.org",
+    "http://www.nmrglue.com/", # 5
+    "http://hyperspec.r-forge.r-project.org/",
+    "https://github.com/bryanhanson/readJDX",
+    "",
+    ""
+    )
+
+repos <- c(
+  "https://github.com/bryanhanson/ChemoSpec",
+  "https://github.com/bryanhanson/ChemoSpec2D",
+  "https://github.com/OpenVnmrJ/",
+  "",
+  "https://github.com/jjhelmus/nmrglue", # 5
+  "https://r-forge.r-project.org/scm/?group_id=366",
+  "",
+  "",
+  ""
+  )
+
+pub <- c(
+  "",
+  "",
+  "",
+  "",
+  "https://link.springer.com/article/10.1007%2Fs10858-013-9718-x", # 5
+  "",
+  "",
+  "",
+  ""
+  )
+
+# The language the software requires to run
+
+lang <- c(
+  "R",
+  "R",
+  "R",
+  "?",
+  "Python", # 5
+  "R",
+  "R",
+  "R",
+  "?"
+  )
+
+# The main capabilities of the software
+
+descrip <- c(
+  "EDA of 1D spectra",
+  "EDA of 2D NMR",
+  "Data processing & conversion between formats",
+  "Data acquisition & processing (Varian instruments)",
+  "Data processing, analysis, visualization & conversion", # 5
+  "Hyperspectral data sets (spectra accompanied by spatial, time or concentration information)",
+  "Import JCAMP-DX files to ChemoSpec/Spectra format",
+  "Interconversion of hyperSpec and ChemoSpec formats",
+  "Item 9"
+  )
+
+# The operating systems that the software will run on
+
+os <- c(
+  "Any running R",
+  "Any running R",
+  "Any running R",
+  "Linux",
+  "Any running Python", # 5
+  "Any running R",
+  "Any running R",
+  "Any running R",
+  "?"
+  )
+
+# Any notes
+
+notes <- c(
+  "",
+  "2D NMR only",
+  "",
+  "NMR only",
+  "nD NMR only", # 5
+  "",
+  "",
+  "",
+  ""
+  )
+
+
+```
+
+<!-- If you are just adding a new resource, you don't need to edit below here. -->
+
+```{r processValues, echo = FALSE}
+# Additional processing of the input values
+# Combine name and website to create hyperlink, incl pub if available
+namelink <- paste("[", name, "](", website, ")", sep = "")
+for (i in 1:length(namelink)) if (pub[i] != "") {
+  namelink[i] <- paste(namelink[i], " ([pub](", pub[i], "))", sep = "")
+}
+```
+
+```{r checkStatus, echo = FALSE}
+# Automatically check if the software is apparently kept up-to-date
+
+status <- rep(NA_character_, length(name))
+
+```
+
+
+```{r createTable, results = "asis", echo = FALSE}
+DF <- data.frame(namelink, descrip, lang, os, notes, status)
+names(DF) <- c("name", "description", "language", "OS", "notes", "status")
+kable(DF, table.attr = "class=\"sortable\"") %>%
+  kable_styling(c("striped", "bordered", "sortable"))
+```
