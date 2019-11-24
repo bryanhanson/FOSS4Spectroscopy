@@ -5,6 +5,8 @@ cache:
 
 script:
   - Rscript -e 'install.packages("rmarkdown")'
+  - Rscript -e 'install.packages("knitr")'
+  - Rscript -e 'install.packages("kableExtra")'
   - Rscript -e 'source("Process.R")'
 
 deploy:
