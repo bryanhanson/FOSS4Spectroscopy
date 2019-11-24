@@ -20,7 +20,7 @@ Software mentioned here appears to be regularly maintained, as evidenced by one 
 
 Additions or corrections?  Please contact [hanson@depauw.edu](mailto:hanson@depauw.edu) or submit a pull request at XXX.
 
-Include CI Badge
+Include CI Badge MINOR CHANGE TO TEST TCI
 
 Abbreviations:
 
