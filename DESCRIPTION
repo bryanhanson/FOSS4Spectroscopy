@@ -1,0 +1,5 @@
+Package: Nothing to See Here!
+Type: Website
+Title: This file tricks TRAVIS-CI!
+Version: 0.0.1
+Imports: rmarkdown
