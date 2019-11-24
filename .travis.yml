@@ -1,3 +1,8 @@
+language: r
+
+script:
+  - Rscript -e 'source("Process.R")'
+
 deploy:
   provider: pages
   skip_cleanup: true
