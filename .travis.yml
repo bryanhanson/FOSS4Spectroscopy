@@ -1,6 +1,10 @@
 language: r
 
+cache:
+  packages: yes
+
 script:
+  - Rscript -e 'install.packages("rmarkdown")'
   - Rscript -e 'source("Process.R")'
 
 deploy:
