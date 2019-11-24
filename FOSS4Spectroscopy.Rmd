@@ -18,15 +18,16 @@ Software mentioned here appears to be regularly maintained, as evidenced by one 
 * a web site updated within the past year, or
 * successful continuous integration.
 
-Additions or corrections?  Please contact [hanson@depauw.edu](mailto:hanson@depauw.edu) or submit a pull request at XXX.
+Additions or corrections?  Please contact [hanson@depauw.edu](mailto:hanson@depauw.edu) or submit a pull request at the [repo](https://github.com/bryanhanson/FOSS4Spectroscopy).
 
-Include CI Badge MINOR CHANGE TO TEST TCI
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![Build Status](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy.svg?branch=master)](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy)
 
 Abbreviations:
 
 * __EDA:__ Exploratory data analysis (unsupervised chemometrics)
 
-\hrule
+<hr>
 
 *Click on a header to sort the table*
 
