@@ -2,8 +2,8 @@ Package: Nothing to See Here!
 Type: Website
 Title: This file tricks TRAVIS-CI!
 Version: 0.0.1
-Description: This file is necessary because TRAVIS-CI needs a DESCRIPTION file in order to do anything, plus it uses the Imports field.  See https://bookdown.org/yihui/blogdown/travis-github.html
-Imports:
+Description: This file is necessary because TRAVIS-CI needs a DESCRIPTION file in order to do anything, plus it uses the Depends field.  See https://bookdown.org/yihui/blogdown/travis-github.html
+Depends:
   rmarkdown
   knitr
   kableExtra
