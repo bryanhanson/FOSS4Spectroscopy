@@ -27,7 +27,6 @@ Abbreviations Etc:
 
 * __EDA:__ Exploratory data analysis (unsupervised chemometrics)
 * __R:__ A software environment for statistical computing and graphics [details, platforms](https://www.r-project.org/)
-* __TEST__
 
 <hr>
 
