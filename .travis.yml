@@ -1,12 +1,21 @@
 language: r
 
+r_packages:
+  - rmarkdown
+  - knitr
+  - kableExtra
+
 cache:
   packages: yes
 
+branches:
+  only:
+    - master
+
 script:
-  - Rscript -e 'install.packages("rmarkdown")'
-  - Rscript -e 'install.packages("knitr")'
-  - Rscript -e 'install.packages("kableExtra")'
+#  - Rscript -e 'install.packages("rmarkdown")'
+#  - Rscript -e 'install.packages("knitr")'
+#  - Rscript -e 'install.packages("kableExtra")'
   - Rscript -e 'source("Process.R")'
 
 deploy:
