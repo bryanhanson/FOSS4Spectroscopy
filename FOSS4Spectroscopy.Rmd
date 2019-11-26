@@ -23,10 +23,10 @@ Additions or corrections?  Please contact [hanson@depauw.edu](mailto:hanson@depa
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Build Status](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy.svg?branch=master)](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy)
 
-Abbreviations:
+Abbreviations Etc:
 
 * __EDA:__ Exploratory data analysis (unsupervised chemometrics)
-
+* __R:__ A software environment for statistical computing and graphics [details, platforms](https://www.r-project.org/)
 <hr>
 
 *Click on a header to sort the table*
@@ -40,9 +40,10 @@ suppressPackageStartupMessages(library("kableExtra"))
 # This section contains the information about the software
 
 # Contribution Rules: One item per line, never change the order!
-# Add new entries to the end of each vector
+# Add new entries to the end of each vector (table is sortable)
 # Add a comment + line number every 5 entries
 # You must add an entry to each vector, if the information is not available please add an empty string: ""
+# Please inspect the table and use consistent language for the vectors lang, descrip, os, notes.  This keeps the sort working well.
 
 # The name of the software package or resource
 name <- c(
@@ -122,16 +123,18 @@ descrip <- c(
   )
 
 # The operating systems that the software will run on
+rplatforms <- "[details](https://www.r-project.org/)"
+pyplatforms <- "[details](https://www.python.org/about/)"
 
 os <- c(
-  "Any running R",
-  "Any running R",
-  "Any running R",
+  rplatforms,
+  rplatforms,
+  rplatforms,
   "Linux",
-  "Any running Python", # 5
-  "Any running R",
-  "Any running R",
-  "Any running R",
+  pyplatforms, # 5
+  rplatforms,
+  rplatforms,
+  rplatforms,
   "?"
   )
 
@@ -154,6 +157,12 @@ notes <- c(
 
 <!-- If you are just adding a new resource, you don't need to edit below here. -->
 
+```{r verifyURLs, echo = FALSE, eval = FALSE}
+# Need to verify the URLs in website, repos, pub TO-DO
+# If there are 404s we need to note that somehow
+# Probably need to save these 3 vectors in new versions
+```
+
 ```{r processValues, echo = FALSE}
 # Additional processing of the input values
 # Combine name and website to create hyperlink, incl pub if available
@@ -164,6 +173,7 @@ for (i in 1:length(namelink)) if (pub[i] != "") {
 ```
 
 ```{r checkStatus, echo = FALSE}
+# TO-DO
 # Automatically check if the software is apparently kept up-to-date
 
 status <- rep(NA_character_, length(name))
