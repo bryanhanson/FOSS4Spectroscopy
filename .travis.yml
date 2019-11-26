@@ -13,9 +13,6 @@ branches:
     - master
 
 script:
-#  - Rscript -e 'install.packages("rmarkdown")'
-#  - Rscript -e 'install.packages("knitr")'
-#  - Rscript -e 'install.packages("kableExtra")'
   - Rscript -e 'source("Process.R")'
 
 deploy:
@@ -23,5 +20,6 @@ deploy:
   skip_cleanup: true
   github_token: $TRAVIS_CI
   keep_history: true
+  local_dir: docs
   on:
     branch: master
