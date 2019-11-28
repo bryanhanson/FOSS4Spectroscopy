@@ -12,7 +12,7 @@ output:
 
 The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  Unless otherwise noted, the software mentioned here can be used with one or more of the following instruments: NMR, IR, Raman, ESR/EPR, fluorescence and UV-Vis.  Mass *spectrometry* software is not included here.  All information is taken from the respective websites and/or repositories.  Some softwares have been described in publications.  If so, a link is provided but keep in mind the document may be behind a paywall.
 
-Software mentioned here appears to be regularly maintained, as evidenced by one of the following:
+Software mentioned here appears to be regularly maintained, as evidenced by one of the following (NB: not active, will be automated in a future version):
 
 * a commit to a repository within the past year,
 * a web site updated within the past year, or
@@ -23,9 +23,10 @@ Additions or corrections?  Please contact [hanson@depauw.edu](mailto:hanson@depa
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Build Status](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy.svg?branch=master)](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy)
 
-Abbreviations Etc:
+Abbreviations & Terms:
 
 * __EDA:__ Exploratory data analysis (unsupervised chemometrics)
+* __nD NMR:__ n-dimensional NMR, 1D, 2D, 3D etc
 * __R:__ A software environment for statistical computing and graphics [details, platforms](https://www.r-project.org/)
 
 <hr>
@@ -144,13 +145,13 @@ os <- c(
 notes <- c(
   "",
   "2D NMR only",
+  "1D NMR only",
+  "nD NMR",
+  "nD NMR", # 5
   "",
-  "NMR only",
-  "nD NMR only", # 5
   "",
   "",
-  "",
-  "nD NMR only"
+  "nD NMR"
   )
 
 
