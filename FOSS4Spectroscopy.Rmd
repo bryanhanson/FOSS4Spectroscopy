@@ -26,7 +26,9 @@ Additions or corrections?  Please contact [hanson@depauw.edu](mailto:hanson@depa
 Abbreviations & Terms:
 
 * __EDA:__ Exploratory data analysis (unsupervised chemometrics)
+* __language:__ Most software is built on several languages. In the table, "language" refers to the language one uses to interact with the software. Some software has partial or complete interactive features.
 * __nD NMR:__ n-dimensional NMR, 1D, 2D, 3D etc
+* __Python:__ Multipurpose programming language [details](https://www.python.org/about/)
 * __R:__ A software environment for statistical computing and graphics [details, platforms](https://www.r-project.org/)
 
 <hr>
@@ -151,7 +153,7 @@ notes <- c(
   "",
   "",
   "",
-  "nD NMR"
+  "nD NMR. No repo, but source files available for download."
   )
 
 
