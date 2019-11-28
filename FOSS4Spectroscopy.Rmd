@@ -1,7 +1,7 @@
 ---
 title: FOSS For Spectroscopy
 author: Bryan A. Hanson, DePauw University
-date: "`r Sys.time()`"
+date: "`r Sys.Date()`"
 output:
   html_document:
     theme: united
@@ -62,37 +62,37 @@ name <- c(
 website <- c(
     "https://bryanhanson.github.io/ChemoSpec/",
     "https://bryanhanson.github.io/ChemoSpec2D/",
-    "",
+    "https://cran.r-project.org/web/packages/speaq/index.html",
     "https://openvnmrj.org",
     "http://www.nmrglue.com/", # 5
     "http://hyperspec.r-forge.r-project.org/",
-    "https://github.com/bryanhanson/readJDX",
+    "https://cran.r-project.org/web/packages/readJDX/index.html",
     "",
-    ""
+    "https://www.ibbr.umd.edu/nmrpipe/"
     )
 
 repos <- c(
   "https://github.com/bryanhanson/ChemoSpec",
   "https://github.com/bryanhanson/ChemoSpec2D",
-  "https://github.com/OpenVnmrJ/",
-  "",
+  "https://github.com/OpenVnmrJ",
+  "https://github.com/Beirnaert/speaq",
   "https://github.com/jjhelmus/nmrglue", # 5
   "https://r-forge.r-project.org/scm/?group_id=366",
-  "",
-  "",
+  "https://github.com/bryanhanson/readJDX",
+  "https://github.com/Chathurga/HyperChemoBridge",
   ""
   )
 
 pub <- c(
   "",
   "",
-  "",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006018",
   "",
   "https://link.springer.com/article/10.1007%2Fs10858-013-9718-x", # 5
   "",
   "",
   "",
-  ""
+  "https://link.springer.com/article/10.1007/BF00197809"
   )
 
 # The language the software requires to run
@@ -101,12 +101,12 @@ lang <- c(
   "R",
   "R",
   "R",
-  "?",
+  "C",
   "Python", # 5
   "R",
   "R",
   "R",
-  "?"
+  "C-shell"
   )
 
 # The main capabilities of the software
@@ -114,13 +114,13 @@ lang <- c(
 descrip <- c(
   "EDA of 1D spectra",
   "EDA of 2D NMR",
-  "Data processing & conversion between formats",
-  "Data acquisition & processing (Varian instruments)",
-  "Data processing, analysis, visualization & conversion", # 5
+  "NMR data processing",
+  "NMR data acquisition & processing (Varian instruments)",
+  "NMR data processing, analysis, visualization & conversion", # 5
   "Hyperspectral data sets (spectra accompanied by spatial, time or concentration information)",
   "Import JCAMP-DX files to ChemoSpec/Spectra format",
   "Interconversion of hyperSpec and ChemoSpec formats",
-  "Item 9"
+  "NMR data processing, analysis, visualization & conversion"
   )
 
 # The operating systems that the software will run on
@@ -131,12 +131,12 @@ os <- c(
   rplatforms,
   rplatforms,
   rplatforms,
-  "Linux",
+  "Linux, MacOS",
   pyplatforms, # 5
   rplatforms,
   rplatforms,
   rplatforms,
-  "?"
+  "Linux, MacOS"
   )
 
 # Any notes
@@ -150,7 +150,7 @@ notes <- c(
   "",
   "",
   "",
-  ""
+  "nD NMR only"
   )
 
 
