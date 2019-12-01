@@ -10,13 +10,19 @@ output:
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
 <script src="sorttable.js"></script>
 
-The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  Unless otherwise noted, the software mentioned here can be used with one or more of the following instruments: NMR, IR, Raman, ESR/EPR, fluorescence and UV-Vis.  Mass *spectrometry* software is not included here.  All information is taken from the respective websites and/or repositories.  Some softwares have been described in publications.  If so, a link is provided but keep in mind the document may be behind a paywall.
+The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  Unless otherwise noted, the software mentioned here can be used with one or more of the following instruments: NMR, IR, Raman, ESR/EPR, fluorescence and UV-Vis.  Mass *spectrometry* software is not included here, nor is software for MRI.  All information is taken from the respective websites and/or repositories.  Some softwares have been described in publications.  If so, a link is provided but keep in mind the document may be behind a paywall.
 
-Software mentioned here appears to be regularly maintained, as evidenced by one of the following (NB: not active, will be automated in a future version):
+(Coming Soon!) The status column in the table gives the year and month of the most recent:
 
-* a commit to a repository within the past year,
-* a web site updated within the past year, or
-* successful continuous integration.
+* commit to a repository,
+* web site update, or
+* successful continuous integration
+
+as a proxy for regular maintenance.  Keep in mind that some software is fairly mature and thus an older status date does not necessarily mean the software is not maintained.  Follow the links to the websites for more details.
+
+[Stanstrup *et al.*](https://www.mdpi.com/2218-1989/9/10/200) have published a comprehensive paper describing the `R` packages suitable for use in metabolomics, which partially overlaps with the information here.
+
+The [CRAN Task View for Chemometrics & Computational Physics](https://cran.r-project.org/web/views/ChemPhys.html) includes some `R` packages listed here as well as related software.
 
 Additions or corrections?  Please contact [hanson@depauw.edu](mailto:hanson@depauw.edu) or submit a pull request at the [repo](https://github.com/bryanhanson/FOSS4Spectroscopy).
 
@@ -30,6 +36,7 @@ Abbreviations & Terms:
 * __nD NMR:__ n-dimensional NMR, 1D, 2D, 3D etc
 * __Python:__ Multipurpose programming language [details](https://www.python.org/about/)
 * __R:__ A software environment for statistical computing and graphics [details, platforms](https://www.r-project.org/)
+* __VM:__ Virtual machine.  One of several means of delivering software to run on any computer.
 
 <hr>
 
@@ -46,8 +53,10 @@ suppressPackageStartupMessages(library("kableExtra"))
 # Contribution Rules: One item per line, never change the order!
 # Add new entries to the end of each vector (table is sortable)
 # Add a comment + line number every 5 entries
+# When removing an entry please just comment it out so that the line numbering remains accurate and useful
 # You must add an entry to each vector, if the information is not available please add an empty string: ""
 # Please inspect the table and use consistent language for the vectors lang, descrip, os, notes.  This keeps the sort working well.
+
 
 # The name of the software package or resource
 name <- c(
@@ -59,19 +68,35 @@ name <- c(
   "hyperSpec",
   "readJDX",
   "hyperChemoBridge",
-  "nmrPipe"
+  "nmrPipe",
+  "nmrML", # 10
+  "rDolphin",
+  "Rnmr1D",
+  "NMRProcFlow",
+  "TIMP",
+  "prospectr", # 15
+  "resemble",
+  "spectralAnalysis"
   )
 
 website <- c(
     "https://bryanhanson.github.io/ChemoSpec/",
     "https://bryanhanson.github.io/ChemoSpec2D/",
-    "https://cran.r-project.org/web/packages/speaq/index.html",
+    "https://cran.r-project.org/package-speaq",
     "https://openvnmrj.org",
     "http://www.nmrglue.com/", # 5
     "http://hyperspec.r-forge.r-project.org/",
-    "https://cran.r-project.org/web/packages/readJDX/index.html",
+    "https://cran.r-project.org/package=readJDX",
     "",
-    "https://www.ibbr.umd.edu/nmrpipe/"
+    "https://www.ibbr.umd.edu/nmrpipe/",
+    "http://nmrml.org/", # 10
+    "https://rdrr.io/github/danielcanueto/rDolphin/",
+    "https://nmrprocflow.org/",
+    "https://nmrprocflow.org/",
+    "http://timpgui.org/",
+    "https://cran.r-project.org/package=prospectr", # 15
+    "http://l-ramirez-lopez.github.io/resemble/",
+    "https://cran.r-project.org/package=spectralAnalysis"
     )
 
 repos <- c(
@@ -83,6 +108,14 @@ repos <- c(
   "https://r-forge.r-project.org/scm/?group_id=366",
   "https://github.com/bryanhanson/readJDX",
   "https://github.com/Chathurga/HyperChemoBridge",
+  "",
+  "https://github.com/nmrML/nmrML", # 10
+  "https://github.com/danielcanueto/rDolphin",
+  "https://github.com/INRA/Rnmr1D",
+  "https://github.com/INRA/Rnmr1D",
+  "https://github.com/glotaran/TIMP",
+  "https://github.com/antoinestevens/prospectr", # 15
+  "https://github.com/l-ramirez-lopez/resemble",
   ""
   )
 
@@ -95,7 +128,15 @@ pub <- c(
   "",
   "",
   "",
-  "https://link.springer.com/article/10.1007/BF00197809"
+  "https://link.springer.com/article/10.1007/BF00197809",
+  "https://dx.doi.org/10.1021/acs.analchem.7b02795", # 10
+  "",
+  "https://link.springer.com/article/10.1007/s11306-017-1178-y",
+  "https://link.springer.com/article/10.1007/s11306-017-1178-y",
+  "",
+  "", # 15
+  "",
+  ""
   )
 
 # The language the software requires to run
@@ -109,7 +150,15 @@ lang <- c(
   "R",
   "R",
   "R",
-  "C-shell"
+  "C-shell",
+  "XML", # 10
+  "R",
+  "R",
+  "R",
+  "R",
+  "R", # 15
+  "R",
+  "R"
   )
 
 # The main capabilities of the software
@@ -123,7 +172,15 @@ descrip <- c(
   "Hyperspectral data sets (spectra accompanied by spatial, time or concentration information)",
   "Import JCAMP-DX files to ChemoSpec/Spectra format",
   "Interconversion of hyperSpec and ChemoSpec formats",
-  "NMR data processing, analysis, visualization & conversion"
+  "NMR data processing, analysis, visualization & conversion",
+  "Markup language for sharing NMR data", # 10
+  "1D NMR profiling for metabolomics",
+  "1D NMR processing using [NMRProcFlow](https://nmrprocflow.org/)",
+  "1D NMR processing for metabolomics",
+  "Time-resolved spectroscopy",
+  "Vis and NIR", # 15
+  "Non-linear modeling of Vis & IR spectra",
+  "EDA of 1D spectra"
   )
 
 # The operating systems that the software will run on
@@ -139,7 +196,15 @@ os <- c(
   rplatforms,
   rplatforms,
   rplatforms,
-  "Linux, MacOS"
+  "Linux, MacOS",
+  "any", # 10
+  rplatforms,
+  rplatforms,
+  "VM",
+  rplatforms,
+  rplatforms, # 15
+  rplatforms,
+  rplatforms
   )
 
 # Any notes
@@ -153,10 +218,16 @@ notes <- c(
   "",
   "",
   "",
-  "nD NMR. No repo, but source files available for download."
+  "nD NMR. No repo, but source files available for download.",
+  "NMR only", # 10
+  "1D NMR only",
+  "1D NMR only (native R)",
+  "1D NMR only (VM)",
+  "",
+  "Vis-NIR only?", # 15
+  "",
+  ""
   )
-
-
 ```
 
 <!-- If you are just adding a new resource, you don't need to edit below here. -->
