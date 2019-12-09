@@ -16,17 +16,13 @@ output:
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
 <script src="sorttable.js"></script>
 
-The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  Unless otherwise noted, the software mentioned here can be used with one or more of the following techniques: NMR, IR, Raman, ESR/EPR, fluorescence and UV-Vis.  Mass *spectrometry* software is not included here, nor is software for MRI.  All information is taken from the respective websites and/or repositories.  Some softwares have been described in publications.  If so, a link is provided but keep in mind the document may be behind a paywall.
+The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some softwares have been described in publications.  If so, a link is provided but keep in mind the document may be behind a paywall.
 
-(Coming Soon!) The status column in the table gives the year and month of the most recent:
+Unless otherwise noted, the software mentioned here:
 
-* commit to a repository,
-* activity on an issue filed in a repository,
-* submission to an archival network such as CRAN,
-* web site update, or
-* successful continuous integration
-
-as a proxy for regular maintenance.  Keep in mind that some software is fairly mature and thus an older status date does not necessarily mean the software is not maintained.  Follow the links to the websites for more details.
+* Is suitable for one or more of the following techniques: NMR, IR, Raman, ESR/EPR, fluorescence and UV-Vis.
+* Mass *spectrometry* software is not included.
+* Software for MRI is not included.
 
 [Stanstrup *et al.*](https://www.mdpi.com/2218-1989/9/10/200) have published a comprehensive paper describing the `R` packages suitable for use in metabolomics, which partially overlaps with the information here.
 
@@ -37,11 +33,9 @@ Additions or corrections?  Please [file an issue](https://github.com/bryanhanson
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Build Status](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy.svg?branch=master)](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy)
 
-<hr>
-
-*Click on a header to sort the table*  -- [Abbreviations](#abbreviations) & terms below the table.
 
 ```{r setup, echo = FALSE}
+rm(list = ls())
 suppressPackageStartupMessages(library("knitr"))
 suppressPackageStartupMessages(library("kableExtra"))
 suppressPackageStartupMessages(library("readxl"))
@@ -79,17 +73,38 @@ for (i in 1:length(namelink)) if (!is.na(DF$pub[i])) {
 # TO-DO
 # Automatically check if the software is apparently kept up-to-date
 
-status <- rep(NA_character_, length(name))
+status <- rep(NA_character_, length(DF$name))
 
 ```
 
 
-```{r createTable, results = "asis", echo = FALSE}
-DF2 <- data.frame(namelink, descrip, lang, notes, status)
-names(DF2) <- c("name", "description", "language", "notes", "status")
+```{r createTable, echo = FALSE}
+DF2 <- data.frame(namelink, DF$desc, DF$lang, DF$notes, status, stringsAsFactors = FALSE)
+names(DF2) <- c("name", "description", "language", "notes", "[status](#status)")
+```
+
+<hr>
+
+* *Click on a header to sort the table*
+* [Abbreviations](#abbreviations) & terms below the table
+* The table currently has `r nrow(DF2)` entries; the majority are `R` (`r length(DF2$language[DF2$language == "R"])`) or `Python` (`r length(DF2$language[DF2$language == "Python"])`).
+
+```{r printTable, results = "asis", echo = FALSE}
+options(knitr.kable.NA = '')
 kable(DF2, table.attr = "class=\"sortable\"") %>%
   kable_styling(c("striped", "bordered", "sortable"))
 ```
+##### Status Column: {#status}
+
+(Coming Soon!) The status column in the table gives the year and month of the most recent:
+
+* commit to a repository,
+* activity on an issue filed in a repository,
+* submission to an archival network such as CRAN,
+* web site update, or
+* successful continuous integration
+
+as a proxy for regular maintenance.  Keep in mind that some software is fairly mature and thus an older status date does not necessarily mean the software is not maintained.  Follow the links to the websites for more details.
 
 ##### Abbreviations & Terms: {#abbreviations}
 
