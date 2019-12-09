@@ -7,14 +7,22 @@ output:
     theme: united
 ---
 
+<!-- Need to add:
+  * https://github.com/nzhagen/jcamp
+  * PRRFECT https://www.sciencedirect.com/science/article/abs/pii/S0169743917305257
+  * -->
+
+
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
 <script src="sorttable.js"></script>
 
-The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  Unless otherwise noted, the software mentioned here can be used with one or more of the following instruments: NMR, IR, Raman, ESR/EPR, fluorescence and UV-Vis.  Mass *spectrometry* software is not included here, nor is software for MRI.  All information is taken from the respective websites and/or repositories.  Some softwares have been described in publications.  If so, a link is provided but keep in mind the document may be behind a paywall.
+The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  Unless otherwise noted, the software mentioned here can be used with one or more of the following techniques: NMR, IR, Raman, ESR/EPR, fluorescence and UV-Vis.  Mass *spectrometry* software is not included here, nor is software for MRI.  All information is taken from the respective websites and/or repositories.  Some softwares have been described in publications.  If so, a link is provided but keep in mind the document may be behind a paywall.
 
 (Coming Soon!) The status column in the table gives the year and month of the most recent:
 
 * commit to a repository,
+* activity on an issue filed in a repository,
+* submission to an archival network such as CRAN,
 * web site update, or
 * successful continuous integration
 
@@ -24,213 +32,33 @@ as a proxy for regular maintenance.  Keep in mind that some software is fairly m
 
 The [CRAN Task View for Chemometrics & Computational Physics](https://cran.r-project.org/web/views/ChemPhys.html) includes some `R` packages listed here as well as related software.
 
-Additions or corrections?  Please contact [hanson@depauw.edu](mailto:hanson@depauw.edu) or submit a pull request at the [repo](https://github.com/bryanhanson/FOSS4Spectroscopy).
+Additions or corrections?  Please [file an issue](https://github.com/bryanhanson/FOSS4Spectroscopy/issues) with the necessary information or submit a pull request at the [repo](https://github.com/bryanhanson/FOSS4Spectroscopy).
 
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Build Status](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy.svg?branch=master)](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy)
 
-Abbreviations & Terms:
-
-* __EDA:__ Exploratory data analysis (unsupervised chemometrics)
-* __language:__ Most software is built on several languages. In the table, "language" refers to the language one uses to interact with the software. Some software has partial or complete interactive features.
-* __nD NMR:__ n-dimensional NMR, 1D, 2D, 3D etc
-* __Python:__ Multipurpose programming language [details](https://www.python.org/about/)
-* __R:__ A software environment for statistical computing and graphics [details, platforms](https://www.r-project.org/)
-* __VM:__ Virtual machine.  One of several means of delivering software to run on any computer.
-
 <hr>
 
-*Click on a header to sort the table*
+*Click on a header to sort the table*  -- [Abbreviations](#abbreviations) & terms below the table.
 
 ```{r setup, echo = FALSE}
 suppressPackageStartupMessages(library("knitr"))
 suppressPackageStartupMessages(library("kableExtra"))
+suppressPackageStartupMessages(library("readxl"))
 ```
 
 ```{r inputValues, echo = FALSE}
-# This section contains the information about the software
+# Please edit FOSS4Spec.xlsx to add information or make corrections.
+# Please follow the conventions of existing entries for consistency.
+# Remember the table in the web page is sortable so consistency in
+# description and notes is especially important for users to obtain
+# useful information.
 
-# Contribution Rules: One item per line, never change the order!
-# Add new entries to the end of each vector (table is sortable)
-# Add a comment + line number every 5 entries
-# When removing an entry please just comment it out so that the line numbering remains accurate and useful
-# You must add an entry to each vector, if the information is not available please add an empty string: ""
-# Please inspect the table and use consistent language for the vectors lang, descrip, os, notes.  This keeps the sort working well.
-
-
-# The name of the software package or resource
-name <- c(
-  "ChemoSpec",
-  "ChemoSpec2D",
-  "speaq",
-  "OpenVnmrJ",
-  "nmrGlue", # 5
-  "hyperSpec",
-  "readJDX",
-  "hyperChemoBridge",
-  "nmrPipe",
-  "nmrML", # 10
-  "rDolphin",
-  "Rnmr1D",
-  "NMRProcFlow",
-  "TIMP",
-  "prospectr", # 15
-  "resemble",
-  "spectralAnalysis"
-  )
-
-website <- c(
-    "https://bryanhanson.github.io/ChemoSpec/",
-    "https://bryanhanson.github.io/ChemoSpec2D/",
-    "https://cran.r-project.org/package-speaq",
-    "https://openvnmrj.org",
-    "http://www.nmrglue.com/", # 5
-    "http://hyperspec.r-forge.r-project.org/",
-    "https://cran.r-project.org/package=readJDX",
-    "",
-    "https://www.ibbr.umd.edu/nmrpipe/",
-    "http://nmrml.org/", # 10
-    "https://rdrr.io/github/danielcanueto/rDolphin/",
-    "https://nmrprocflow.org/",
-    "https://nmrprocflow.org/",
-    "http://timpgui.org/",
-    "https://cran.r-project.org/package=prospectr", # 15
-    "http://l-ramirez-lopez.github.io/resemble/",
-    "https://cran.r-project.org/package=spectralAnalysis"
-    )
-
-repos <- c(
-  "https://github.com/bryanhanson/ChemoSpec",
-  "https://github.com/bryanhanson/ChemoSpec2D",
-  "https://github.com/OpenVnmrJ",
-  "https://github.com/Beirnaert/speaq",
-  "https://github.com/jjhelmus/nmrglue", # 5
-  "https://r-forge.r-project.org/scm/?group_id=366",
-  "https://github.com/bryanhanson/readJDX",
-  "https://github.com/Chathurga/HyperChemoBridge",
-  "",
-  "https://github.com/nmrML/nmrML", # 10
-  "https://github.com/danielcanueto/rDolphin",
-  "https://github.com/INRA/Rnmr1D",
-  "https://github.com/INRA/Rnmr1D",
-  "https://github.com/glotaran/TIMP",
-  "https://github.com/antoinestevens/prospectr", # 15
-  "https://github.com/l-ramirez-lopez/resemble",
-  ""
-  )
-
-pub <- c(
-  "",
-  "",
-  "https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006018",
-  "",
-  "https://link.springer.com/article/10.1007%2Fs10858-013-9718-x", # 5
-  "",
-  "",
-  "",
-  "https://link.springer.com/article/10.1007/BF00197809",
-  "https://dx.doi.org/10.1021/acs.analchem.7b02795", # 10
-  "",
-  "https://link.springer.com/article/10.1007/s11306-017-1178-y",
-  "https://link.springer.com/article/10.1007/s11306-017-1178-y",
-  "",
-  "", # 15
-  "",
-  ""
-  )
-
-# The language the software requires to run
-
-lang <- c(
-  "R",
-  "R",
-  "R",
-  "C",
-  "Python", # 5
-  "R",
-  "R",
-  "R",
-  "C-shell",
-  "XML", # 10
-  "R",
-  "R",
-  "R",
-  "R",
-  "R", # 15
-  "R",
-  "R"
-  )
-
-# The main capabilities of the software
-
-descrip <- c(
-  "EDA of 1D spectra",
-  "EDA of 2D NMR",
-  "NMR data processing",
-  "NMR data acquisition & processing (Varian instruments)",
-  "NMR data processing, analysis, visualization & conversion", # 5
-  "Hyperspectral data sets (spectra accompanied by spatial, time or concentration information)",
-  "Import JCAMP-DX files to ChemoSpec/Spectra format",
-  "Interconversion of hyperSpec and ChemoSpec formats",
-  "NMR data processing, analysis, visualization & conversion",
-  "Markup language for sharing NMR data", # 10
-  "1D NMR profiling for metabolomics",
-  "1D NMR processing using [NMRProcFlow](https://nmrprocflow.org/)",
-  "1D NMR processing for metabolomics",
-  "Time-resolved spectroscopy",
-  "Vis and NIR", # 15
-  "Non-linear modeling of Vis & IR spectra",
-  "EDA of 1D spectra"
-  )
-
-# The operating systems that the software will run on
-rplatforms <- "[details](https://www.r-project.org/)"
-pyplatforms <- "[details](https://www.python.org/about/)"
-
-os <- c(
-  rplatforms,
-  rplatforms,
-  rplatforms,
-  "Linux, MacOS",
-  pyplatforms, # 5
-  rplatforms,
-  rplatforms,
-  rplatforms,
-  "Linux, MacOS",
-  "any", # 10
-  rplatforms,
-  rplatforms,
-  "VM",
-  rplatforms,
-  rplatforms, # 15
-  rplatforms,
-  rplatforms
-  )
-
-# Any notes
-
-notes <- c(
-  "",
-  "2D NMR only",
-  "1D NMR only",
-  "nD NMR",
-  "nD NMR", # 5
-  "",
-  "",
-  "",
-  "nD NMR. No repo, but source files available for download.",
-  "NMR only", # 10
-  "1D NMR only",
-  "1D NMR only (native R)",
-  "1D NMR only (VM)",
-  "",
-  "Vis-NIR only?", # 15
-  "",
-  ""
-  )
+DF <- read_excel("FOSS4Spec.xlsx")
+DF <- as.data.frame(DF)
+# shorten names for less typing
+names(DF) <- c("name", "web", "repo", "pub", "lang", "desc", "notes")
 ```
-
-<!-- If you are just adding a new resource, you don't need to edit below here. -->
 
 ```{r verifyURLs, echo = FALSE, eval = FALSE}
 # Need to verify the URLs in website, repos, pub TO-DO
@@ -241,9 +69,9 @@ notes <- c(
 ```{r processValues, echo = FALSE}
 # Additional processing of the input values
 # Combine name and website to create hyperlink, incl pub if available
-namelink <- paste("[", name, "](", website, ")", sep = "")
-for (i in 1:length(namelink)) if (pub[i] != "") {
-  namelink[i] <- paste(namelink[i], " ([pub](", pub[i], "))", sep = "")
+namelink <- paste("[", DF$name, "](", DF$web, ")", sep = "")
+for (i in 1:length(namelink)) if (!is.na(DF$pub[i])) {
+  namelink[i] <- paste(namelink[i], " ([pub](", DF$pub[i], "))", sep = "")
 }
 ```
 
@@ -257,8 +85,18 @@ status <- rep(NA_character_, length(name))
 
 
 ```{r createTable, results = "asis", echo = FALSE}
-DF <- data.frame(namelink, descrip, lang, os, notes, status)
-names(DF) <- c("name", "description", "language", "OS", "notes", "status")
-kable(DF, table.attr = "class=\"sortable\"") %>%
+DF2 <- data.frame(namelink, descrip, lang, notes, status)
+names(DF2) <- c("name", "description", "language", "notes", "status")
+kable(DF2, table.attr = "class=\"sortable\"") %>%
   kable_styling(c("striped", "bordered", "sortable"))
 ```
+
+##### Abbreviations & Terms: {#abbreviations}
+
+* __CRAN:__ [Comprehensive R Archival Network](https://cran.r-project.org/)
+* __EDA:__ Exploratory data analysis (unsupervised chemometrics)
+* __language:__ Most software is built on several languages. In the table, "language" refers to the language one uses to interact with the software. Some software has partial or complete interactive features.
+* __nD NMR:__ n-dimensional NMR, 1D, 2D, 3D etc
+* __Python:__ Multipurpose programming language [details](https://www.python.org/about/)
+* __R:__ A software environment for statistical computing and graphics [details, platforms](https://www.r-project.org/)
+* __VM:__ Virtual machine.  Any of several means of delivering software to run on any computer, such as VirtualBox or Docker containers.
