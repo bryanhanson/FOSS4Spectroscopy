@@ -23,3 +23,8 @@ deploy:
   local_dir: docs
   on:
     branch: master
+
+notifications:
+  email:
+    recipients:
+      - hanson@depauw.edu
