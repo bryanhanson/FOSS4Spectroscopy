@@ -7,5 +7,5 @@ Suggests:
   rmarkdown
   knitr
   kableExtra,
-  httr
+  httr,
   readxl
