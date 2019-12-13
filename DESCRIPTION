@@ -3,7 +3,7 @@ Type: Website
 Title: This file tricks TRAVIS-CI!
 Version: 0.0.1
 Description: This file is necessary because TRAVIS-CI needs a DESCRIPTION file in order to do anything, plus it uses the Suggests field.  See bookdown.org/yihui/blogdown/travis-github.html
-Suggests:
+Depends:
   rmarkdown
   knitr
   kableExtra,
