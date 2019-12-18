@@ -1,0 +1,35 @@
+language: r
+
+r_packages:
+  - rmarkdown
+  - knitr
+  - kableExtra
+  - readxl
+  - httr
+  - lubridate
+  - jsonlite
+  - reticulate
+
+cache:
+  packages: yes
+
+branches:
+  only:
+    - master
+
+script:
+  - Rscript -e 'source("Process.R")'
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $TRAVIS_CI
+  keep_history: true
+  local_dir: docs
+  on:
+    branch: master
+
+notifications:
+  email:
+    recipients:
+      - hanson@depauw.edu

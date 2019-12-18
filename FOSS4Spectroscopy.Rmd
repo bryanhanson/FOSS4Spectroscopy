@@ -34,15 +34,27 @@ Additions or corrections?  Please [file an issue](https://github.com/bryanhanson
 [![Build Status](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy.svg?branch=master)](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy)
 
 
-```{r setup, echo = FALSE}
+```{r setupR, echo = FALSE, results = "hide"}
 rm(list = ls())
 suppressPackageStartupMessages(library("knitr"))
 suppressPackageStartupMessages(library("kableExtra"))
 suppressPackageStartupMessages(library("readxl"))
 suppressPackageStartupMessages(library("httr"))
+suppressPackageStartupMessages(library("lubridate"))
+suppressPackageStartupMessages(library("jsonlite"))
+
+source("getGHdates.R") # function to get GH most recent commit dates
+
+# Python library for finding modifed/creation dates
+# http://adrien.barbaresi.eu/blog/python-extract-date-web-pages.html
+# For the types of sites encountered here, this library does not do
+# a great job, so we'll only use it if we have nothing better to try
+suppressPackageStartupMessages(library("reticulate"))
+py_install("htmldate")
 ```
 
-```{r inputValues, echo = FALSE}
+
+```{r readDB, echo = FALSE}
 # Please edit FOSS4Spec.xlsx to add information or make corrections.
 # Please follow the conventions of existing entries for consistency.
 # Remember the table in the web page is sortable so consistency in
@@ -55,17 +67,21 @@ DF <- as.data.frame(DF)
 names(DF) <- c("name", "web", "repo", "pub", "lang", "desc", "notes")
 ```
 
-```{r verifyURLs, echo = FALSE, eval = TRUE}
+
+```{r verifyURLs, echo = FALSE}
 # This takes some time!
 ne <- nrow(DF) # number of entries
+
 # Check all URLs, if the site is down handle so table always looks good.
 # Site URL might also just be missing from table, handle this too.
 webLink <- rep(FALSE, ne) # If TRUE, there is a link in the input table
 repoLink <- rep(FALSE, ne)
 pubLink <- rep(FALSE, ne)
+
 webOK <- rep(FALSE, ne) # If TRUE, URL was reachable
 repoOK <- rep(FALSE, ne)
 pubOK <- rep(FALSE, ne)
+
 badWeb <- rep(FALSE, ne) # If TRUE, URL was given but not reachable: report it
 badRepo <- rep(FALSE, ne)
 badPub <- rep(FALSE, ne)
@@ -76,11 +92,13 @@ for (i in 1:ne) {
     webLink[i] <- TRUE
     if (webLink[i] != webOK[i]) badWeb[i] <- TRUE
   }
+
   if (!is.na(DF$repo[i])) {
     repoOK[i] <- identical(status_code(GET(DF$repo[i])), 200L)
     repoLink[i] <- TRUE
     if (repoLink[i] != repoOK[i]) badRepo[i] <- TRUE
   }
+
   if (!is.na(DF$pub[i])) {
     pubOK[i] <- identical(status_code(GET(DF$pub[i])), 200L)
     pubLink[i] <- TRUE
@@ -90,17 +108,50 @@ for (i in 1:ne) {
 # If URLs are bad they will still be added to the table as hyperlinks, but
 # those links will give status 404.
 # Write a report so maintainers can check & fix
-LinkReport <- data.frame(webLink, webOK, repoLink, repoOK, pubLink, pubOK, stringsAsFactors = FALSE)
+LinkReport <- data.frame(DF$name, webLink, webOK, repoLink, repoOK, pubLink, pubOK, stringsAsFactors = FALSE)
 keep <- badPub | badRepo | badWeb
 LinkReport <- LinkReport[keep,]
 if (nrow(LinkReport) > 0) write.csv(LinkReport, row.names = FALSE, file = "BadLinks.csv")
 ```
 
-```{r computeStatus, echo = FALSE, eval = FALSE}
+```{r checkUpdateDate, echo = FALSE}
 # Use the info from checking URLs above
+webDate <- as.POSIXct(rep(NA, ne)) # see stackoverflow.com/a/33002710/633251
+commitDate <- as.POSIXct(rep(NA, ne))
+issueDate <- as.POSIXct(rep(NA, ne))
+updateDate <- as.POSIXct(rep(NA, ne))
+
+repoType <- rep("xx", ne)
+repoType[grepl("github\\.com", DF$repo)] <- "gh"
+
+for (i in 1:ne) {
+
+  if (webOK[i]) {
+    tmp <- system2("wget",
+      args = c("-qO-", DF$web[i], "|", "htmldate"),
+      stdout = TRUE)
+    if (length(tmp) == 1L) webDate[i] <- ymd(tmp)
+  }
+
+  if (repoOK[i]) {
+    if (repoType[i] == "gh") {
+      # There is a limit of how often you can hit GH ...
+      # https://developer.github.com/v3/#rate-limiting
+      # NA returned when repo path bad
+      tmp <- getGHdates(DF$repo[i], "commits")
+      if (!is.na(tmp)) commitDate[i] <- ymd(tmp)
+      tmp <- getGHdates(DF$repo[i], "issues")
+      if (!is.na(tmp)) issueDate[i] <- ymd(tmp)
+    }
+  }
+
+  # updateDate will be the most recent of webDate, issueDate, commitDate
+  updateDate[i] <- max(webDate[i], commitDate[i], issueDate[i], na.rm = TRUE)
+}
+updateDate <- date(updateDate) # -> ymd
 ```
 
-```{r processValues, echo = FALSE}
+```{r createNamelink, echo = FALSE}
 # Additional processing of the input values
 # Combine name, website and pub as available to create hyperlink
 namelink <- DF$name # There must be at least a name in the input table
@@ -114,17 +165,8 @@ for (i in 1:length(namelink)) {
 }
 ```
 
-```{r checkStatus, echo = FALSE}
-# TO-DO
-# Automatically check if the software is apparently kept up-to-date
-
-status <- rep(NA_character_, length(DF$name))
-
-```
-
-
 ```{r createTable, echo = FALSE}
-DF2 <- data.frame(namelink, DF$desc, DF$lang, DF$notes, status, stringsAsFactors = FALSE)
+DF2 <- data.frame(namelink, DF$desc, DF$lang, DF$notes, updateDate, stringsAsFactors = FALSE)
 names(DF2) <- c("name", "description", "language", "notes", "[status](#status)")
 ```
 
@@ -141,15 +183,14 @@ kable(DF2, table.attr = "class=\"sortable\"") %>%
 ```
 ##### Status Column: {#status}
 
-(Coming Soon!) The status column in the table gives the year and month of the most recent:
+The status column in the table gives the date of the most recent:
 
 * commit to a repository,
 * activity on an issue filed in a repository,
-* submission to an archival network such as CRAN,
-* web site update, or
-* successful continuous integration
+* web site update
+* submission to an archival network such as CRAN, or
 
-as a proxy for regular maintenance.  Keep in mind that some software is fairly mature and thus an older status date does not necessarily mean the software is not maintained.  Follow the links to the websites for more details.
+as a proxy for regular maintenance.  **Currently only the first 3 items are automatically checked and they are only checked for Github sites.** Keep in mind that some software is fairly mature and thus an older status date does not necessarily mean the software is not maintained.  Follow the links to the websites for more details.
 
 ##### Abbreviations & Terms: {#abbreviations}
 
