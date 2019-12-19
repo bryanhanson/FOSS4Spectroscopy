@@ -4,7 +4,7 @@
 getGHdates <- function(url, what = "commits") { # Not vectorized
 
 	# There is a limit of how often you can hit GH ...
-	# we will check to see if we are denied for this reason
+	# We will check to see if we are denied for this reason
 	# https://developer.github.com/v3/#rate-limiting
 	
 	if (!what %in% c("commits", "issues")) stop("Fail")
@@ -24,7 +24,7 @@ getGHdates <- function(url, what = "commits") { # Not vectorized
 		}
 		
   # Helper Functions
-  checkAccess <- function(j) return(j$message)
+  checkAccess <- function(j) return(j$message) # may need to refine this a bit
   commitDate <- function(j) return(j$commit$author$date)
   issueDate <- function(j) return(j$updated_at)
   if (what == "commits") func <- commitDate
@@ -37,8 +37,12 @@ getGHdates <- function(url, what = "commits") { # Not vectorized
   repo <- splitURL[5]
   gh_string <- paste("https://api.github.com/repos/", owner, "/", repo, "/", what, sep = "")
   
-  # Access the API & extract most recent commit date
-  response <- GET(gh_string) # this is what counts for access rate
+  # Access the API & extract most recent commit or issue date
+  # We get back a page of (up to) 30 results
+  # https://developer.github.com/v3/#pagination
+  # The following on the CL will give a count of access attempts remaining
+  # curl -i https://api.github.com/users/bryanhanson
+  response <- GET(gh_string) # this is what counts against access rate
   json <- content(response, "text")
   json <- fromJSON(json, simplifyVector = FALSE) # returns a list
   if (!is.null(checkAccess(json))) stop("Github access rate exceeded, try again later")

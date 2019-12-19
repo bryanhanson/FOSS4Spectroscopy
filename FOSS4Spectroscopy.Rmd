@@ -51,6 +51,8 @@ source("getGHdates.R") # function to get GH most recent commit dates
 # a great job, so we'll only use it if we have nothing better to try
 suppressPackageStartupMessages(library("reticulate"))
 py_install("htmldate")
+
+cnt <- 0L # counter for the number of GET calls to Github
 ```
 
 
@@ -139,14 +141,16 @@ for (i in 1:ne) {
       # https://developer.github.com/v3/#rate-limiting
       # NA returned when repo path bad
       tmp <- getGHdates(DF$repo[i], "commits")
+      cnt <- cnt + 1
       if (!is.na(tmp)) commitDate[i] <- ymd(tmp)
       tmp <- getGHdates(DF$repo[i], "issues")
+      cnt <- cnt + 1
       if (!is.na(tmp)) issueDate[i] <- ymd(tmp)
     }
   }
 
   # updateDate will be the most recent of webDate, issueDate, commitDate
-  updateDate[i] <- max(webDate[i], commitDate[i], issueDate[i], na.rm = TRUE)
+  updateDate[i] <- max(webDate[i], commitDate[i], issueDate[i], na.rm = FALSE)
 }
 updateDate <- date(updateDate) # -> ymd
 ```
