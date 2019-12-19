@@ -8,8 +8,7 @@ output:
 ---
 
 <!-- Need to add:
-  * https://github.com/nzhagen/jcamp
-  * PRRFECT https://www.sciencedirect.com/science/article/abs/pii/S0169743917305257
+  * PRRFECT https://www.sciencedirect.com/science/article/abs/pii/S0169743917305257 Repo seems to be gone!
   * -->
 
 
