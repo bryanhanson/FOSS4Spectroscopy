@@ -166,4 +166,5 @@ as a proxy for regular maintenance.  Keep in mind that some software is fairly m
 * __VM:__ Virtual machine.  Any of several means of delivering software to run on any computer, such as VirtualBox or Docker containers.
 
 <hr>
-[Karl Broman quote source] (https://kbroman.wordpress.com/2011/08/17/the-stupidest-r-code-ever/)
+
+[Karl Broman quote source](https://kbroman.wordpress.com/2011/08/17/the-stupidest-r-code-ever/)
