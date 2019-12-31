@@ -12,8 +12,8 @@ output:
   * -->
 
 > "Open source means everyone can see my stupid mistakes.
-> Version control means everyone can see every stupid mistake I’ve ever made.""
-[Karl Broman] (https://kbroman.wordpress.com/2011/08/17/the-stupidest-r-code-ever/)
+> Version control means everyone can see every stupid mistake I’ve ever made."[^1]
+
 
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
 <script src="sorttable.js"></script>
@@ -162,3 +162,5 @@ as a proxy for regular maintenance.  Keep in mind that some software is fairly m
 * __Python:__ Multipurpose programming language [details](https://www.python.org/about/)
 * __R:__ A software environment for statistical computing and graphics [details, platforms](https://www.r-project.org/)
 * __VM:__ Virtual machine.  Any of several means of delivering software to run on any computer, such as VirtualBox or Docker containers.
+
+[^1][Karl Broman] (https://kbroman.wordpress.com/2011/08/17/the-stupidest-r-code-ever/)
