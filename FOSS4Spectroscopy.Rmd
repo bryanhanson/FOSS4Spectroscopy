@@ -11,6 +11,9 @@ output:
   * PRRFECT https://www.sciencedirect.com/science/article/abs/pii/S0169743917305257 Repo seems to be gone!
   * -->
 
+> Open source means everyone can see my stupid mistakes.
+> Version control means everyone can see every stupid mistake I’ve ever made.
+> [Karl Broman] (https://kbroman.wordpress.com/2011/08/17/the-stupidest-r-code-ever/)
 
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
 <script src="sorttable.js"></script>
