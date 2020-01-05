@@ -7,6 +7,12 @@ output:
     theme: united
 ---
 
+<!-- Following code to keep printed version cleaner; see https://stackoverflow.com/a/24467913/633251  -->
+<style type="text/css" media="print">
+a:link:after, a:visited:after {
+  content: normal !important;
+}
+</style>
 
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
 <script src="sorttable.js"></script>
