@@ -7,11 +7,6 @@ output:
     theme: united
 ---
 
-<!-- Need to add:
-  * https://github.com/nzhagen/jcamp
-  * PRRFECT https://www.sciencedirect.com/science/article/abs/pii/S0169743917305257
-  * -->
-
 
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
 <script src="sorttable.js"></script>
@@ -35,13 +30,18 @@ Additions or corrections?  Please [file an issue](https://github.com/bryanhanson
 
 
 ```{r setupR, echo = FALSE, results = "hide"}
-rm(list = ls())
+# Clean up the workspace but keep the token
+keep <- "github_token"
+rm(list = ls()[!(ls() %in% keep)])
+
 suppressPackageStartupMessages(library("knitr"))
 suppressPackageStartupMessages(library("kableExtra"))
 suppressPackageStartupMessages(library("readxl"))
 suppressPackageStartupMessages(library("httr"))
 suppressPackageStartupMessages(library("lubridate"))
 suppressPackageStartupMessages(library("jsonlite"))
+
+opts_chunk$set(echo = FALSE)
 
 source("getGHdates.R") # function to get GH most recent commit dates
 
@@ -56,7 +56,7 @@ cnt <- 0L # counter for the number of GET calls to Github
 ```
 
 
-```{r readDB, echo = FALSE}
+```{r readDB}
 # Please edit FOSS4Spec.xlsx to add information or make corrections.
 # Please follow the conventions of existing entries for consistency.
 # Remember the table in the web page is sortable so consistency in
@@ -67,10 +67,33 @@ DF <- read_excel("FOSS4Spec.xlsx")
 DF <- as.data.frame(DF)
 # shorten names for less typing
 names(DF) <- c("name", "web", "repo", "pub", "lang", "desc", "notes")
+
+# TEMPORARY: just use a few lines for faster testing & not blasting GH limits
+#DF <- DF[1:3,]
 ```
 
+```{r GHaccess, eval = FALSE}
+# Try to retrieve the token and if succsessful, prep the access string & login
+# See https://developer.github.com/v3/#authentication
+token_found <- FALSE
+token <- Sys.getenv("TRAVIS_CI")
+if (token != "") token_found <- TRUE # doesn't mean it's the right token however!
+if (!token_found) message("Could not retrieve token - GET calls will be rate-limited by Github")
+if (token_found) {
+  gh_access_string <- paste("bryanhanson:", token, " https://api.github.com/bryanhanson", sep = "")
+  response <- system2("curl", args = c("-u", gh_access_string), stdout = TRUE, stderr = TRUE)
+  if (any(grepl("Bad credentials", response))) message("Github access denied; perhaps the token was wrong")
+  set_config(config(token = token)) # applies to all GET requests
+}
 
-```{r verifyURLs, echo = FALSE}
+```
+
+```{r GHaccess2}
+# Set this token up ahead of time, so it is in the environment
+set_config(config(token = github_token)) # applies to all GET requests
+```
+
+```{r verifyURLs}
 # This takes some time!
 ne <- nrow(DF) # number of entries
 
@@ -116,7 +139,7 @@ LinkReport <- LinkReport[keep,]
 if (nrow(LinkReport) > 0) write.csv(LinkReport, row.names = FALSE, file = "BadLinks.csv")
 ```
 
-```{r checkUpdateDate, echo = FALSE}
+```{r checkUpdateDate}
 # Use the info from checking URLs above
 webDate <- as.POSIXct(rep(NA, ne)) # see stackoverflow.com/a/33002710/633251
 commitDate <- as.POSIXct(rep(NA, ne))
@@ -155,7 +178,7 @@ for (i in 1:ne) {
 updateDate <- date(updateDate) # -> ymd
 ```
 
-```{r createNamelink, echo = FALSE}
+```{r createNamelink}
 # Additional processing of the input values
 # Combine name, website and pub as available to create hyperlink
 namelink <- DF$name # There must be at least a name in the input table
@@ -169,7 +192,7 @@ for (i in 1:length(namelink)) {
 }
 ```
 
-```{r createTable, echo = FALSE}
+```{r createTable}
 DF2 <- data.frame(namelink, DF$desc, DF$lang, DF$notes, updateDate, stringsAsFactors = FALSE)
 names(DF2) <- c("name", "description", "language", "notes", "[status](#status)")
 ```
@@ -180,7 +203,7 @@ names(DF2) <- c("name", "description", "language", "notes", "[status](#status)")
 * [Abbreviations](#abbreviations) & terms below the table
 * The table currently has `r nrow(DF2)` entries; the majority are `R` (`r length(DF2$language[DF2$language == "R"])`) or `Python` (`r length(DF2$language[DF2$language == "Python"])`).
 
-```{r printTable, results = "asis", echo = FALSE}
+```{r printTable, results = "asis"}
 options(knitr.kable.NA = '')
 kable(DF2, table.attr = "class=\"sortable\"") %>%
   kable_styling(c("striped", "bordered", "sortable"))
