@@ -40,15 +40,13 @@ getGHdates <- function(url, what = "commits") { # Not vectorized
   # Access the API & extract most recent commit or issue date
   # We get back a page of (up to) 30 results
   # https://developer.github.com/v3/#pagination
-  # The following on the CL will give a count of access attempts remaining
-  # curl -i https://api.github.com/users/bryanhanson
   response <- GET(gh_string) # this is what counts against access rate
   json <- content(response, "text")
   json <- fromJSON(json, simplifyVector = FALSE) # returns a list
   if (!is.null(checkAccess(json))) stop("Github access rate exceeded, try again later")
   alldates <- unlist(lapply(json, func))
   alldates <- ymd_hms(alldates)
-  alldates <- alldates[order(as.Date(alldates))]
+  alldates <- alldates[order(as.Date(alldates), decreasing = TRUE)]
   ghdate <- alldates[1] # ghdate = most recent commit date
   ghdate <- date(ghdate) # just Y-M-D, no time
   ghdate

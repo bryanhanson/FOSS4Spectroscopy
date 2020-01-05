@@ -4,4 +4,5 @@
 .Rproj.user/
 *~
 docs/index.html
-BadLinks.csv
+Links404.csv
+DateReport.csv

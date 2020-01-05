@@ -17,7 +17,7 @@ a:link:after, a:visited:after {
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
 <script src="sorttable.js"></script>
 
-The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some softwares have been described in publications.  If so, a link is provided but keep in mind the document may be behind a paywall.
+The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some softwares have been described in publications.  If so, a link is provided, but keep in mind the document may be behind a paywall.
 
 Unless otherwise noted, the software mentioned here:
 
@@ -95,8 +95,9 @@ if (token_found) {
 ```
 
 ```{r GHaccess2}
-# Set this token up ahead of time, so it is in the environment
-set_config(config(token = github_token)) # applies to all GET requests
+# Set this token up ahead of time in the R workspace,
+# so it is in the environment & available to this Rmd
+set_config(config(token = github_token)) # applies to all GET requests below
 ```
 
 ```{r verifyURLs}
@@ -138,11 +139,11 @@ for (i in 1:ne) {
 }
 # If URLs are bad they will still be added to the table as hyperlinks, but
 # those links will give status 404.
-# Write a report so maintainers can check & fix
-LinkReport <- data.frame(DF$name, webLink, webOK, repoLink, repoOK, pubLink, pubOK, stringsAsFactors = FALSE)
+# Write a report so maintainers can check & fix if it's on our end
+LinkReport <- data.frame(name = DF$name, webLink, webOK, repoLink, repoOK, pubLink, pubOK, stringsAsFactors = FALSE)
 keep <- badPub | badRepo | badWeb
 LinkReport <- LinkReport[keep,]
-if (nrow(LinkReport) > 0) write.csv(LinkReport, row.names = FALSE, file = "BadLinks.csv")
+if (nrow(LinkReport) > 0) write.csv(LinkReport, row.names = FALSE, file = "Links404.csv")
 ```
 
 ```{r checkUpdateDate}
@@ -166,8 +167,6 @@ for (i in 1:ne) {
 
   if (repoOK[i]) {
     if (repoType[i] == "gh") {
-      # There is a limit of how often you can hit GH ...
-      # https://developer.github.com/v3/#rate-limiting
       # NA returned when repo path bad
       tmp <- getGHdates(DF$repo[i], "commits")
       cnt <- cnt + 1
@@ -179,16 +178,20 @@ for (i in 1:ne) {
   }
 
   # updateDate will be the most recent of webDate, issueDate, commitDate
-  updateDate[i] <- max(webDate[i], commitDate[i], issueDate[i], na.rm = FALSE)
+  updateDate[i] <- max(webDate[i], commitDate[i], issueDate[i], na.rm = TRUE)
 }
 updateDate <- date(updateDate) # -> ymd
+
+# Write a report
+DateReport <- data.frame(name = DF$name, webDate, commitDate, issueDate, updateDate, stringsAsFactors = FALSE)
+write.csv(DateReport, row.names = FALSE, file = "DateReport.csv")
 ```
 
 ```{r createNamelink}
 # Additional processing of the input values
 # Combine name, website and pub as available to create hyperlink
 namelink <- DF$name # There must be at least a name in the input table
-for (i in 1:length(namelink)) {
+for (i in 1:ne) {
   if (!is.na(DF$web[i])) {
     namelink[i] <- paste("[", DF$name[i], "](", DF$web[i], ")", sep = "")
   }
