@@ -94,7 +94,7 @@ if (token_found) {
 
 ```
 
-```{r GHaccess2}
+```{r GHaccess2, eval = FALSE}
 # This approach is used in the TRAVIS-CI build environment
 # Try to retrieve the token and if successful, prep the access string & checks
 # See https://developer.github.com/v3/#authentication
@@ -111,6 +111,11 @@ if (token_found) {
   } else {
     set_config(config(token = token)) # applies to all GET requests
   }
+}
+```
+
+```{r GHaccess2a}
+set_config(config(token = $TRAVIS_CI:x-oauth-basic)) # applies to all GET requests
 }
 ```
 
@@ -261,7 +266,3 @@ as a proxy for regular maintenance.  Keep in mind that some software is fairly m
 * __Python:__ Multipurpose programming language [details](https://www.python.org/about/)
 * __R:__ A software environment for statistical computing and graphics [details, platforms](https://www.r-project.org/)
 * __VM:__ Virtual machine.  Any of several means of delivering software to run on any computer, such as VirtualBox or Docker containers.
-
-<hr>
-
-[Karl Broman quote source](https://kbroman.wordpress.com/2011/08/17/the-stupidest-r-code-ever/)
