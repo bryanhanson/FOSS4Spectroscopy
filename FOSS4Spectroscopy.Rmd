@@ -74,11 +74,11 @@ DF <- as.data.frame(DF)
 # shorten names for less typing
 names(DF) <- c("name", "web", "repo", "pub", "lang", "desc", "notes")
 
-# TEMPORARY: just use a few lines for faster testing & not blasting GH limits
-#DF <- DF[1:3,]
+TEMPORARY: just use a few lines for faster testing & not blasting GH limits
+DF <- DF[1:5,]
 ```
 
-```{r GHaccess, eval = FALSE}
+```{r GHaccess1, eval = FALSE}
 # Try to retrieve the token and if succsessful, prep the access string & login
 # See https://developer.github.com/v3/#authentication
 token_found <- FALSE
@@ -95,8 +95,30 @@ if (token_found) {
 ```
 
 ```{r GHaccess2}
+# This approach is used in the TRAVIS-CI build environment
+# Try to retrieve the token and if successful, prep the access string & checks
+# See https://developer.github.com/v3/#authentication
+# See https://blogs.infosupport.com/accessing-githubs-rest-api-with-curl/
+token_found <- FALSE
+token <- Sys.getenv("TRAVIS_CI")
+if (token != "") token_found <- TRUE
+if (!token_found) message("Could not retrieve token - GET calls will be rate-limited by Github")
+if (token_found) {
+  gh_access_string <- paste(token, "x-oauth-basic", sep = ":")
+  response <- system2("curl", args = c("-u", gh_access_string), stdout = TRUE, stderr = TRUE)
+  if (any(grepl("Bad credentials", response))) {
+    message("Github access denied")
+  } else {
+    set_config(config(token = token)) # applies to all GET requests
+  }
+}
+```
+
+```{r GHaccess3, eval = FALSE}
+# This approach is used for local builds, not TRAVIS-CI
 # Set this token up ahead of time in the R workspace,
 # so it is in the environment & available to this Rmd
+# Also, see the setupR chunk above where we are careful not to stomp on it
 set_config(config(token = github_token)) # applies to all GET requests below
 ```
 
@@ -223,10 +245,12 @@ The status column in the table gives the date of the most recent:
 
 * commit to a repository,
 * activity on an issue filed in a repository,
-* web site update
-* submission to an archival network such as CRAN, or
+* web site update, or
+* submission to an archival network such as CRAN
 
-as a proxy for regular maintenance.  **Currently only the first 3 items are automatically checked and they are only checked for Github sites.** Keep in mind that some software is fairly mature and thus an older status date does not necessarily mean the software is not maintained.  Follow the links to the websites for more details.
+as a proxy for regular maintenance.  Keep in mind that some software is fairly mature and thus an older status date does not necessarily mean the software is not maintained.  Follow the links to the websites for more details.
+
+**The date is found by automatic checking of sites with valid links.  Commits and issues are only checked for Github sites. Web site updates are found using the `Python` package [htmldate](https://pypi.org/project/htmldate/.)**
 
 ##### Abbreviations & Terms: {#abbreviations}
 
