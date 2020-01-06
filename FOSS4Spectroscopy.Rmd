@@ -56,6 +56,7 @@ source("getGHdates.R") # function to get GH most recent commit dates
 # For the types of sites encountered here, this library does not do
 # a great job, so we'll only use it if we have nothing better to try
 suppressPackageStartupMessages(library("reticulate"))
+use_python(python = Sys.which("python3"), required = TRUE)
 py_install("htmldate")
 
 cnt <- 0L # counter for the number of GET calls to Github

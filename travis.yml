@@ -22,8 +22,8 @@ script:
 
 deploy:
   provider: pages
-  skip_cleanup: true
-  github_token: $TRAVIS_CI
+  cleanup: true
+  token: $TRAVIS_CI
   keep_history: true
   local_dir: docs
   on:
