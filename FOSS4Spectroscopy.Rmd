@@ -163,10 +163,10 @@ for (i in 1:ne) {
 # If URLs are bad they will still be added to the table as hyperlinks, but
 # those links will give status 404.
 # Write a report so maintainers can check & fix if it's on our end
-LinkReport <- data.frame(name = DF$name, webLink, webOK, repoLink, repoOK, pubLink, pubOK, stringsAsFactors = FALSE)
-keep <- badPub | badRepo | badWeb
-LinkReport <- LinkReport[keep,]
-if (nrow(LinkReport) > 0) write.csv(LinkReport, row.names = FALSE, file = "Links404.csv")
+# LinkReport <- data.frame(name = DF$name, webLink, webOK, repoLink, repoOK, pubLink, pubOK, stringsAsFactors = FALSE)
+# keep <- badPub | badRepo | badWeb
+# LinkReport <- LinkReport[keep,]
+# if (nrow(LinkReport) > 0) write.csv(LinkReport, row.names = FALSE, file = "Links404.csv")
 ```
 
 ```{r checkUpdateDate}
