@@ -4,6 +4,11 @@ r_packages:
   - rmarkdown
   - knitr
   - kableExtra
+  - readxl
+  - httr
+  - lubridate
+  - jsonlite
+  - reticulate
 
 cache:
   packages: yes
@@ -12,13 +17,17 @@ branches:
   only:
     - master
 
+before_install:
+- sudo apt-get update
+- sudo apt-get install python3
+
 script:
   - Rscript -e 'source("Process.R")'
 
 deploy:
   provider: pages
-  skip_cleanup: true
-  github_token: $TRAVIS_CI
+  cleanup: true
+  token: $TRAVIS_CI
   keep_history: true
   local_dir: docs
   on:
