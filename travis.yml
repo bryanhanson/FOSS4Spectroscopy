@@ -17,6 +17,10 @@ branches:
   only:
     - master
 
+before_install:
+- sudo apt-get update
+- sudo apt-get install python3
+
 script:
   - Rscript -e 'source("Process.R")'
 
