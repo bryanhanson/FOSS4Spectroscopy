@@ -106,17 +106,13 @@ if (!token_found) message("Could not retrieve token - GET calls will be rate-lim
 if (token_found) {
   gh_access_string <- paste(token, "x-oauth-basic", sep = ":")
   response <- system2("curl", args = c("-u", gh_access_string), stdout = TRUE, stderr = TRUE)
-  if (any(grepl("Bad credentials", response))) {
-    message("Github access denied")
-  } else {
-    set_config(config(token = token)) # applies to all GET requests
-  }
+  if (any(grepl("Bad credentials", response))) message("Github access denied")
+  if (!any(grepl("Bad credentials", response))) set_config(config(token = token)) # applies to all GET requests
 }
 ```
 
 ```{r GHaccess2a}
 set_config(config(token = "$TRAVIS_CI:x-oauth-basic")) # applies to all GET requests
-}
 ```
 
 ```{r GHaccess3, eval = FALSE}
