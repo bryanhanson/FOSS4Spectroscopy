@@ -111,7 +111,7 @@ if (token_found) {
 }
 ```
 
-```{r GHaccess2a}
+```{r GHaccess2a, eval = FALSE}
 set_config(config(token = "$TRAVIS_CI:x-oauth-basic")) # applies to all GET requests
 ```
 
