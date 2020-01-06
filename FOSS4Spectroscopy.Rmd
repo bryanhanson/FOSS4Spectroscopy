@@ -74,7 +74,7 @@ DF <- as.data.frame(DF)
 # shorten names for less typing
 names(DF) <- c("name", "web", "repo", "pub", "lang", "desc", "notes")
 
-TEMPORARY: just use a few lines for faster testing & not blasting GH limits
+# TEMPORARY: just use a few lines for faster testing & not blasting GH limits
 DF <- DF[1:5,]
 ```
 
