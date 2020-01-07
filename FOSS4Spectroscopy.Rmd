@@ -136,7 +136,6 @@ badPub <- rep(FALSE, ne)
 for (i in 1:ne) {
   if (!is.na(DF$web[i])) {
     resp <- GET(DF$web[i])
-    print(class(resp))
     if (inherits(resp, "response")) {
       webOK[i] <- identical(status_code(resp), 200L)
       webLink[i] <- TRUE
@@ -144,17 +143,17 @@ for (i in 1:ne) {
     }
   }
 
-  # if (!is.na(DF$repo[i])) {
-  #   repoOK[i] <- identical(status_code(GET(DF$repo[i])), 200L)
-  #   repoLink[i] <- TRUE
-  #   if (repoLink[i] != repoOK[i]) badRepo[i] <- TRUE
-  # }
-  #
-  # if (!is.na(DF$pub[i])) {
-  #   pubOK[i] <- identical(status_code(GET(DF$pub[i])), 200L)
-  #   pubLink[i] <- TRUE
-  #   if (pubLink[i] != pubOK[i]) badPub[i] <- TRUE
-  # }
+  if (!is.na(DF$repo[i])) {
+    repoOK[i] <- identical(status_code(GET(DF$repo[i])), 200L)
+    repoLink[i] <- TRUE
+    if (repoLink[i] != repoOK[i]) badRepo[i] <- TRUE
+  }
+
+  if (!is.na(DF$pub[i])) {
+    pubOK[i] <- identical(status_code(GET(DF$pub[i])), 200L)
+    pubLink[i] <- TRUE
+    if (pubLink[i] != pubOK[i]) badPub[i] <- TRUE
+  }
 }
 # If URLs are bad they will still be added to the table as hyperlinks, but
 # those links will give status 404.
