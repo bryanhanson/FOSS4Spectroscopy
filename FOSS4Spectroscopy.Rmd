@@ -144,28 +144,19 @@ badPub <- rep(FALSE, ne)
 
 for (i in 1:ne) {
   if (!is.na(DF$web[i])) {
-    webOK[i] <- identical(status_code(
-      GET(
-        paste0(DF$web[i]), "?access_token=", gh_token),
-        200L)
+    webOK[i] <- identical(status_code(GET(paste0(DF$web[i]), "?access_token=", gh_token), 200L)
     webLink[i] <- TRUE
     if (webLink[i] != webOK[i]) badWeb[i] <- TRUE
   }
 
   if (!is.na(DF$repo[i])) {
-    repoOK[i] <- identical(status_code(
-      GET(
-        paste0(DF$repo[i]), "?access_token=", gh_token),
-        200L)
+    repoOK[i] <- identical(status_code(GET(paste0(DF$repo[i]), "?access_token=", gh_token), 200L)
     repoLink[i] <- TRUE
     if (repoLink[i] != repoOK[i]) badRepo[i] <- TRUE
   }
 
   if (!is.na(DF$pub[i])) {
-    pubOK[i] <- identical(status_code(
-      GET(
-        paste0(DF$pub[i]), "?access_token=", gh_token),
-        200L)
+    pubOK[i] <- identical(status_code(GET(paste0(DF$pub[i]), "?access_token=", gh_token),200L)
     pubLink[i] <- TRUE
     if (pubLink[i] != pubOK[i]) badPub[i] <- TRUE
   }
