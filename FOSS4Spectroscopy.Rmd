@@ -114,6 +114,7 @@ if (token_found) {
 ```{r GHaccess2a, eval = TRUE}
 token <- Sys.getenv("TRAVIS_CI")
 print(token)
+stop("Only testing!")
 # set_config(config(token = "$TRAVIS_CI:x-oauth-basic")) # applies to all GET requests
 ```
 
