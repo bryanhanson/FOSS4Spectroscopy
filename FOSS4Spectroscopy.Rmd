@@ -60,7 +60,6 @@ source("getGHdates.R") # function to get GH most recent commit dates
 suppressPackageStartupMessages(library("reticulate"))
 py_install("htmldate")
 
-
 cnt <- 0L # counter for the number of GET calls to Github
 ```
 
@@ -244,7 +243,7 @@ The status column in the table gives the date of the most recent:
 
 as a proxy for regular maintenance.  Keep in mind that some software is fairly mature and thus an older status date does not necessarily mean the software is not maintained.  Follow the links to the websites for more details.
 
-**The date is found by automatic checking of sites with valid links.  Commits and issues are only checked for Github sites. Web site updates are found using the `Python` package [htmldate](https://pypi.org/project/htmldate/.)**
+*The date is found by automatic checking of sites with valid links.  Commits and issues are only checked for Github sites. Web site updates are found using the `Python` package [htmldate](https://pypi.org/project/htmldate/.)*
 
 ##### Abbreviations & Terms: {#abbreviations}
 
