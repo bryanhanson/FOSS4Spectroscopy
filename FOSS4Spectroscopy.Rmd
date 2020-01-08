@@ -17,7 +17,7 @@ a:link:after, a:visited:after {
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
 <script src="sorttable.js"></script>
 
-The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some softwares have been described in publications.  If so, a link is provided, but keep in mind the document may be behind a paywall.
+The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some softwares have been described in publications.  If so, a link is provided, but the document may be behind a paywall.
 
 Unless otherwise noted, the software mentioned here:
 
@@ -111,7 +111,7 @@ if (!token_found) {
   DF <- DF[1:5,]
 }
 if (token_found) {
-  set_config(config(token = token_value)) # applies to all GET requests below
+  if (at_home) set_config(config(token = token_value)) # applies to all GET requests below
 }
 ```
 
@@ -135,12 +135,9 @@ badPub <- rep(FALSE, ne)
 
 for (i in 1:ne) {
   if (!is.na(DF$web[i])) {
-    resp <- GET(DF$web[i])
-    if (inherits(resp, "response")) {
-      webOK[i] <- identical(status_code(resp), 200L)
-      webLink[i] <- TRUE
-      if (webLink[i] != webOK[i]) badWeb[i] <- TRUE
-    }
+    webOK[i] <- identical(status_code(GET(DF$web[i])), 200L)
+    webLink[i] <- TRUE
+    if (webLink[i] != webOK[i]) badWeb[i] <- TRUE
   }
 
   if (!is.na(DF$repo[i])) {
@@ -164,7 +161,7 @@ LinkReport <- LinkReport[keep,]
 if (nrow(LinkReport) > 0) write.csv(LinkReport, row.names = FALSE, file = "Links404.csv")
 ```
 
-```{r checkUpdateDate}
+```{r checkUpdateDate, eval = FALSE}
 # Use the info from checking URLs above
 webDate <- as.POSIXct(rep(NA, ne)) # see stackoverflow.com/a/33002710/633251
 commitDate <- as.POSIXct(rep(NA, ne))
