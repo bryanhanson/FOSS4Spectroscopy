@@ -161,7 +161,7 @@ LinkReport <- LinkReport[keep,]
 if (nrow(LinkReport) > 0) write.csv(LinkReport, row.names = FALSE, file = "Links404.csv")
 ```
 
-```{r checkUpdateDate, eval = FALSE}
+```{r checkUpdateDate}
 # Use the info from checking URLs above
 webDate <- as.POSIXct(rep(NA, ne)) # see stackoverflow.com/a/33002710/633251
 commitDate <- as.POSIXct(rep(NA, ne))
