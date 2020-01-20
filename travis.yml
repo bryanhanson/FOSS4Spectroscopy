@@ -19,6 +19,8 @@ branches:
     - master
 
 script:
+  - sudo apt-get install python3-pip
+  - sudo apt-get install python3-venv
   - Rscript -e 'source("Process.R")'
 
 deploy:
