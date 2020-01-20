@@ -1,4 +1,9 @@
-language: r
+matrix:
+  include:
+    - language: python
+      python: 3.6
+    - language: r
+      r: 3.6
 
 r_packages:
   - rmarkdown
@@ -19,8 +24,6 @@ branches:
     - master
 
 script:
-  - sudo apt-get install python3-pip
-  - sudo apt-get install python3-venv
   - Rscript -e 'source("Process.R")'
 
 deploy:
