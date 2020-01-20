@@ -58,9 +58,10 @@ source("getGHdates.R") # function to get GH most recent commit dates
 # a great job, so we'll only use it if we have nothing better to try
 
 suppressPackageStartupMessages(library("reticulate"))
-use_python(Sys.which("python3"))
-
-# virtualenv_create("r-reticulate")
+junk <- virtualenv_create("r-reticulate", python = Sys.which("python3"))
+junk <- use_virtualenv("r-reticulate")
+junk <- py_available(initialize = TRUE)
+# oddly, this next step is not needed & in fact interferes!
 # virtualenv_install(envname = "r-reticulate", package = "htmldate")
 hdate <- import("htmldate")
 cnt <- 0L # counter for the number of GET calls to Github
@@ -247,7 +248,7 @@ The status column in the table gives the date of the most recent:
 
 as a proxy for regular maintenance.  Keep in mind that some software is fairly mature and thus an older status date does not necessarily mean the software is not maintained.  Follow the links to the websites for more details.
 
-*The date is found by automatic checking of sites with valid links.  Commits and issues are only checked for Github sites. Web site updates are found using the `Python` package [htmldate](https://pypi.org/project/htmldate/.)*
+*The date is found by automatic checking of sites with valid links.  Commits and issues are only checked for Github sites. Web site updates are found using the `Python` package [htmldate](https://pypi.org/project/htmldate/.) Keep in mind the most recent activity may be any branch in a repo, and may be newer than any official releases.*
 
 ##### Abbreviations & Terms: {#abbreviations}
 
