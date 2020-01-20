@@ -2,6 +2,9 @@ matrix:
   include:
     - language: python
       python: 3.6
+      before_script:
+        - sudo apt-get install python3-pip
+        - sudo apt-get install python3-venv
     - language: r
       r: 3.6
 
@@ -14,10 +17,6 @@ r_packages:
   - lubridate
   - jsonlite
   - reticulate
-
-before_install:
-  - sudo apt-get install python3-pip
-  - sudo apt-get install python3-venv
 
 cache:
   packages: yes
