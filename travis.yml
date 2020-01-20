@@ -15,6 +15,9 @@ r_packages:
   - jsonlite
   - reticulate
 
+before_install:
+  - sudo apt-get install python3-pip
+  - sudo apt-get install python3-venv
 
 cache:
   packages: yes
