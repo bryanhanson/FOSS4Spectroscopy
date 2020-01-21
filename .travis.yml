@@ -8,8 +8,8 @@ r_packages:
   - httr
   - lubridate
   - jsonlite
-  - reticulate
-
+  - rvest
+  - stringr
 
 cache:
   packages: yes

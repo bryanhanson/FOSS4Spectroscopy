@@ -62,13 +62,13 @@ cnt <- 0L # counter for the number of GET calls to Github
 # Please edit FOSS4Spec.xlsx to add information or make corrections.
 # Please follow the conventions of existing entries for consistency.
 # Remember the table in the web page is sortable so consistency in
-# description and notes is especially important for users to obtain
+# description and focus is especially important for users to obtain
 # useful information.
 
 DF <- read_excel("FOSS4Spec.xlsx")
 DF <- as.data.frame(DF)
 # shorten names for less typing
-names(DF) <- c("pkgname", "web", "repo", "pub", "lang", "desc", "notes")
+names(DF) <- c("pkgname", "web", "repo", "pub", "lang", "desc", "focus")
 ```
 
 ```{r universalGHaccess}
@@ -215,15 +215,15 @@ for (i in 1:ne) {
 ```
 
 ```{r createTable}
-DF2 <- data.frame(namelink, DF$desc, DF$lang, DF$notes, updateDate, stringsAsFactors = FALSE)
-names(DF2) <- c("name", "description", "language", "notes", "[status](#status)")
+DF2 <- data.frame(namelink, DF$desc, DF$lang, DF$focus, updateDate, stringsAsFactors = FALSE)
+names(DF2) <- c("Name", "Description", "Lang", "Focus", "[Status](#status)")
 ```
 
 <hr>
 
-* *Click on a header to sort the table*
+* *Click on a header to sort the table (start with "focus")*
 * [Abbreviations](#abbreviations) & terms below the table
-* The table currently has `r nrow(DF2)` entries; the majority are `R` (`r length(DF2$language[DF2$language == "R"])`) or `Python` (`r length(DF2$language[DF2$language == "Python"])`).
+* The table currently has `r nrow(DF2)` entries; the majority are `R` (`r length(DF2$language[DF2$language == "R"])`) or `Python` (`r length(DF2$language[DF2$language == "Py"])`).
 
 ```{r printTable, results = "asis"}
 options(knitr.kable.NA = '')
@@ -237,18 +237,21 @@ The status column in the table gives the date of the most recent:
 * commit to a repository,
 * activity on an issue filed in a repository,
 * web site update, or
-* submission to an archival network such as CRAN
+* submission to an archival network such as CRAN or PyPI
 
 as a proxy for regular maintenance.  Keep in mind that some software is fairly mature and thus an older status date does not necessarily mean the software is not maintained.  Follow the links to the websites for more details.
 
-*The date is found by automatic checking of sites with valid links.  Commits and issues are only checked for Github sites. Web site updates are found using a simple search for common date formats and may be inaccurate. Keep in mind the most recent activity may be on any branch in a repo, and may be newer than any official releases.*
+*The status date is found by automatic checking of sites with valid links.  Commits and issues are only checked for Github sites. Web site updates are found using a simple search for common date formats and may be inaccurate. Keep in mind the most recent activity may be on any branch in a repo, and may be newer than any official releases.*
 
 ##### Abbreviations & Terms: {#abbreviations}
 
 * __CRAN:__ [Comprehensive R Archival Network](https://cran.r-project.org/)
 * __EDA:__ Exploratory data analysis (unsupervised chemometrics)
-* __language:__ Most software is built on several languages. In the table, "language" refers to the language one uses to interact with the software. Some software has partial or complete interactive features.
+* __Focus:__ The type of spectroscopy the software is focused on.  No entry implies the software is general purpose.  Keep in mind that software designed with a given spectroscopy in mind may still work with other types of spectroscopic data.
+* __Language:__ Most software is built on several languages. In the table, "lang" refers to the primary language used to create the software.
 * __nD NMR:__ n-dimensional NMR, 1D, 2D, 3D etc
+* __NIR:__ Near IR spectroscopy.
+* __PyPI:__ [Python Package Index](https://pypi.org/)
 * __Python:__ Multipurpose programming language [details](https://www.python.org/about/)
 * __R:__ A software environment for statistical computing and graphics [details, platforms](https://www.r-project.org/)
-* __VM:__ Virtual machine.  Any of several means of delivering software to run on any computer, such as VirtualBox or Docker containers.
+* __UV-Vis:__ Ultraviolet-visible spectroscopy.
