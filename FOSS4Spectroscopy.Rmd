@@ -17,6 +17,8 @@ a:link:after, a:visited:after {
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
 <script src="sorttable.js"></script>
 
+[![Build Status](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy.svg?branch=master)](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy)
+
 The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some softwares have been described in publications.  If so, a link is provided, but the document may be behind a paywall.
 
 Unless otherwise noted, the software mentioned here:
@@ -30,8 +32,6 @@ Unless otherwise noted, the software mentioned here:
 The [CRAN Task View for Chemometrics & Computational Physics](https://cran.r-project.org/web/views/ChemPhys.html) includes some `R` packages listed here as well as related software.
 
 Additions or corrections?  Please [file an issue](https://github.com/bryanhanson/FOSS4Spectroscopy/issues) with the necessary information or submit a pull request at the [repo](https://github.com/bryanhanson/FOSS4Spectroscopy).
-
-[![Build Status](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy.svg?branch=master)](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy)
 
 ```{r setupR, echo = FALSE, results = "hide"}
 # Clean up the workspace but keep the token, if present
@@ -251,7 +251,7 @@ names(DF2) <- c("Name", "Description", "Lang", "Focus", "[Status](#status)")
 
 <hr>
 
-* *Click on a header to sort the table ("Focus" may be the most useful for browsing)*
+* *Click on a header to sort the table ("Focus" may be a good starting point)*
 * [Abbreviations](#abbreviations) & terms below the table
 * The table currently has `r nrow(DF2)` entries; the majority are `R` (`r length(DF2$Lang[DF2$Lang == "R"])`) or `Python` (`r length(DF2$Lang[DF2$Lang == "Py"])`).
 
