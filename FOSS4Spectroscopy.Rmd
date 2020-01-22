@@ -31,9 +31,7 @@ The [CRAN Task View for Chemometrics & Computational Physics](https://cran.r-pro
 
 Additions or corrections?  Please [file an issue](https://github.com/bryanhanson/FOSS4Spectroscopy/issues) with the necessary information or submit a pull request at the [repo](https://github.com/bryanhanson/FOSS4Spectroscopy).
 
-[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Build Status](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy.svg?branch=master)](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy)
-
 
 ```{r setupR, echo = FALSE, results = "hide"}
 # Clean up the workspace but keep the token, if present
@@ -76,6 +74,7 @@ names(DF) <- c("pkgname", "web", "repo", "pub", "lang", "desc", "focus")
 at_home <- FALSE
 at_TCI <- FALSE
 token_found <- FALSE
+where <- NULL
 
 # Check to see if we are at TRAVIS-CI
 # This token has class character
@@ -107,16 +106,23 @@ if (!token_found) {
 if (token_found) {
   if (at_home) set_config(config(token = token_value))
   # This is sufficient for at_home and the GET calls elsewhere have a simple form
+  if (at_home) where <- "home"
+  if (at_TCI) where <- "TCI"
 }
 
+if (is.null(where)) stop("I'm lost")
+
 # Report for troubleshooting
-cat("at_home = ", at_home, "\n")
-cat("at_TCI = ", at_TCI, "\n")
-cat("token_found = ", token_found, "\n")
+# cat("at_home = ", at_home, "\n")
+# cat("at_TCI = ", at_TCI, "\n")
+# cat("token_found = ", token_found, "\n")
 ```
 
 ```{r verifyURLs}
 # This takes some time!
+# GH access from Travis-CI has to be done differently, see
+# https://stackoverflow.com/a/41720440/633251 for the magic that worked!
+
 ne <- nrow(DF) # number of entries
 
 # Check all URLs, if the site is down handle so table always looks good.
@@ -179,7 +185,7 @@ LinkReport <- LinkReport[keep,]
 if (nrow(LinkReport) > 0) write.csv(LinkReport, row.names = FALSE, file = "Links404.csv")
 ```
 
-```{r checkUpdateDate, eval = FALSE}
+```{r checkUpdateDate}
 # Use the info from checking URLs above
 webDate <- as.POSIXct(rep(NA, ne)) # see stackoverflow.com/a/33002710/633251
 commitDate <- as.POSIXct(rep(NA, ne))
@@ -203,10 +209,10 @@ for (i in 1:ne) {
   if (repoOK[i]) {
     if (repoType[i] == "gh") {
       # NA returned when repo path bad
-      tmp <- getGHdates(DF$repo[i], "commits")
+      tmp <- getGHdates(DF$repo[i], "commits", where, token_value)
       cnt <- cnt + 1
       if (!is.na(tmp)) commitDate[i] <- ymd(tmp)
-      tmp <- getGHdates(DF$repo[i], "issues")
+      tmp <- getGHdates(DF$repo[i], "issues", where, token_value)
       cnt <- cnt + 1
       if (!is.na(tmp)) issueDate[i] <- ymd(tmp)
     }
@@ -239,8 +245,6 @@ for (i in 1:ne) {
 ```
 
 ```{r createTable}
-updateDate <- as.POSIXct(rep(NA, ne)) # temporary for testing
-
 DF2 <- data.frame(namelink, DF$desc, DF$lang, DF$focus, updateDate, stringsAsFactors = FALSE)
 names(DF2) <- c("Name", "Description", "Lang", "Focus", "[Status](#status)")
 ```
@@ -267,7 +271,7 @@ The status column in the table gives the date of the most recent:
 
 as a proxy for regular maintenance.  Keep in mind that some software is fairly mature and thus an older status date does not necessarily mean the software is not maintained.  Follow the links to the websites for more details.
 
-*The status date is found by automatic checking of sites with valid links.  Commits and issues are only checked for Github sites. Web site updates are found using a simple search for common date formats and may be inaccurate. Keep in mind the most recent activity may be on any branch in a repo, and may be newer than any official releases.*
+*The status date is found by automatic checking of sites with valid links.  Commits and issues are only checked for Github sites, via the Github API. Web site updates are found using a simple search for common date formats and may be inaccurate. Keep in mind the most recent activity may be on any branch in a repo, and may be newer than any official releases.*
 
 ##### Abbreviations & Terms: {#abbreviations}
 

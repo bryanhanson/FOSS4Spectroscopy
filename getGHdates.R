@@ -1,7 +1,7 @@
 #'
 #' Get the Most Recent Commit or Issue Date from a Github Repository
 #'
-getGHdates <- function(url, what = "commits") { # Not vectorized
+getGHdates <- function(url, what = "commits", where = NULL, token = NULL) { # Not vectorized
 
 	# There is a limit of how often you can hit GH ...
 	# We will check to see if we are denied for this reason
@@ -35,8 +35,9 @@ getGHdates <- function(url, what = "commits") { # Not vectorized
   if (length(splitURL) != 5L) return(NA_character_) # repo may be missing in some cases
   owner <- splitURL[4]
   repo <- splitURL[5]
-  gh_string <- paste("https://api.github.com/repos/", owner, "/", repo, "/", what, sep = "")
-  
+
+  if (where == "TCI") gh_string <- paste0("https://api.github.com/repos/", owner, "/", repo, "/", what, "?access_token=", token)
+  if (where == "home") gh_string <- paste0("https://api.github.com/repos/", owner, "/", repo, "/", what)
   # Access the API & extract most recent commit or issue date
   # We get back a page of (up to) 30 results -- most recent first, which is what we need
   # https://developer.github.com/v3/#pagination
