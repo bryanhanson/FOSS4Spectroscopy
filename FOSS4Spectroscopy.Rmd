@@ -221,9 +221,9 @@ names(DF2) <- c("Name", "Description", "Lang", "Focus", "[Status](#status)")
 
 <hr>
 
-* *Click on a header to sort the table (start with "focus")*
+* *Click on a header to sort the table ("Focus" may be the most useful for browsing)*
 * [Abbreviations](#abbreviations) & terms below the table
-* The table currently has `r nrow(DF2)` entries; the majority are `R` (`r length(DF2$language[DF2$language == "R"])`) or `Python` (`r length(DF2$language[DF2$language == "Py"])`).
+* The table currently has `r nrow(DF2)` entries; the majority are `R` (`r length(DF2$Lang[DF2$Lang == "R"])`) or `Python` (`r length(DF2$Lang[DF2$Lang == "Py"])`).
 
 ```{r printTable, results = "asis"}
 options(knitr.kable.NA = '')
