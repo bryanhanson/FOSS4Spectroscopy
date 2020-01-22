@@ -38,7 +38,7 @@ getGHdates <- function(url, what = "commits") { # Not vectorized
   gh_string <- paste("https://api.github.com/repos/", owner, "/", repo, "/", what, sep = "")
   
   # Access the API & extract most recent commit or issue date
-  # We get back a page of (up to) 30 results
+  # We get back a page of (up to) 30 results -- most recent first, which is what we need
   # https://developer.github.com/v3/#pagination
   response <- GET(gh_string) # this is what counts against access rate
   json <- content(response, "text")

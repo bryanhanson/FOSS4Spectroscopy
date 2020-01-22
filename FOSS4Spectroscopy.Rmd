@@ -53,7 +53,7 @@ suppressPackageStartupMessages(library("stringr"))
 opts_chunk$set(echo = FALSE)
 
 source("getGHdates.R") # function to get GH most recent commit dates
-source("htmldateR.R") # functions to retrieve most recent date in generic web pages
+source("htmldateR.R") # functions to retrieve most recent date found on generic web pages
 cnt <- 0L # counter for the number of GET calls to Github
 ```
 
@@ -63,7 +63,7 @@ cnt <- 0L # counter for the number of GET calls to Github
 # Please follow the conventions of existing entries for consistency.
 # Remember the table in the web page is sortable so consistency in
 # description and focus is especially important for users to obtain
-# useful information.
+# useful information easily.
 
 DF <- read_excel("FOSS4Spec.xlsx")
 DF <- as.data.frame(DF)
@@ -71,14 +71,14 @@ DF <- as.data.frame(DF)
 names(DF) <- c("pkgname", "web", "repo", "pub", "lang", "desc", "focus")
 ```
 
-```{r universalGHaccess}
+```{r GHaccess}
 # Figure out the build location, and get the needed token
 at_home <- FALSE
 at_TCI <- FALSE
 token_found <- FALSE
-token_OK <- FALSE # not used now/yet
 
 # Check to see if we are at TRAVIS-CI
+# This token has class character
 token_value <- Sys.getenv("TRAVIS_CI")
 if (token_value != "") {
   token_found <- TRUE
@@ -87,7 +87,7 @@ if (token_value != "") {
 
 # Check to see if we are on the local/home machine
 # This token is generated interactively via "Web Application Flow",
-# and is deposited in the local workspace
+# and is deposited in the local workspace with the name github_token before rendering
 # See developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow
 # This token has classes 'Token2.0', 'Token', 'R6' <Token2.0>
 if (!at_TCI) {
@@ -105,8 +105,14 @@ if (!token_found) {
   DF <- DF[1:5,]
 }
 if (token_found) {
-  if (at_home) set_config(config(token = token_value)) # applies to all GET requests below
+  if (at_home) set_config(config(token = token_value))
+  # This is sufficient for at_home and the GET calls elsewhere have a simple form
 }
+
+# Report for troubleshooting
+cat("at_home = ", at_home, "\n")
+cat("at_TCI = ", at_TCI, "\n")
+cat("token_found = ", token_found, "\n")
 ```
 
 ```{r verifyURLs}
@@ -129,19 +135,37 @@ badPub <- rep(FALSE, ne)
 
 for (i in 1:ne) {
   if (!is.na(DF$web[i])) {
-    webOK[i] <- identical(status_code(GET(DF$web[i])), 200L)
+    if (at_home) access_string <- DF$web[i]
+    if (at_TCI) {
+      GH <- grepl("github\\.com", DF$web[i])
+      if (!GH) access_string <- DF$web[i]
+      if (GH) access_string <- paste0(DF$web[i], "?access_token=", token_value)
+    }
+    webOK[i] <- identical(status_code(GET(access_string)), 200L)
     webLink[i] <- TRUE
     if (webLink[i] != webOK[i]) badWeb[i] <- TRUE
   }
 
   if (!is.na(DF$repo[i])) {
-    repoOK[i] <- identical(status_code(GET(DF$repo[i])), 200L)
+    if (at_home) access_string <- DF$repo[i]
+    if (at_TCI) {
+      GH <- grepl("github\\.com", DF$repo[i])
+      if (!GH) access_string <- DF$repo[i]
+      if (GH) access_string <- paste0(DF$repo[i], "?access_token=", token_value)
+    }
+    repoOK[i] <- identical(status_code(GET(access_string)), 200L)
     repoLink[i] <- TRUE
     if (repoLink[i] != repoOK[i]) badRepo[i] <- TRUE
   }
 
   if (!is.na(DF$pub[i])) {
-    pubOK[i] <- identical(status_code(GET(DF$pub[i])), 200L)
+    if (at_home) access_string <- DF$pub[i]
+    if (at_TCI) {
+      GH <- grepl("github\\.com", DF$pub[i])
+      if (!GH) access_string <- DF$pub[i]
+      if (GH) access_string <- paste0(DF$pub[i], "?access_token=", token_value)
+    }
+    pubOK[i] <- identical(status_code(GET(access_string)), 200L)
     pubLink[i] <- TRUE
     if (pubLink[i] != pubOK[i]) badPub[i] <- TRUE
   }
@@ -155,7 +179,7 @@ LinkReport <- LinkReport[keep,]
 if (nrow(LinkReport) > 0) write.csv(LinkReport, row.names = FALSE, file = "Links404.csv")
 ```
 
-```{r checkUpdateDate}
+```{r checkUpdateDate, eval = FALSE}
 # Use the info from checking URLs above
 webDate <- as.POSIXct(rep(NA, ne)) # see stackoverflow.com/a/33002710/633251
 commitDate <- as.POSIXct(rep(NA, ne))
@@ -215,6 +239,8 @@ for (i in 1:ne) {
 ```
 
 ```{r createTable}
+updateDate <- as.POSIXct(rep(NA, ne)) # temporary for testing
+
 DF2 <- data.frame(namelink, DF$desc, DF$lang, DF$focus, updateDate, stringsAsFactors = FALSE)
 names(DF2) <- c("Name", "Description", "Lang", "Focus", "[Status](#status)")
 ```
