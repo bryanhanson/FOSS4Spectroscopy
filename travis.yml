@@ -23,9 +23,9 @@ script:
 
 deploy:
   provider: pages
-  cleanup: true
+  skip_cleanup: true
   token: $TRAVIS_CI
-  keep_history: false
+  keep_history: true
   local_dir: docs
   on:
     branch: master
