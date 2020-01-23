@@ -5,6 +5,8 @@ date: "`r Sys.Date()`"
 output:
   html_document:
     theme: united
+    includes:
+       in_header: GA.html
 ---
 
 <!-- Following code to keep printed version cleaner; see https://stackoverflow.com/a/24467913/633251  -->
