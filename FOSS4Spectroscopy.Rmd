@@ -16,21 +16,13 @@ a:link:after, a:visited:after {
 }
 </style>
 
-<style>
-<!-- Style (class) to center images -->
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-</style>
 
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
 <script src="sorttable.js"></script>
 
 [![Build Status](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy.svg?branch=master)](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy)
 
-The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some softwares have been described in publications.  If so, a link is provided, but the document may be behind a paywall.
+The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some projects have been described in publications.  If so, a link is provided, but the document may be behind a paywall.
 
 Unless otherwise noted, the software mentioned here:
 
@@ -42,9 +34,9 @@ Unless otherwise noted, the software mentioned here:
 
 The [CRAN Task View for Chemometrics & Computational Physics](https://cran.r-project.org/web/views/ChemPhys.html) includes some `R` packages listed here as well as related software.
 
-#### How Do I Choose?
+#### How Does One Choose?
 
-*The projects listed here have been lightly vetted. If the project looks incomplete, or I can't tell what it does, it's not included!* With that in mind, there are still many packages to choose from.  As a general guide, the excellent checklist provided by [Lortie *et al.*](https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.5970) is included here for your consideration.
+*The projects listed here have been lightly vetted. If a project looks incomplete, or I can't tell what it does, it's not included!* With that in mind, there are still many packages to choose from.  As a general guide, the excellent checklist provided by [Lortie *et al.*](https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.5970) is included here for your consideration.
 
 <img src="Table1.png" alt="Lortie Table 1" width="50%">
 
@@ -297,11 +289,8 @@ as a proxy for regular maintenance.  Keep in mind that some software is fairly m
 
 * __CRAN:__ [Comprehensive R Archival Network](https://cran.r-project.org/)
 * __EDA:__ Exploratory data analysis (unsupervised chemometrics)
-* __Focus:__ The type of spectroscopy the software is focused on.  No entry implies the software is general purpose.  Keep in mind that software designed with a given spectroscopy in mind may still work with other types of spectroscopic data.
+* __Focus:__ The type of spectroscopy the software is focused on. Keep in mind that software designed with a given spectroscopy in mind may still work with other types of spectroscopic data.
 * __Language:__ Most software is built on several languages. In the table, "lang" refers to the primary language used to create the software.
-* __nD NMR:__ n-dimensional NMR, 1D, 2D, 3D etc
-* __NIR:__ Near IR spectroscopy.
 * __PyPI:__ [Python Package Index](https://pypi.org/)
 * __Python:__ Multipurpose programming language [details](https://www.python.org/about/)
 * __R:__ A software environment for statistical computing and graphics [details, platforms](https://www.r-project.org/)
-* __UV-Vis:__ Ultraviolet-visible spectroscopy.
