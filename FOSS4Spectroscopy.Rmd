@@ -29,7 +29,7 @@ Unless otherwise noted, the software mentioned here:
 * Mass *spectrometry* software is not included.
 * Software for MRI is not included.
 
-[Stanstrup *et al.*](https://www.mdpi.com/2218-1989/9/10/200) have published a comprehensive paper describing the `R` packages suitable for use in metabolomics, which partially overlaps with the information here.
+[Stanstrup *et al.*](https://www.mdpi.com/2218-1989/9/10/200) have published a comprehensive paper describing the `R` packages suitable for use in metabolomics, which partially overlaps with the information here.  In addition, [awesome-spectra](https://github.com/erwanp/awesome-spectra) is a page somewhat in the spirit of the work here, but apparently depends on authors to add their own material, and is missing some key entries (e.g. no NMR packages).
 
 The [CRAN Task View for Chemometrics & Computational Physics](https://cran.r-project.org/web/views/ChemPhys.html) includes some `R` packages listed here as well as related software.
 
@@ -69,6 +69,7 @@ DF <- read_excel("FOSS4Spec.xlsx")
 DF <- as.data.frame(DF)
 # shorten names for less typing
 names(DF) <- c("pkgname", "web", "repo", "pub", "lang", "desc", "focus")
+DF <- DF[order(DF$pkgname),]
 ```
 
 ```{r GHaccess}
