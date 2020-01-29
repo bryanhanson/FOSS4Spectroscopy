@@ -32,24 +32,34 @@ findDate <- function(string) {
 
   # Date patterns (add new patterns here)
   # ISO 8601 format
-  iso_pat <- '[0-9]{4}-[0-9]{2}-[0-9]{2}'
+  iso <- '[0-9]{4}-[0-9]{2}-[0-9]{2}'
+  
+  # 2020/01/01
+  ymd_slash_num <- '[0-9]{4}/[0-9]{2}/[0-9]{2}'
+
+  # 2020/Jan/01 2020/January/01
+  ymd_slash_eng <- paste0("(",
+                        year_pat,
+                        ")/(",
+                        paste(EngMonths, collapse = "|"),
+                        ").?/[0-9]{1,2}")
 
   # January 1, 2020   January 1 2020   January 1st 2020   Jan. 1st 2020   formats
-  mdy_pat_eng <- paste0("(",
+  mdy_space_eng <- paste0("(",
                         paste(EngMonths, collapse = "|"),
                         ").?\\s+[0-9]{1,2}(st|nd|rd|th)?,?\\s+(",
                         year_pat,
                         ")")
 
   # 1 January 2020   1 January, 2020  formats
-  dmy_pat_eng <- paste0("[0-9]{1,2}(st|nd|rd|th)?\\s+(",
+  dmy_space_eng <- paste0("[0-9]{1,2}(st|nd|rd|th)?\\s+(",
                         paste(EngMonths, collapse = "|"),
                         ").?\\s+(",
                         year_pat,
                         ")")
 
   # Combine all the patterns here (add new pattern names here)
-  all_pats <- c(iso_pat, mdy_pat_eng, dmy_pat_eng)
+  all_pats <- c(iso, ymd_slash_num, ymd_slash_eng, mdy_space_eng, dmy_space_eng)
 
   # Find the date(s)
   mydate <- rep(NA_character_, length(string))
