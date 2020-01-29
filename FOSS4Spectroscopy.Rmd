@@ -34,9 +34,9 @@ Unless otherwise noted, the software mentioned here:
 
 The [CRAN Task View for Chemometrics & Computational Physics](https://cran.r-project.org/web/views/ChemPhys.html) includes some `R` packages listed here as well as related software.
 
-#### How Does One Choose?
+#### How Does One Choose a Package?
 
-*The projects listed here have been lightly vetted. If a project looks incomplete, or I can't tell what it does, it's not included!* With that in mind, there are still many packages to choose from.  As a general guide, the excellent checklist provided by [Lortie *et al.*](https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.5970) is included here for your consideration.
+*The projects listed here have been lightly vetted. If a project looks incomplete, or I can't tell what it does, it's not included!* With that in mind, there are still many packages to consider.  As a general guide, the excellent checklist provided by [Lortie *et al.*](https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.5970) is included here for your consideration.
 
 <img src="Table1.png" alt="Lortie Table 1" width="50%">
 
