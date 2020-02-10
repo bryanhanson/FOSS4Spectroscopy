@@ -114,7 +114,7 @@ if (!token_found) {
 }
 if (token_found) {
   if (at_home) set_config(config(token = token_value))
-  # This is sufficient for at_home and the GET calls elsewhere have a simple form
+  # This is sufficient for at_home
   if (at_home) where <- "home"
   if (at_TCI) where <- "TCI"
 }
@@ -150,37 +150,34 @@ badPub <- rep(FALSE, ne)
 
 for (i in 1:ne) {
   if (!is.na(DF$web[i])) {
-    if (at_home) access_string <- DF$web[i]
+    if (at_home) webOK[i] <- identical(status_code(GET(DF$web[i])), 200L)
     if (at_TCI) {
       GH <- grepl("github\\.com", DF$web[i])
-      if (!GH) access_string <- DF$web[i]
-      if (GH) access_string <- paste0(DF$web[i], "?access_token=", token_value)
+       if (GH) webOK[i] <- identical(status_code(GET(DF$web[i], authenticate("bryanhanson", token_value))), 200L)
+       if (!GH) webOK[i] <- identical(status_code(GET(DF$web[i])), 200L)
     }
-    webOK[i] <- identical(status_code(GET(access_string)), 200L)
     webLink[i] <- TRUE
     if (webLink[i] != webOK[i]) badWeb[i] <- TRUE
   }
 
   if (!is.na(DF$repo[i])) {
-    if (at_home) access_string <- DF$repo[i]
+    if (at_home) repoOK[i] <- identical(status_code(GET(DF$repo[i])), 200L)
     if (at_TCI) {
       GH <- grepl("github\\.com", DF$repo[i])
-      if (!GH) access_string <- DF$repo[i]
-      if (GH) access_string <- paste0(DF$repo[i], "?access_token=", token_value)
+       if (GH) repoOK[i] <- identical(status_code(GET(DF$repo[i], authenticate("bryanhanson", token_value))), 200L)
+       if (!GH) repoOK[i] <- identical(status_code(GET(DF$repo[i])), 200L)
     }
-    repoOK[i] <- identical(status_code(GET(access_string)), 200L)
     repoLink[i] <- TRUE
     if (repoLink[i] != repoOK[i]) badRepo[i] <- TRUE
   }
 
   if (!is.na(DF$pub[i])) {
-    if (at_home) access_string <- DF$pub[i]
+    if (at_home) pubOK[i] <- identical(status_code(GET(DF$pub[i])), 200L)
     if (at_TCI) {
       GH <- grepl("github\\.com", DF$pub[i])
-      if (!GH) access_string <- DF$pub[i]
-      if (GH) access_string <- paste0(DF$pub[i], "?access_token=", token_value)
+       if (GH) pubOK[i] <- identical(status_code(GET(DF$pub[i], authenticate("bryanhanson", token_value))), 200L)
+       if (!GH) pubOK[i] <- identical(status_code(GET(DF$pub[i])), 200L)
     }
-    pubOK[i] <- identical(status_code(GET(access_string)), 200L)
     pubLink[i] <- TRUE
     if (pubLink[i] != pubOK[i]) badPub[i] <- TRUE
   }
