@@ -55,6 +55,7 @@ suppressPackageStartupMessages(library("lubridate"))
 suppressPackageStartupMessages(library("jsonlite"))
 suppressPackageStartupMessages(library("rvest"))
 suppressPackageStartupMessages(library("stringr"))
+suppressPackageStartupMessages(library("xml2"))
 
 opts_chunk$set(echo = FALSE)
 
