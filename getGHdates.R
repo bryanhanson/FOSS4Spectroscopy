@@ -42,11 +42,11 @@ getGHdates <- function(url, what = "commits", where = NULL, token = NULL) { # No
   # https://developer.github.com/v3/#pagination
   if (where == "TCI") {
     gh_string <- paste0("https://api.github.com/repos/", owner, "/", repo, "/", what)
-    response <- GET(gh_string, authenticate("bryanhanson", token))
+    response <- GET(gh_string, config = list(timeout(20)), authenticate("bryanhanson", token))
   }
   if (where == "home") {
     gh_string <- paste0("https://api.github.com/repos/", owner, "/", repo, "/", what)
-    response <- GET(gh_string)
+    response <- GET(gh_string, config = list(timeout(20)))
   }
   json <- content(response, "text")
   json <- fromJSON(json, simplifyVector = FALSE) # returns a list
