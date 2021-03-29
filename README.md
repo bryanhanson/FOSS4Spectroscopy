@@ -4,4 +4,4 @@ If you have information to add to the table, or corrections, and are not familia
 
 If you wish to contribute to improving the content, appearance or performance of the table, please file a pull request.  The file `FOSS4Spec.xlsx` contains the raw data -- if you have additions or corrections you can add/fix them there. `FOSS4Spectrscopy.Rmd` contains the code to process the input and check the links, if you'd like to improve or enhance the automation/display.
 
-Currently the site is updated automatically by TRAVIS-CI upon each push.  However, it will be made into a CRON process at a later date.  Items in the `/docs` folder are deployed to the Git pages site where the general public views the page.
+Currently the site is updated automatically by TRAVIS-CI upon each push.  It also updates weekly via a CRON job.  Items in the `/docs` folder are deployed to the Git pages site where the general public views the page.
