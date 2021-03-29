@@ -7,7 +7,7 @@
 flatWebPage <- function(url) {
   # User should check that this URL is valid before calling this function
   webpage <- read_html(url)
-  flat <- unlist(as_list(webpage), use.names = FALSE)
+  flat <- unlist(xml2::as_list(webpage), use.names = FALSE)
 }
 
 # Any date of use would have a year.  This function will locate possible year entries

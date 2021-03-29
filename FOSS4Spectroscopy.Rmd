@@ -144,7 +144,9 @@ webOK <- rep(FALSE, ne) # If TRUE, URL was reachable
 repoOK <- rep(FALSE, ne)
 pubOK <- rep(FALSE, ne)
 
-badWeb <- rep(FALSE, ne) # If TRUE, URL was given but not reachable: report it
+# These are used for internal reporting
+# If TRUE, URL was given but not reachable
+badWeb <- rep(FALSE, ne)
 badRepo <- rep(FALSE, ne)
 badPub <- rep(FALSE, ne)
 
