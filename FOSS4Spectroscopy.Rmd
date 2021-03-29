@@ -62,6 +62,8 @@ opts_chunk$set(echo = FALSE)
 source("getGHdates.R") # function to get GH most recent commit dates
 source("htmldateR.R") # functions to retrieve most recent date found on generic web pages
 cnt <- 0L # counter for the number of GET calls to Github
+
+timeout(20) # adjust timeout for GET calls to 20s
 ```
 
 
