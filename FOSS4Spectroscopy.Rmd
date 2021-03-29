@@ -160,7 +160,7 @@ for (i in 1:ne) {
     if (at_TCI) {
       GH <- grepl("github\\.com", DF$web[i])
        if (GH) webOK[i] <- identical(status_code(GET(DF$web[i], config = list(timeout(20)), authenticate("bryanhanson", token_value))), 200L)
-       if (!GH) webOK[i] <- identical(status_code(GET(DF$web[i]), config = list(timeout(20))), 200L)
+       if (!GH) webOK[i] <- identical(status_code(GET(DF$web[i], config = list(timeout(20)))), 200L)
     }
     webLink[i] <- TRUE
     if (webLink[i] != webOK[i]) badWeb[i] <- TRUE
