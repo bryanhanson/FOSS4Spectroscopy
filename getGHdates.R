@@ -1,7 +1,7 @@
 #'
 #' Get the Most Recent Commit or Issue Date from a Github Repository
 #'
-getGHdates <- function(url, what = "commits") { # Not vectorized
+getGHdates <- function(url, what = "commits", token = NULL) { # Not vectorized
 
 	# There is a limit of how often you can hit GH ...
 	# We will check to see if we are denied for this reason

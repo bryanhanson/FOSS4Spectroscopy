@@ -201,10 +201,10 @@ for (i in 1:ne) {
   if (repoOK[i]) {
     if (repoType[i] == "gh") {
       # NA returned when repo path bad
-      tmp <- getGHdates(DF$repo[i], "commits")
+      tmp <- getGHdates(DF$repo[i], "commits", token_value)
       cnt <- cnt + 1
       if (!is.na(tmp)) commitDate[i] <- ymd(tmp)
-      tmp <- getGHdates(DF$repo[i], "issues")
+      tmp <- getGHdates(DF$repo[i], "issues", token_value)
       cnt <- cnt + 1
       if (!is.na(tmp)) issueDate[i] <- ymd(tmp)
     }
