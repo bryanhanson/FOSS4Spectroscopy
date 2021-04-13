@@ -1,1 +1,39 @@
-temp stuff
+on:
+  push:
+    branches:
+      - master
+
+name: render_serve
+
+jobs:
+  render_serve:
+    runs-on: macOS-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v1
+
+      - name: Install pandoc
+        run: |
+          brew install pandoc
+
+      - name: Install packages
+        run: |
+          R -e 'install.packages(c("knitr", "kableExtra", "readxl", "httr", "lubridate", "jsonlite", "rvest", "stringr", "xml2", "rmarkdown"))'
+
+      - name: Render Rmarkdown files
+        run: |
+          R -e 'source("Render.R")'
+
+      - name: Commit results
+        run: |
+          git config --global user.email "${REPO}_Render_Bot@users.noreply.github.com"
+          git config --global user.name "${REPO} Render Bot"
+          git commit ${RMD_PATH[*]/.Rmd/.md} -m 'Re-build Rmarkdown files' || echo "No changes to commit"
+          git push origin || echo "No changes to commit"
