@@ -41,7 +41,7 @@ The [CRAN Task View for Chemometrics & Computational Physics](https://cran.r-pro
 <img src="Table1.png" alt="Lortie Table 1" width="50%">
 
 ```{r setupR, echo = FALSE, results = "hide"}
-# Clean up the workspace but keep the token, if present
+# Clean up the workspace but keep the local token, if present
 # This is necessary for the local build
 keep <- "github_token"
 rm(list = ls()[!(ls() %in% keep)])
@@ -78,15 +78,15 @@ names(DF) <- c("pkgname", "web", "repo", "pub", "lang", "desc", "focus")
 DF <- DF[order(DF$pkgname),]
 ```
 
-```{r GHaccess}
+```{r location}
 # Figure out the build location, and get the needed token
-at_home <- FALSE
 at_GH <- FALSE
+at_home <- FALSE
 token_found <- FALSE
 where <- NULL
 
 # Check to see if we are at GH
-# This token has class character
+# This token has class character NOT SURE THIS DOES ANYTHING OR IS NEEDED
 token_value <- Sys.getenv("GH_ACTIONS")
 if (token_value != "") {
   token_found <- TRUE
@@ -108,11 +108,11 @@ if (!at_GH) {
 }
 
 # See where we stand and act accordingly
-if (!token_found) {
-  message("Could not retrieve token - GET calls will be rate-limited by Github")
-  # TEMPORARY: just use a few lines for faster testing & not blasting GH limits
-  DF <- DF[1:5,]
-}
+# if (!token_found) {
+#   message("Could not retrieve token - GET calls will be rate-limited by Github")
+#   # TEMPORARY: just use a few lines for faster testing & not blasting GH limits
+#   DF <- DF[1:5,]
+# }
 if (token_found) {
   if (at_home) set_config(config(token = token_value))
   # This is sufficient for at_home
@@ -121,7 +121,7 @@ if (token_found) {
 }
 
 # if (is.null(where)) stop("I'm lost")
-if (is.null(where)) where <- "GH" # assume this for now
+# if (is.null(where)) where <- "GH" # assume this for now
 
 
 # Report for troubleshooting
