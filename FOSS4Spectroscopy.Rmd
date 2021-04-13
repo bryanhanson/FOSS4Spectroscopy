@@ -107,20 +107,6 @@ where <- NULL
 # }
 
 
-#   # TEMPORARY: just use a few lines for faster testing & not blasting GH limits
-#   DF <- DF[1:5,]
-
-# if (local_token_found) {
-  # if (at_home) set_config(config(token = token_value))
-  # # This is sufficient for at_home
-  # if (at_home) where <- "home"
-  # if (at_GH) where <- "GH"
-# }
-
-# if (is.null(where)) stop("I'm lost")
-# if (is.null(where)) where <- "GH" # assume this for now
-
-
 # Report for troubleshooting
 cat("at_home = ", at_home, "\n")
 cat("at_GH = ", at_GH, "\n")
