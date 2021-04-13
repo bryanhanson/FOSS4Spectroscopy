@@ -37,7 +37,9 @@ jobs:
           git config --global user.name "${REPO} Render Bot"
           git config advice.addIgnoredFile false
           git add *
-          git status
+          var=$(git status)
+          echo "$var"
           git commit -m 'render F4S.Rmd -> docs/index.html'
-          git status
+          var=$(git status)
+          echo "$var"
           git push origin
