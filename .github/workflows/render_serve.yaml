@@ -9,7 +9,7 @@ jobs:
   render_serve:
     runs-on: macOS-latest
     env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_PAT: ${{ secrets.GH_ACTIONS }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
