@@ -184,6 +184,7 @@ for (i in 1:ne) {
   if (is.na(webDate[i]) & is.na(commitDate[i]) & is.na(issueDate[i])) next
   updateDate[i] <- max(webDate[i], commitDate[i], issueDate[i], na.rm = TRUE)
 }
+# cat("\nGithub API was hit", cnt, "times\n")
 updateDate <- date(updateDate) # -> ymd
 
 # Write a report
