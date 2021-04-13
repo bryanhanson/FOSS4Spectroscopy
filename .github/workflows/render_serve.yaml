@@ -35,6 +35,7 @@ jobs:
         run: |
           git config --global user.email "${REPO}_Render_Bot@users.noreply.github.com"
           git config --global user.name "${REPO} Render Bot"
+          git config advice.addIgnoredFile false
           git add *
           git commit -m 'render F4S.Rmd -> docs/index.html'
           git push origin
