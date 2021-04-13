@@ -118,7 +118,8 @@ if (token_found) {
   if (at_GH) where <- "GH"
 }
 
-if (is.null(where)) stop("I'm lost")
+# if (is.null(where)) stop("I'm lost")
+if (is.null(where)) where <- "GH" # assume this for now
 
 # Report for troubleshooting
 # cat("at_home = ", at_home, "\n")
