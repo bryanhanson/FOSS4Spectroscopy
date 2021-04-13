@@ -82,41 +82,48 @@ DF <- DF[order(DF$pkgname),]
 # Figure out the build location, and get the needed token
 at_GH <- FALSE
 at_home <- FALSE
-token_found <- FALSE
+local_token_found <- FALSE
 where <- NULL
 
 # Check to see if we are at GH
 # This token has class character NOT SURE THIS DOES ANYTHING OR IS NEEDED
-token_value <- Sys.getenv("GH_ACTIONS")
-if (token_value != "") {
-  token_found <- TRUE
-  at_GH <- TRUE
-}
+# token_value <- Sys.getenv("GH_ACTIONS")
+# if (token_value != "") {
+#   local_token_found <- TRUE
+#   at_GH <- TRUE
+# }
 
-# Check to see if we are on the local/home machine
+# FIRST, check to see if we are on the local/home machine
 # This token is generated interactively via "Web Application Flow",
 # and is deposited in the local workspace with the name github_token
 # before rendering this document
 # See developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow
 # This token has classes 'Token2.0', 'Token', 'R6' <Token2.0>
-if (!at_GH) {
-  token_found <- exists("github_token")
-  if (token_found) {
+# if (!at_GH) {
+  local_token_found <- exists("github_token")
+  if (local_token_found) {
     token_value <- github_token
+    set_config(config(token = token_value))
     at_home <- TRUE
+    where <- "home"
   }
-}
+  if (!local_token_found) { # then we must be at GH
+    token_value <- ""
+    at_GH <- TRUE
+    where <- "GH"
+  }
+# }
 
 
 #   # TEMPORARY: just use a few lines for faster testing & not blasting GH limits
 #   DF <- DF[1:5,]
 
-if (token_found) {
-  if (at_home) set_config(config(token = token_value))
-  # This is sufficient for at_home
-  if (at_home) where <- "home"
-  if (at_GH) where <- "GH"
-}
+# if (local_token_found) {
+  # if (at_home) set_config(config(token = token_value))
+  # # This is sufficient for at_home
+  # if (at_home) where <- "home"
+  # if (at_GH) where <- "GH"
+# }
 
 # if (is.null(where)) stop("I'm lost")
 # if (is.null(where)) where <- "GH" # assume this for now
@@ -125,7 +132,8 @@ if (token_found) {
 # Report for troubleshooting
 cat("at_home = ", at_home, "\n")
 cat("at_GH = ", at_GH, "\n")
-cat("token_found = ", token_found, "\n")
+cat("where = ", where, "\n")
+cat("local_token_found = ", local_token_found, "\n")
 ```
 
 ```{r verifyURLs}
