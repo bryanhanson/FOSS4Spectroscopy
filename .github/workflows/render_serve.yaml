@@ -1,10 +1,12 @@
 on:
   push:
-    paths:
-      - '**.Rmd'
+    branches:
+      - master
+
+name: render_serve
 
 jobs:
-  build:
+  render_serve:
     runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -21,26 +23,17 @@ jobs:
         run: |
           brew install pandoc
 
-      - name: Cache Renv packages
-        uses: actions/cache@v2
-        with:
-          path: $HOME/.local/share/renv
-          key: r-${{ hashFiles('renv.lock') }}
-          restore-keys: r-
-
       - name: Install packages
         run: |
-          R -e 'install.packages("renv")'
-          R -e 'renv::restore()'
+          R -e 'install.packages(c("knitr", "kableExtra", "readxl", "httr", "lubridate", "jsonlite", "rvest", "stringr", "xml2", "rmarkdown"))'
 
       - name: Render Rmarkdown files
         run: |
-          RMD_PATH=($(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '[.]Rmd$'))
-          Rscript -e 'for (f in commandArgs(TRUE)) if (file.exists(f)) rmarkdown::render(f)' ${RMD_PATH[*]} 
+          R -e 'source("Render.R")'
 
       - name: Commit results
         run: |
-          git config --local user.name "$GITHUB_ACTOR"
-          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git config --global user.email "${REPO}_Render_Bot@users.noreply.github.com"
+          git config --global user.name "${REPO} Render Bot"
           git commit ${RMD_PATH[*]/.Rmd/.md} -m 'Re-build Rmarkdown files' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
