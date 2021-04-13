@@ -38,7 +38,6 @@ The [CRAN Task View for Chemometrics & Computational Physics](https://cran.r-pro
 
 <img src="Table1.png" alt="Lortie Table 1" width="50%">
 
-
 ```{r setupR, echo = FALSE, results = "hide"}
 # Clean up the workspace but keep the token, if present
 # This is necessary for the local build
