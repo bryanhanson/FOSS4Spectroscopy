@@ -3,6 +3,5 @@
 .Rapp.history
 .Rproj.user/
 *~
-docs/index.html
 Links404.csv
 DateReport.csv
