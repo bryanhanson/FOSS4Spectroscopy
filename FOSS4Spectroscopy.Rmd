@@ -2,8 +2,8 @@
 title: FOSS For Spectroscopy
 author: Bryan A. Hanson, DePauw University
 date: >-
-  "`r paste(format(Sys.time(),
-  format = "%Y-%m-%d %H:%M", tz = "GMT"), "UTC")`"
+  `r paste(format(Sys.time(),
+  format = "%Y-%m-%d %H:%M", tz = "GMT"), "UTC")`
 output:
   html_document:
     theme: united
