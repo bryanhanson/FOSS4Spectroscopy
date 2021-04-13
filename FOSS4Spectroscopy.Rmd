@@ -85,14 +85,6 @@ at_home <- FALSE
 local_token_found <- FALSE
 where <- NULL
 
-# Check to see if we are at GH
-# This token has class character NOT SURE THIS DOES ANYTHING OR IS NEEDED
-# token_value <- Sys.getenv("GH_ACTIONS")
-# if (token_value != "") {
-#   local_token_found <- TRUE
-#   at_GH <- TRUE
-# }
-
 # FIRST, check to see if we are on the local/home machine
 # This token is generated interactively via "Web Application Flow",
 # and is deposited in the local workspace with the name github_token
