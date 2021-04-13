@@ -40,7 +40,7 @@ getGHdates <- function(url, what = "commits", where = NULL, token = NULL) { # No
   # GET is what counts against access rate
   # We get back a page of (up to) 30 results -- most recent first, which is what we need
   # https://developer.github.com/v3/#pagination
-  if (where == "TCI") {
+  if (where == "GH") {
     gh_string <- paste0("https://api.github.com/repos/", owner, "/", repo, "/", what)
     response <- GET(gh_string, config = list(timeout(20)), authenticate("bryanhanson", token))
   }
