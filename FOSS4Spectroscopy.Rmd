@@ -176,6 +176,7 @@ for (i in 1:ne) {
       tmp <- getGHdates(DF$repo[i], "issues")
       cnt <- cnt + 1
       if (!is.na(tmp)) issueDate[i] <- ymd(tmp)
+      print(cnt)
     }
   }
 
