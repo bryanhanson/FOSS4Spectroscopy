@@ -37,5 +37,7 @@ jobs:
           git config --global user.name "${REPO} Render Bot"
           git config advice.addIgnoredFile false
           git add *
+          git status
           git commit -m 'render F4S.Rmd -> docs/index.html'
+          git status
           git push origin
