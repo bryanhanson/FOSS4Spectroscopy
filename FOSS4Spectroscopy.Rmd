@@ -1,5 +1,5 @@
 ---
-title: FOSS For Spectroscopy
+title: FOSS For Spectroscopy (maintenance underway)
 author: Bryan A. Hanson, DePauw University
 date: >-
   `r paste(format(Sys.time(),
@@ -105,10 +105,10 @@ if (!local_token_found) { # then we must be at_GH
 }
 
 # Report for troubleshooting
-cat("at_home = ", at_home, "\n")
-cat("at_GH = ", at_GH, "\n")
-cat("where = ", where, "\n")
-cat("local_token_found = ", local_token_found, "\n")
+# cat("at_home = ", at_home, "\n")
+# cat("at_GH = ", at_GH, "\n")
+# cat("where = ", where, "\n")
+# cat("local_token_found = ", local_token_found, "\n")
 ```
 
 ```{r verifyURLs}
@@ -214,7 +214,7 @@ for (i in 1:ne) {
   if (is.na(webDate[i]) & is.na(commitDate[i]) & is.na(issueDate[i])) next
   updateDate[i] <- max(webDate[i], commitDate[i], issueDate[i], na.rm = TRUE)
 }
-# cat("\nGithub API was hit", cnt, "times\n")
+cat("\nGithub API was hit", cnt, "times\n")
 updateDate <- date(updateDate) # -> ymd
 
 # Write a report
