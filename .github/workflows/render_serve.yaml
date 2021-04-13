@@ -32,8 +32,8 @@ jobs:
           R -e 'source("Render.R")'
 
       - name: Commit results
-          uses: actions/checkout@v2
-          run: |
+        uses: actions/checkout@v2
+        run: |
           git config --global user.email "${REPO}_Render_Bot@users.noreply.github.com"
           git config --global user.name "${REPO} Render Bot"
           git config advice.addIgnoredFile false
