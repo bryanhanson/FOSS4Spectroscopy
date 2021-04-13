@@ -37,5 +37,5 @@ jobs:
           git config --global user.name "${REPO} Render Bot"
           git config advice.addIgnoredFile false
           git add .
-          git commit -m 'render F4S.Rmd -> docs/index.html'
-          git push origin
+          git commit -m 'render F4S.Rmd -> docs/index.html'  || echo "No changes to commit"
+          git push origin || echo "No changes to commit"
