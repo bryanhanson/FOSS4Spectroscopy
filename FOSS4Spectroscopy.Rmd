@@ -20,8 +20,6 @@ a:link:after, a:visited:after {
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
 <script src="sorttable.js"></script>
 
-[![Build Status](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy.svg?branch=master)](https://travis-ci.com/bryanhanson/FOSS4Spectroscopy)
-
 The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some projects have been described in publications.  If so, a link is provided, but the document may be behind a paywall.
 
 Unless otherwise noted, the software mentioned here:
@@ -63,7 +61,7 @@ source("getGHdates.R") # function to get GH most recent commit dates
 source("htmldateR.R") # functions to retrieve most recent date found on generic web pages
 cnt <- 0L # counter for the number of GET calls to Github
 
-# This does not seem to stick; using explict config at each GET
+# The following does not seem to stick; using explict config at each GET
 timeout(20) # adjust timeout for GET calls to 20s
 ```
 
@@ -82,60 +80,26 @@ names(DF) <- c("pkgname", "web", "repo", "pub", "lang", "desc", "focus")
 DF <- DF[order(DF$pkgname),]
 ```
 
-```{r GHaccess}
-# Figure out the build location, and get the needed token
-at_home <- FALSE
-at_TCI <- FALSE
-token_found <- FALSE
-where <- NULL
-
-# Check to see if we are at TRAVIS-CI
-# This token has class character
-token_value <- Sys.getenv("TRAVIS_CI")
-if (token_value != "") {
-  token_found <- TRUE
-  at_TCI <- TRUE
-}
-
+```{r location}
+# Figure out the rendering location
+# We are either working_locally or we are using GHA
 # Check to see if we are on the local/home machine
 # This token is generated interactively via "Web Application Flow",
-# and is deposited in the local workspace with the name github_token before rendering
+# and is deposited in the local workspace with the name github_token
+# before rendering this document
 # See developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow
 # This token has classes 'Token2.0', 'Token', 'R6' <Token2.0>
-if (!at_TCI) {
-  token_found <- exists("github_token")
-  if (token_found) {
-    token_value <- github_token
-    at_home <- TRUE
-  }
-}
-
-# See where we stand and act accordingly
-if (!token_found) {
-  message("Could not retrieve token - GET calls will be rate-limited by Github")
-  # TEMPORARY: just use a few lines for faster testing & not blasting GH limits
-  DF <- DF[1:5,]
-}
+working_locally <- FALSE
+token_found <- exists("github_token")
 if (token_found) {
-  if (at_home) set_config(config(token = token_value))
-  # This is sufficient for at_home
-  if (at_home) where <- "home"
-  if (at_TCI) where <- "TCI"
+  working_locally <- TRUE
+  # This is sufficient for working_locally:
+  set_config(config(token = github_token))
 }
-
-if (is.null(where)) stop("I'm lost")
-
-# Report for troubleshooting
-# cat("at_home = ", at_home, "\n")
-# cat("at_TCI = ", at_TCI, "\n")
-# cat("token_found = ", token_found, "\n")
 ```
 
 ```{r verifyURLs}
 # This takes some time!
-# GH access from Travis-CI has to be done differently, see
-# https://stackoverflow.com/a/41720440/633251 for the magic that worked!
-
 ne <- nrow(DF) # number of entries
 
 # Check all URLs, if the site is down handle so table always looks good.
@@ -156,34 +120,19 @@ badPub <- rep(FALSE, ne)
 
 for (i in 1:ne) {
   if (!is.na(DF$web[i])) {
-    if (at_home) webOK[i] <- identical(status_code(GET(DF$web[i], config = list(timeout(20)))), 200L)
-    if (at_TCI) {
-      GH <- grepl("github\\.com", DF$web[i])
-       if (GH) webOK[i] <- identical(status_code(GET(DF$web[i], config = list(timeout(20)), authenticate("bryanhanson", token_value))), 200L)
-       if (!GH) webOK[i] <- identical(status_code(GET(DF$web[i], config = list(timeout(20)))), 200L)
-    }
+    webOK[i] <- identical(status_code(GET(DF$web[i], config = list(timeout(20)))), 200L)
     webLink[i] <- TRUE
     if (webLink[i] != webOK[i]) badWeb[i] <- TRUE
   }
 
   if (!is.na(DF$repo[i])) {
-    if (at_home) repoOK[i] <- identical(status_code(GET(DF$repo[i], config = list(timeout(20)))), 200L)
-    if (at_TCI) {
-      GH <- grepl("github\\.com", DF$repo[i])
-       if (GH) repoOK[i] <- identical(status_code(GET(DF$repo[i], config = list(timeout(20)), authenticate("bryanhanson", token_value))), 200L)
-       if (!GH) repoOK[i] <- identical(status_code(GET(DF$repo[i], config = list(timeout(20)))), 200L)
-    }
+    repoOK[i] <- identical(status_code(GET(DF$repo[i], config = list(timeout(20)))), 200L)
     repoLink[i] <- TRUE
     if (repoLink[i] != repoOK[i]) badRepo[i] <- TRUE
   }
 
   if (!is.na(DF$pub[i])) {
-    if (at_home) pubOK[i] <- identical(status_code(GET(DF$pub[i], config = list(timeout(20)))), 200L)
-    if (at_TCI) {
-      GH <- grepl("github\\.com", DF$pub[i])
-       if (GH) pubOK[i] <- identical(status_code(GET(DF$pub[i], config = list(timeout(20)), authenticate("bryanhanson", token_value))), 200L)
-       if (!GH) pubOK[i] <- identical(status_code(GET(DF$pub[i], config = list(timeout(20)))), 200L)
-    }
+    pubOK[i] <- identical(status_code(GET(DF$pub[i], config = list(timeout(20)))), 200L)
     pubLink[i] <- TRUE
     if (pubLink[i] != pubOK[i]) badPub[i] <- TRUE
   }
