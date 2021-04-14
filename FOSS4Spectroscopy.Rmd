@@ -1,5 +1,5 @@
 ---
-title: FOSS For Spectroscopy (maintenance underway)
+title: FOSS For Spectroscopy
 author: Bryan A. Hanson, DePauw University
 date: >-
   `r paste(format(Sys.time(),
