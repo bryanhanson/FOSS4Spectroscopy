@@ -112,7 +112,7 @@ if (!local_token_found) { # then we must be at_GH
 ```
 
 ```{r verifyURLs}
-DF <- DF[1:10,] # temporary, for testing
+# DF <- DF[1:10,] # temporary, for testing
 
 # This takes some time!
 ne <- nrow(DF) # number of entries
