@@ -20,7 +20,7 @@ for (i in 1:nrow(DF)) {
 
 DF[,c("name", "language", "maintainer")] # looks good
 
-WriteXLS(DF, "F4S.xlsx",
+WriteXLS(DF, "FOSS4Spec.xlsx",
       row.names = FALSE, col.names = TRUE, na = "NA",
       BoldHeaderRow = TRUE, AdjWidth = TRUE)
 

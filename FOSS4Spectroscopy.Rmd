@@ -8,7 +8,7 @@ output:
   html_document:
     theme: united
     includes:
-       in_header: GA.html
+       in_header: Include/GA.html
 ---
 
 <!-- Following code to keep printed version cleaner; see https://stackoverflow.com/a/24467913/633251  -->
@@ -20,7 +20,7 @@ a:link:after, a:visited:after {
 
 
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
-<script src="sorttable.js"></script>
+<script src="Include/sorttable.js"></script>
 
 The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some projects have been described in publications.  If so, a link is provided, but the document may be behind a paywall.
 
@@ -38,7 +38,7 @@ The [CRAN Task View for Chemometrics & Computational Physics](https://cran.r-pro
 
 *The projects listed here have been lightly vetted. If a project looks incomplete, or I can't tell what it does, it's not included!* With that in mind, there are still many packages to consider.  As a general guide, the excellent checklist provided by [Lortie *et al.*](https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.5970) is included here for your consideration.
 
-<img src="Table1.png" alt="Lortie Table 1" width="50%">
+<img src="Include/Table1.png" alt="Lortie Table 1" width="50%">
 
 ```{r setupR, echo = FALSE, results = "hide"}
 # Clean up the workspace but keep the local token, if present
@@ -60,9 +60,9 @@ opts_chunk$set(echo = FALSE)
 
 set_config(timeout(20)) # httr setting for GET calls (default 13)
 
-source("getGHdates.R") # function to get GH most recent commit dates
-source("htmldateR.R") # functions to retrieve most recent date found on generic web pages
-source("goodURL.R") # function to check if a URL can be reached
+source("Functions/getGHdates.R") # function to get GH most recent commit dates
+source("Functions/htmldateR.R") # functions to retrieve most recent date found on generic web pages
+source("Functions/goodURL.R") # function to check if a URL can be reached
 
 cnt <- 0L # counter for the number of GET calls to Github
 ```
@@ -183,7 +183,7 @@ for (i in 1:ne) {
 LinkReport <- data.frame(name = DF$pkgname, webLink, webOK, repoLink, repoOK, pubLink, pubOK, stringsAsFactors = FALSE)
 keep <- badPub | badRepo | badWeb
 LinkReport <- LinkReport[keep,]
-if (nrow(LinkReport) > 0) write.csv(LinkReport, row.names = FALSE, file = "Links404.csv")
+if (nrow(LinkReport) > 0) write.csv(LinkReport, row.names = FALSE, file = "Reports/Links404.csv")
 ```
 
 ```{r checkUpdateDate}
@@ -229,7 +229,7 @@ updateDate <- date(updateDate) # -> ymd
 
 # Write a report
 DateReport <- data.frame(name = DF$pkgname, webDate, commitDate, issueDate, updateDate, stringsAsFactors = FALSE)
-write.csv(DateReport, row.names = FALSE, file = "DateReport.csv")
+write.csv(DateReport, row.names = FALSE, file = "Reports/DateReport.csv")
 ```
 
 ```{r createNamelink}
