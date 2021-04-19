@@ -5,7 +5,6 @@ library("WriteXLS")
 pkglist <- tools::CRAN_package_db()
 m_info <- pkglist[, c("Package", "Maintainer")]
 names(m_info) <- c("name", "maintainer")
-# m_info[grepl("ChemoSpec", m_info$name),] # check that the info is there
 
 DF <- read_excel("FOSS4Spec.xlsx")
 DF <- as.data.frame(DF)
