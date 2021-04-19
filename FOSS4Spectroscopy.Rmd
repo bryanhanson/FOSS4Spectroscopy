@@ -22,13 +22,15 @@ a:link:after, a:visited:after {
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
 <script src="Include/sorttable.js"></script>
 
-The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some projects have been described in publications.  If so, a link is provided, but the document may be behind a paywall.
+The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some projects have been described in publications.  If so, a link is provided, but the document may be behind a paywall.  This [blog post](https://chemospec.org/2021/04/19/p20/) give some details about how  we find interesting repositories.
 
 Unless otherwise noted, the software mentioned here:
 
 * Is suitable for one or more of the following techniques: NMR, IR, Raman, ESR/EPR, fluorescence, XRF, LIBS and UV-Vis.
 * Mass *spectrometry* software is not included (see the work by Stanstrup just below).
 * Software for MRI is not included.
+* Software for remote sensing is generally not included, though some projects involving hyperspectral imaging are included.
+* While some folks publish open source add-ons for `Matlab`, `Matlab` is not open source and projects written in `Matlab` are not included.
 
 [Stanstrup *et al.*](https://www.mdpi.com/2218-1989/9/10/200) have published a comprehensive paper describing the `R` packages suitable for use in metabolomics, which partially overlaps with the information here. The authors have also created a dynamic [document](https://rformassspectrometry.github.io/metaRbolomics-book/) with the same information and more.  In addition, [awesome-spectra](https://github.com/erwanp/awesome-spectra) is a page somewhat in the spirit of the work here, but apparently depends on authors to add their own material, and is missing some key entries (e.g. no NMR packages).
 
