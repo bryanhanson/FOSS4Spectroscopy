@@ -77,10 +77,9 @@ cnt <- 0L # counter for the number of GET calls to Github
 # description and focus is especially important for users to obtain
 # useful information easily.
 
-DF <- read_excel("FOSS4Spec.xlsx")
-DF <- as.data.frame(DF)
+DF <- read_excel("FOSS4Spec.xlsx", na = "NA")
 # shorten names for less typing
-names(DF) <- c("pkgname", "web", "repo", "pub", "lang", "desc", "focus")
+names(DF) <- c("pkgname", "web", "repo", "pub", "lang", "desc", "focus", "maint")
 DF <- DF[order(DF$pkgname),]
 ```
 
