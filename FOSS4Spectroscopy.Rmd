@@ -22,7 +22,7 @@ a:link:after, a:visited:after {
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
 <script src="Include/sorttable.js"></script>
 
-The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some projects have been described in publications.  If so, a link is provided, but the document may be behind a paywall.  This [blog post](https://chemospec.org/2021/04/19/p20/) give some details about how  we find interesting repositories.
+The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some projects have been described in publications.  If so, a link is provided, but the document may be behind a paywall.  This [blog post](https://chemospec.org/posts/2021-04-19-Search-GH-Topics/) give some details about how  we find interesting repositories.
 
 Unless otherwise noted, the software mentioned here:
 
