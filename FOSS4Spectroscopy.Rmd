@@ -85,21 +85,15 @@ DF <- DF[order(DF$pkgname),]
 
 ```{r token}
 # Make sure we have a token to avoid rate limits
-local_token_found <- FALSE
-
 # The token is generated interactively via "Web Application Flow",
 # and is deposited in the local workspace with the name github_token
 # before rendering this document
 # See developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow
 # This token has classes 'Token2.0', 'Token', 'R6' <Token2.0>
+local_token_found <- FALSE
 local_token_found <- exists("github_token")
-if (local_token_found) {
-  token_value <- github_token
-  set_config(config(token = token_value))
-}
-if (!local_token_found) {
-  warning("Did not see a local token")
-}
+if (local_token_found) set_config(config(token = github_value))
+if (!local_token_found) warning("Did not find a local token")
 ```
 
 ```{r verifyURLs}
