@@ -103,6 +103,8 @@ if (local_token_found) { # we are at_home
   at_home <- TRUE
   where <- "home"
 }
+# Not currently trying to run at_GH
+# so this code is obsolete & untested
 if (!local_token_found) { # then we must be at_GH
   token_value <- Sys.getenv("GH_ACTIONS")
   at_GH <- TRUE
