@@ -17,9 +17,7 @@ known <- as.data.frame(read_xlsx("FOSS4Spec.xlsx"))
 known <- known$name
 
 # Search Github and remove packages already known to us
-topics <- c("NMR", "EPR", "ESR")
-topics <- c("UV", "VIS", "NIR", "IR", "FT-IR", "Raman")
-topics <- c("XRF", "LIBS", "XAS")
+topics <- c("NMR", "EPR", "ESR", "UV", "VIS", "NIR", "IR", "FT-IR", "Raman", "XRF", "LIBS", "XAS", "spectrophotometry")
 res <- searchRepos(topics, "github_token", known.repos = known)
 
 # Save results with a useful filename
