@@ -11,7 +11,7 @@
 searchTopic <- function(topic, token) {
 
   # Helper Functions
-  checkSuccess <- function(j) return(j$message)
+  checkSuccess <- function(j) return(j$message) # see checkAccess over in getGHdates
 
   reportAccessIssue <- function(response) {
     # https://docs.github.com/en/rest/reference/rate-limit

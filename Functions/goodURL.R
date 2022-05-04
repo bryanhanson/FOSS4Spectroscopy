@@ -3,7 +3,7 @@ goodURL <- function(url, ...) {
   good <- tryCatch(
   # main event / { } enclose the expr (1st argument)
   {
-  status <- status_code(GET(url, ...))
+  status <- status_code(GET(url, timeout(20), ...))
   good <- FALSE
   if (status == 200L) good <- TRUE
   good # essentially the return value if no error or warning

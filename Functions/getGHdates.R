@@ -24,6 +24,19 @@ getGHdates <- function(url, what = "commits", token = NULL) { # Not vectorized
 		}
 
   # Helper Functions
+  reportAccessIssue <- function(response) {
+    # https://docs.github.com/en/rest/reference/rate-limit
+    message("\nI tried: ", response$url)
+    cat("API access type:", response$headers$"x-ratelimit-resource", "\n")
+    cat("API access limit:", response$headers$"x-ratelimit-limit", "\n")
+    cat("API access used:", response$headers$"x-ratelimit-used", "\n")
+    cat("API access remaining:", response$headers$"x-ratelimit-remaining", "\n")
+    reset <- as.integer(response$headers$"x-ratelimit-reset")
+    reset <- as.POSIXct(reset, origin = "1970-01-01", tz = "UCT")
+    cat_string <- paste("Access resets at:", reset, "UTC\n", sep = " ")
+    cat(cat_string)
+  }
+
   checkAccess <- function(j) return(j$message) # may need to refine this a bit
   commitDate <- function(j) return(j$commit$author$date)
   issueDate <- function(j) return(j$updated_at)
@@ -44,7 +57,10 @@ getGHdates <- function(url, what = "commits", token = NULL) { # Not vectorized
   response <- GET(gh_string)
   json <- content(response, "text")
   json <- fromJSON(json, simplifyVector = FALSE) # returns a list
-  if (!is.null(checkAccess(json))) stop("Github access rate exceeded, try again later")
+  if (!is.null(checkAccess(json))) {
+    reportAccessIssue(response)
+    stop("Github access rate exceeded, try again later")
+  }
   alldates <- unlist(lapply(json, func))
   alldates <- ymd_hms(alldates)
   alldates <- alldates[order(as.Date(alldates), decreasing = TRUE)]
