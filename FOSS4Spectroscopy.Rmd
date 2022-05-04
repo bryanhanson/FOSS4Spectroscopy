@@ -83,37 +83,23 @@ names(DF) <- c("pkgname", "web", "repo", "pub", "lang", "desc", "focus", "maint"
 DF <- DF[order(DF$pkgname),]
 ```
 
-```{r location}
-# Figure out the build location, and get the needed token
-at_GH <- FALSE
-at_home <- FALSE
+```{r token}
+# Make sure we have a token to avoid rate limits
 local_token_found <- FALSE
-where <- NULL
 
-# FIRST, check to see if we are on the local/home machine
-# This token is generated interactively via "Web Application Flow",
+# The token is generated interactively via "Web Application Flow",
 # and is deposited in the local workspace with the name github_token
 # before rendering this document
 # See developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow
 # This token has classes 'Token2.0', 'Token', 'R6' <Token2.0>
 local_token_found <- exists("github_token")
-if (local_token_found) { # we are at_home
+if (local_token_found) {
   token_value <- github_token
   set_config(config(token = token_value))
-  at_home <- TRUE
-  where <- "home"
 }
-if (!local_token_found) { # then we must be at_GH
-  token_value <- Sys.getenv("GH_ACTIONS")
-  at_GH <- TRUE
-  where <- "GH"
+if (!local_token_found) {
+  warning("Did not see a local token")
 }
-
-# Report for troubleshooting
-# cat("at_home = ", at_home, "\n")
-# cat("at_GH = ", at_GH, "\n")
-# cat("where = ", where, "\n")
-# cat("local_token_found = ", local_token_found, "\n")
 ```
 
 ```{r verifyURLs}
@@ -140,34 +126,19 @@ badPub <- rep(FALSE, ne)
 
 for (i in 1:ne) {
   if (!is.na(DF$web[i])) {
-    if (at_home) webOK[i] <- goodURL(DF$web[i])
-    if (at_GH) {
-      GH <- grepl("github\\.com", DF$web[i])
-       if (GH) webOK[i] <- goodURL(DF$web[i], config = list( authenticate("bryanhanson", token_value)))
-       if (!GH) webOK[i] <- goodURL(DF$web[i])
-    }
+    webOK[i] <- goodURL(DF$web[i])
     webLink[i] <- TRUE
     if (webLink[i] != webOK[i]) badWeb[i] <- TRUE
   }
 
   if (!is.na(DF$repo[i])) {
-    if (at_home) repoOK[i] <- goodURL(DF$repo[i])
-    if (at_GH) {
-      GH <- grepl("github\\.com", DF$repo[i])
-       if (GH) repoOK[i] <- goodURL(DF$repo[i], config = list( authenticate("bryanhanson", token_value)))
-       if (!GH) repoOK[i] <- goodURL(DF$repo[i])
-    }
+    repoOK[i] <- goodURL(DF$repo[i])
     repoLink[i] <- TRUE
     if (repoLink[i] != repoOK[i]) badRepo[i] <- TRUE
   }
 
   if (!is.na(DF$pub[i])) {
-    if (at_home) pubOK[i] <- goodURL(DF$pub[i])
-    if (at_GH) {
-      GH <- grepl("github\\.com", DF$pub[i])
-       if (GH) pubOK[i] <- goodURL(DF$pub[i], config = list( authenticate("bryanhanson", token_value)))
-       if (!GH) pubOK[i] <- goodURL(DF$pub[i])
-    }
+    pubOK[i] <- goodURL(DF$pub[i])
     pubLink[i] <- TRUE
     if (pubLink[i] != pubOK[i]) badPub[i] <- TRUE
   }

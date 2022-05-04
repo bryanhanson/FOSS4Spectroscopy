@@ -40,14 +40,8 @@ getGHdates <- function(url, what = "commits", token = NULL) { # Not vectorized
   # GET is what counts against access rate
   # We get back a page of (up to) 30 results -- most recent first, which is what we need
   # https://developer.github.com/v3/#pagination
-  if (where == "GH") {
-    gh_string <- paste0("https://api.github.com/repos/", owner, "/", repo, "/", what)
-    response <- GET(gh_string, config = list(authenticate("bryanhanson", token)))
-  }
-  if (where == "home") {
-    gh_string <- paste0("https://api.github.com/repos/", owner, "/", repo, "/", what)
-    response <- GET(gh_string)
-  }
+  gh_string <- paste0("https://api.github.com/repos/", owner, "/", repo, "/", what)
+  response <- GET(gh_string)
   json <- content(response, "text")
   json <- fromJSON(json, simplifyVector = FALSE) # returns a list
   if (!is.null(checkAccess(json))) stop("Github access rate exceeded, try again later")

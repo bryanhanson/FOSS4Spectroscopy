@@ -1,7 +1,0 @@
-*.Rhistory
-.DS_Store
-.Rapp.history
-.Rproj.user/
-*~
-Links404.csv
-DateReport.csv
