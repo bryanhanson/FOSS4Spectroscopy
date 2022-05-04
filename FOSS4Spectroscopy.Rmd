@@ -92,13 +92,11 @@ DF <- DF[order(DF$pkgname),]
 # This token has classes 'Token2.0', 'Token', 'R6' <Token2.0>
 local_token_found <- FALSE
 local_token_found <- exists("github_token")
-if (local_token_found) set_config(config(token = github_value))
+if (local_token_found) set_config(config(token = github_token))
 if (!local_token_found) warning("Did not find a local token")
 ```
 
 ```{r verifyURLs}
-# DF <- DF[1:10,] # temporary, for testing
-
 # This takes some time!
 ne <- nrow(DF) # number of entries
 

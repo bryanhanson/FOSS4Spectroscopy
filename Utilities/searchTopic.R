@@ -41,9 +41,9 @@ searchTopic <- function(topic, token) {
 
   getPageCount <- function(response) {
     link <- headers(response)$link
-    pages <- unlist(str_extract_all(link, "page=[0-9]+"))
+    pages <- unlist(stringr::str_extract_all(link, "page=[0-9]+"))
     last_page <- pages[length(pages)]
-    last_page <- as.integer(str_extract(last_page, "[0-9]+"))
+    last_page <- as.integer(stringr::str_extract(last_page, "[0-9]+"))
     # next line handles the case where there is only one page total
     if (length(last_page) == 0L) last_page <- NULL
   }
@@ -63,7 +63,7 @@ searchTopic <- function(topic, token) {
 
   processResponse <- function(response) {
     json <- content(response, "text")
-    json <- fromJSON(json, simplifyVector = FALSE) # returns a list
+    json <- jsonlite::fromJSON(json, simplifyVector = FALSE) # returns a list
     if (!is.null(checkSuccess(json))) {
       reportAccessIssue(response)
       stop("Github access rate exceeded, try again later")
