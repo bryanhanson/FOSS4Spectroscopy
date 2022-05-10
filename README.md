@@ -10,6 +10,6 @@ If you wish to contribute to improving the content, appearance or performance of
 
 ## Background
 
-In the past there have been automatic updates using both Travis and Github Actions.  However, each of these services has challenges and currently the page is updated locally as needed. When local changes are pushed, items in the `/docs` folder are deployed to the `gh-pages` site where the general public views the page.  
+In the past there have been automatic updates using both Travis and Github Actions.  Currently the page is updated locally as needed. When local changes are pushed, items in the `/docs` folder are deployed to the `gh-pages` site where the general public views the page.  
 
 See this [blog post](https://chemospec.org/2021/04/19/p20/) for details about searching Github topics automatically to get the raw material that goes into this site.
