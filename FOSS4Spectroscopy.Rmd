@@ -57,7 +57,7 @@ suppressPackageStartupMessages(library("jsonlite"))
 suppressPackageStartupMessages(library("rvest")) #???
 suppressPackageStartupMessages(library("stringr"))
 suppressPackageStartupMessages(library("xml2"))
-suppressPackageStartupMessages(library("ghutils"))
+suppressPackageStartupMessages(library("webutils"))
 
 opts_chunk$set(echo = FALSE)
 
