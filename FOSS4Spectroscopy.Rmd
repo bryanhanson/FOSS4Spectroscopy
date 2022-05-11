@@ -81,7 +81,7 @@ DF <- DF[order(DF$pkgname),]
 ```
 
 ```{r token}
-junk <- check_for_token(github_token)
+junk <- check_for_github_token(github_token)
 ```
 
 ```{r verifyURLs}
@@ -152,10 +152,10 @@ for (i in 1:ne) {
   if (repoOK[i]) {
     if (repoType[i] == "gh") {
       # NA returned when repo path bad
-      tmp <- get_gh_dates(DF$repo[i], "commits")
+      tmp <- get_github_dates(DF$repo[i], "commits")
       cnt <- cnt + 1
       if (!is.na(tmp)) commitDate[i] <- ymd(tmp)
-      tmp <- get_gh_dates(DF$repo[i], "issues")
+      tmp <- get_github_dates(DF$repo[i], "issues")
       cnt <- cnt + 1
       if (!is.na(tmp)) issueDate[i] <- ymd(tmp)
     }
