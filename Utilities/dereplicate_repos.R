@@ -14,7 +14,7 @@ dereplicate_repos <- function(in_dir, ref_file, out_file) {
 
   # read in the reference file
   ref <- as.data.frame(readxl::read_xlsx(ref_file))
-    print(nrow(ref))
+  print(nrow(ref))
   print(colnames(ref))
   # get the files with new results
   new_files <- list.files(in_dir, pattern = "\\.xlsx", full.names = TRUE)
@@ -34,6 +34,9 @@ dereplicate_repos <- function(in_dir, ref_file, out_file) {
   WriteXLS::WriteXLS(ref, out_file,
     row.names = FALSE, col.names = TRUE, na = "NA"
   )
+
+  # still need to check for the same packages with different capitalizations
+  # see the final_manual_script for the method
 
   invisible(ref)
 }

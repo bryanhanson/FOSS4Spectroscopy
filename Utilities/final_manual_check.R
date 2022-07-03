@@ -9,7 +9,7 @@ names(DF)
 
 # Check for duplicated entries
 # Some pkgs have the same name but different case.
-# Some of these are typos, some are actually 2 different pkgs.
+# Some of these are inconsistent cap situations, some are actually 2 different pkgs.
 any(duplicated(tolower(DF$name)))
 which(duplicated(tolower(DF$name)))
 any(duplicated(DF$name))

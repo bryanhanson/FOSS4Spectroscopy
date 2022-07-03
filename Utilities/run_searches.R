@@ -9,7 +9,7 @@ library("WriteXLS")
 
 # Note: Searching PyPi.org via the API one needs to use single quoted strings
 # like "'laser induced breakdown spectroscopy'" otherwise each term is searched separately,
-# leading to lots of false positives.  Single quoted strings like this don't work on Github
+# leading to lots of false positives.  Single quoted strings like this don't work on Github.
 
 # PyPi search strings
 nmr_topics <- c("NMR")
