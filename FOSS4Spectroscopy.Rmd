@@ -38,7 +38,7 @@ The [CRAN Task View for Chemometrics & Computational Physics](https://cran.r-pro
 
 #### How Does One Choose a Package?
 
-*The projects listed here have been lightly vetted. If a project looks incomplete, or I can't tell what it does, it's not included!* With that in mind, there are still many packages to consider.  As a general guide, the excellent checklist provided by [Lortie *et al.*](https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.5970) is included here for your consideration.
+*The projects listed here have been lightly vetted. If a project looks incomplete, is a class project, or I can't tell what it does, it's not included!* With that in mind, there are still many packages to consider.  As a general guide, the excellent checklist provided by [Lortie *et al.*](https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.5970) is included here for your consideration.
 
 <img src="Include/Table1.png" alt="Lortie Table 1" width="50%">
 
@@ -132,7 +132,7 @@ LinkReport <- LinkReport[keep,]
 if (nrow(LinkReport) > 0) write.csv(LinkReport, row.names = FALSE, file = "Reports/Links404.csv")
 ```
 
-```{r checkUpdateDate}
+```{r checkUpdateDate, warning = FALSE}
 # Use the info from checking URLs above
 webDate <- as.POSIXct(rep(NA, ne)) # see stackoverflow.com/a/33002710/633251
 commitDate <- as.POSIXct(rep(NA, ne))
@@ -229,6 +229,5 @@ as a proxy for regular maintenance.  Keep in mind that some software is fairly m
 * __Python:__ Multipurpose programming language [details](https://www.python.org/about/)
 * __R:__ A software environment for statistical computing and graphics [details, platforms](https://www.r-project.org/)
 
----
 
 [^1]: We made `r cnt` inquiries to Github to produce this report.
