@@ -14,7 +14,7 @@ library("WriteXLS")
 # PyPi search strings
 nmr_topics <- c("NMR")
 epr_topics <- c("EPR", "ESR")
-vis_topics <- c("UV", "VIS", "spectrophotometry") # lots of false pos re: IR comms
+vis_topics <- c("UV", "VIS", "spectrophotometry")
 ir_topics <- c("NIR", "'FT-IR'", "FTIR") # lots of false pos re: IR comms
 # Also, NIR, FT-IR, FTIR probably completely overlap
 raman_topics <- c("Raman")
@@ -28,7 +28,7 @@ WriteXLS::WriteXLS(res_pypi2, "pypi_search.xlsx", row.names = FALSE, col.names =
 # Github search strings
 nmr_topics <- c("NMR")
 epr_topics <- c("EPR", "ESR")
-vis_topics <- c("UV", "VIS", "spectrophotometry") # lots of false pos re: IR comms
+vis_topics <- c("UV", "VIS", "spectrophotometry")
 ir_topics <- c("NIR", "IR", "FT-IR", "FTIR") # lots of false pos re: IR comms
 raman_topics <- c("Raman")
 xrf_topics <- c("XRF", "LIBS", "XAS")
