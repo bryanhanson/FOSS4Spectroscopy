@@ -13,7 +13,7 @@ If you wish to contribute to improving the content, appearance or performance of
 
 ## Background
 
-See this [blog post](https://chemospec.org/2021/04/19/p20/) for details about searching for spectroscopy packages automatically to find the raw material that goes into this site.
+See this [blog post](https://chemospec.org/posts/2021-04-19-Search-GH-Topics/2021-04-19-Search-GH-Topics.html) for details about searching for spectroscopy packages automatically to find the raw material that goes into this site.
 
-In the past there have been automatic updates using both Travis and Github Actions.  However, this proved to be difficult to maintain.  Currently, I try to do a major update 2-3 times a year, and minor updates whenever needed.   When local changes are pushed, items in the `/docs` folder are deployed to the `gh-pages` site where the general public views the page.  
+In the past there have been automatic updates using both Travis and Github Actions.  However, these proved to be difficult to maintain.  Currently, I try to do a major update 2-3 times a year, and minor updates whenever needed.   When local changes are pushed, items in the `/docs` folder are deployed to the `gh-pages` site where the general public views the page.  
 
