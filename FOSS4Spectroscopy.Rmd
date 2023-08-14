@@ -7,10 +7,11 @@ date: >-
 output:
   html_document:
     theme: united
-    includes:
-       in_header: Include/GA.html
 ---
 
+<script data-goatcounter="https://foss4spec.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+        
 <!-- Following code to keep printed version cleaner; see https://stackoverflow.com/a/24467913/633251  -->
 <style type="text/css" media="print">
 a:link:after, a:visited:after {
@@ -22,7 +23,7 @@ a:link:after, a:visited:after {
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
 <script src="Include/sorttable.js"></script>
 
-The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some projects have been described in publications.  If so, a link is provided, but the document may be behind a paywall.  This [blog post](https://chemospec.org/posts/2021-04-19-Search-GH-Topics/) give some details about how  we find interesting repositories.
+The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some projects have been described in publications.  If so, a link is provided, but the document may be behind a paywall.  This [blog post](https://chemospec.org/posts/2021-04-19-Search-GH-Topics/2021-04-19-Search-GH-Topics.html) give some details about how  we find interesting repositories.
 
 Unless otherwise noted, the software mentioned here:
 
@@ -38,7 +39,7 @@ The [CRAN Task View for Chemometrics & Computational Physics](https://cran.r-pro
 
 #### How Does One Choose a Package?
 
-*The projects listed here have been lightly vetted. If a project looks incomplete, is a class project, or I can't tell what it does, it's not included!* With that in mind, there are still many packages to consider.  As a general guide, the excellent checklist provided by [Lortie *et al.*](https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.5970) is included here for your consideration.
+*The projects listed here have been lightly vetted. If a project looks incomplete, is a class project, or I can't tell what it does, it's not included!* Of course, if you feel I have not included your package in error, feel free to request its inclusion.  With that in mind, there are still many packages to consider.  As a general guide, the excellent checklist provided by [Lortie *et al.*](https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.5970) is included here for your consideration.
 
 <img src="Include/Table1.png" alt="Lortie Table 1" width="50%">
 
@@ -74,7 +75,7 @@ username <- "bryanhanson"
 # description and focus is especially important for users to obtain
 # useful information easily.
 
-DF <- read_excel("FOSS4Spec.xlsx", na = "NA")
+DF <- as.data.frame(read_excel("FOSS4Spec.xlsx", na = "NA"))
 # shorten names for less typing
 names(DF) <- c("pkgname", "web", "repo", "pub", "lang", "desc", "focus", "maint")
 DF <- DF[order(DF$pkgname),]
