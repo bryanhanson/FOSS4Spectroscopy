@@ -33,9 +33,12 @@ Unless otherwise noted, the software mentioned here:
 * Software for remote sensing is generally not included, though some projects involving hyperspectral imaging are included.
 * While some folks publish open source add-ons for `Matlab`, `Matlab` is not open source and projects written in `Matlab` are not included.
 
-[Stanstrup *et al.*](https://www.mdpi.com/2218-1989/9/10/200) have published a comprehensive paper describing the `R` packages suitable for use in metabolomics, which partially overlaps with the information here. The authors have also created a dynamic [document](https://rformassspectrometry.github.io/metaRbolomics-book/) with the same information and more.  In addition, [awesome-spectra](https://github.com/erwanp/awesome-spectra) is a page somewhat in the spirit of the work here, but apparently depends on authors to add their own material, and is missing some key entries (e.g. no NMR packages).
+Some other places to look:
 
-The [CRAN Task View for Chemometrics & Computational Physics](https://cran.r-project.org/web/views/ChemPhys.html) includes some `R` packages listed here as well as related software.
+* [Stanstrup *et al.*](https://www.mdpi.com/2218-1989/9/10/200) have published a comprehensive paper describing the `R` packages suitable for use in metabolomics, which partially overlaps with the information here. The authors have also created a dynamic [document](https://rformassspectrometry.github.io/metaRbolomics-book/) with the same information and more.
+* [awesome-spectra](https://github.com/erwanp/awesome-spectra) is a page somewhat in the spirit of the work here, but apparently depends on authors to add their own material, and is missing some key entries (e.g. no NMR packages).
+* [All Things Raman](https://github.com/allthingsraman) is a curated collection of software for Raman spectroscopy.
+* The [CRAN Task View for Chemometrics & Computational Physics](https://cran.r-project.org/web/views/ChemPhys.html) includes some `R` packages listed here as well as related software.
 
 #### How Does One Choose a Package?
 
