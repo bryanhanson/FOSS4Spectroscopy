@@ -21,7 +21,7 @@ dereplicate_repos <- function(in_dir, ref_file, out_file) {
   ref <- as.data.frame(readxl::read_xlsx(ref_file))
   cat("The reference file contains", nrow(ref), "entries\n")
 
-  # get the files with new results & merge tem
+  # get the files with new results & merge them
   new_files <- list.files(in_dir, pattern = "\\.xlsx", full.names = TRUE)
   for (i in 1:length(new_files)) {
     new <- as.data.frame(readxl::read_xlsx(new_files[i]))
@@ -33,7 +33,7 @@ dereplicate_repos <- function(in_dir, ref_file, out_file) {
   cat("After merging the new files we have", nrow(glob), "entries\n")
   
   # merge the new with the existing results
-  glob <- merge(glob, ref, all = TRUE)
+  glob <- merge(ref, glob, all = TRUE)
   cat("After merging the new files with the existing results we have", nrow(glob), "entries\n")
   
   # do some clean up
