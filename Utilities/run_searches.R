@@ -10,6 +10,7 @@ library("WriteXLS")
 
 # Note 2: Searching for just "VIS" or "IR" leads to too many false positives; as it is,
 # "NIR" etc gives a lot of false positives dealing with IR remote controllers.
+# There are similar problems with "UV".
 # Cannot use "LIBS" as it returns 1,000+ results
 
 # Note 3: Run this in an empty folder as a place to store the results.
