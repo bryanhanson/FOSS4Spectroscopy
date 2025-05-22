@@ -9,11 +9,9 @@ If you have information to add to the table, or corrections, and are not familia
 If you wish to contribute to improving the content, appearance or performance of the table, please file a pull request.
 
 * `FOSS4Spec.xlsx` contains the raw data -- if you have additions or corrections you can add/fix them there. I can then process the page to update it, or you can do it yourself (next point).
-* `FOSS4Spectroscopy.Rmd` contains the code to process the input and check the links, if you'd like to improve or enhance the automation/display.  The `Rmd` file relies on a package `webutils` which can be found [here](https://github.com/bryanhanson/webutils) and is not on CRAN.
+* `FOSS4Spectroscopy.Rmd` contains the code to process the input and check the links, if you'd like to improve or enhance the automation/display.  The `Rmd` file relies on a package `webu` which can be found [here](https://github.com/bryanhanson/webu) and is not on CRAN.
 
 ## Background
 
-See this [blog post](https://chemospec.org/posts/2021-04-19-Search-GH-Topics/2021-04-19-Search-GH-Topics.html) for details about searching for spectroscopy packages automatically to find the raw material that goes into this site.
-
-In the past there have been automatic updates using both Travis and Github Actions.  However, these proved to be difficult to maintain.  Currently, I try to do a major update 2-3 times a year, and minor updates whenever needed.   When local changes are pushed, items in the `/docs` folder are deployed to the `gh-pages` site where the general public views the page.  
+See this [blog post](https://chemospec.org/posts/2021-04-19-Search-GH-Topics/2021-04-19-Search-GH-Topics.html) for details about searching for spectroscopy packages automatically to find the raw material that goes into this site. When local changes are pushed, items in the `/docs` folder are deployed to the `gh-pages` site where the general public views the page.  
 
