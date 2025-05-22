@@ -23,7 +23,7 @@ a:link:after, a:visited:after {
 <!-- See https://kryogenix.org/code/browser/sorttable/ -->
 <script src="Include/sorttable.js"></script>
 
-The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some projects have been described in publications.  If so, a link is provided, but the document may be behind a paywall.  This [blog post](https://chemospec.org/posts/2021-04-19-Search-GH-Topics/2021-04-19-Search-GH-Topics.html) give some details about how  we find interesting repositories.
+The following table collects information about free and open source software ([FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)) for spectroscopy.  All information is taken from the respective websites and/or repositories.  Some projects have been described in publications.  If so, we try to provide a link, but the document may be behind a paywall.  This [blog post](https://chemospec.org/posts/2021-04-19-Search-GH-Topics/2021-04-19-Search-GH-Topics.html) give some details about how  we find interesting repositories.
 
 Unless otherwise noted, the software mentioned here:
 
@@ -42,7 +42,7 @@ Some other places to look:
 
 #### How Does One Choose a Package?
 
-*The projects listed here have been lightly vetted. If a project looks incomplete, is a class project, or I can't tell what it does, it's not included!* Of course, if you feel I have not included your package in error, feel free to request its inclusion.  With that in mind, there are still many packages to consider.  As a general guide, the excellent checklist provided by [Lortie *et al.*](https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.5970) is included here for your consideration.
+*The projects listed here have been lightly vetted and *the process is imperfect!* If a project looks incomplete, is a class project, or I can't tell what it does, it's not included!* Of course, if you feel I have not included your package in error, feel free to request its inclusion.  With that in mind, there are still many packages to consider.  As a general guide, the excellent checklist provided by [Lortie *et al.*](https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.5970) is included here for your consideration.
 
 <img src="Include/Table1.png" alt="Lortie Table 1" width="50%">
 
@@ -219,7 +219,7 @@ The status column in the table gives the date of the most recent:
 * web site update, or
 * submission to an archival network such as CRAN or PyPI
 
-as a proxy for regular maintenance.  Keep in mind that some software is fairly mature and thus an older status date does not necessarily mean the software is not maintained.  Follow the links to the websites for more details.
+as a proxy for regular maintenance, at the time this page was updated.  Keep in mind that some software is fairly mature and thus an older status date does not necessarily mean the software is not maintained.  Follow the links to the websites for more details.
 
 *The status date is found by automatic checking of sites with valid links.  Commits and issues are only checked for Github sites, via the Github API. Web site updates are found using a simple search for common date formats and may be inaccurate. Keep in mind the most recent activity may be on any branch in a repo, and may be newer than any official releases.*[^1]
 
