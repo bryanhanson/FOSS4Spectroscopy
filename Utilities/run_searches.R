@@ -10,7 +10,7 @@ library("WriteXLS")
 
 # Note 2: Searching for just "VIS" or "IR" leads to too many false positives; as it is,
 # "NIR" etc gives a lot of false positives dealing with IR remote controllers.
-# There are similar problems with "UV".
+# There are similar problems with "UV" and "UV-VIS"
 # Cannot use "LIBS" as it returns 1,000+ results
 
 # Note 3: Run this in an empty folder as a place to store the results.
@@ -19,8 +19,8 @@ library("WriteXLS")
 # PyPi search strings
 nmr_topics <- c("NMR")
 epr_topics <- c("EPR", "ESR")
-vis_topics <- c("UV", "UV-VIS", "spectrophotometry")
-ir_topics <- c("NIR", "'FT-IR'", "FTIR")
+vis_topics <- c("spectrophotometry")
+ir_topics <- c("'FT-IR'", "FTIR")
 raman_topics <- c("Raman")
 xrf_topics <- c("XRF", "'laser induced breakdown spectroscopy'", "XAS")
 all_topics <- c(nmr_topics, epr_topics, vis_topics, ir_topics, raman_topics, xrf_topics)
@@ -35,8 +35,8 @@ WriteXLS::WriteXLS(res_pypi2, "pypi_search_results.xlsx", row.names = FALSE, col
 # Github search strings
 nmr_topics <- c("NMR")
 epr_topics <- c("EPR", "ESR")
-vis_topics <- c("UV", "spectrophotometry")
-ir_topics <- c("NIR", "FT-IR", "FTIR")
+vis_topics <- c("spectrophotometry")
+ir_topics <- c("FT-IR", "FTIR")
 raman_topics <- c("Raman")
 xrf_topics <- c("XRF", "LIBS", "XAS")
 all_topics <- c(nmr_topics, epr_topics, vis_topics, ir_topics, raman_topics, xrf_topics)

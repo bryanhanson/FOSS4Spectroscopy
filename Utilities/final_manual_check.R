@@ -4,7 +4,7 @@
 library("readxl")
 library("plyr")
 
-DF <- read_excel("FOSS4Spec.xlsx")
+DF <- read_excel("../Searches/FOSS4Spec.xlsx")
 names(DF)
 
 # Check for duplicated entries
