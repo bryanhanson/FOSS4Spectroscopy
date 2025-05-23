@@ -42,7 +42,7 @@ Some other places to look:
 
 #### How Does One Choose a Package?
 
-*The projects listed here have been lightly vetted and *the process is imperfect!* If a project looks incomplete, is a class project, or I can't tell what it does, it's not included!* Of course, if you feel I have not included your package in error, feel free to request its inclusion.  With that in mind, there are still many packages to consider.  As a general guide, the excellent checklist provided by [Lortie *et al.*](https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.5970) is included here for your consideration.
+*The projects listed here have been lightly vetted and the process is imperfect!* If a project looks incomplete, is a class project, or I can't tell what it does, it's not included!* Of course, if you feel I have not included your package in error, feel free to request its inclusion.  With that in mind, there are still many packages to consider.  As a general guide, the excellent checklist provided by [Lortie *et al.*](https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.5970) is included here for your consideration.
 
 <img src="Include/Table1.png" alt="Lortie Table 1" width="50%">
 
@@ -53,7 +53,7 @@ keep <- "github_token"
 rm(list = ls()[!(ls() %in% keep)])
 
 suppressPackageStartupMessages(library("knitr"))
-suppressPackageStartupMessages(library("kableExtra"))
+suppressPackageStartupMessages(library("gt"))
 suppressPackageStartupMessages(library("readxl"))
 suppressPackageStartupMessages(library("httr"))
 suppressPackageStartupMessages(library("lubridate"))
@@ -65,7 +65,7 @@ suppressPackageStartupMessages(library("webu"))
 
 opts_chunk$set(echo = FALSE)
 
-set_config(timeout(20)) # httr setting for GET calls (default 13)
+set_config(timeout(40)) # httr setting for GET calls (default 13)
 cnt <- 0L # counter for the number of GET calls to Github
 username <- "bryanhanson"
 ```
@@ -80,7 +80,7 @@ username <- "bryanhanson"
 
 DF <- as.data.frame(read_excel("FOSS4Spec.xlsx", na = "NA"))
 # shorten names for less typing
-names(DF) <- c("pkgname", "web", "repo", "pub", "lang", "desc", "focus", "maint")
+names(DF) <- c("pkgname", "desc", "lang", "focus", "repo", "web", "pub", "maint", "maint_email", "author_email")
 DF <- DF[order(DF$pkgname),]
 ```
 
@@ -180,10 +180,16 @@ write.csv(DateReport, row.names = FALSE, file = "Reports/DateReport.csv")
 ```{r createNamelink}
 # Additional processing of the input values
 # Combine name, website and pub as available to create hyperlink
+# If website is missing, use repo instead (otherwise one must edit the original table more)
 namelink <- DF$pkgname # There must be at least a pkgname in the input table
 for (i in 1:ne) {
   if (!is.na(DF$web[i])) {
     namelink[i] <- paste("[", DF$pkgname[i], "](", DF$web[i], ")", sep = "")
+  }
+  if (is.na(DF$web[i])) {
+    if (!is.na(DF$repo[i])) {
+      namelink[i] <- paste("[", DF$pkgname[i], "](", DF$repo[i], ")", sep = "")
+    }
   }
   if (!is.na(DF$pub[i])) {
     namelink[i] <- paste(namelink[i], " ([pub](", DF$pub[i], "))", sep = "")
@@ -193,7 +199,7 @@ for (i in 1:ne) {
 
 ```{r createTable}
 DF2 <- data.frame(namelink, DF$desc, DF$lang, DF$focus, updateDate, stringsAsFactors = FALSE)
-names(DF2) <- c("Name", "Description", "Lang", "Focus", "[Status](#status)")
+names(DF2) <- c("Name", "Description", "Lang", "Focus", "Status")
 ```
 
 <hr>
@@ -203,9 +209,10 @@ names(DF2) <- c("Name", "Description", "Lang", "Focus", "[Status](#status)")
 * The table currently has `r nrow(DF2)` entries; the majority are `R` (`r length(DF2$Lang[DF2$Lang == "R"])`) or `Python` (`r length(DF2$Lang[DF2$Lang == "Python"])`).
 
 ```{r printTable, results = "asis"}
-options(knitr.kable.NA = '')
-kable(DF2, table.attr = "class=\"sortable\"") %>%
-  kable_styling(c("striped", "bordered", "sortable"))
+DF2 |>
+  gt()|>
+  opt_stylize(style = 1) |>
+  fmt_markdown()
 ```
 
 Additions or corrections?  Please [file an issue](https://github.com/bryanhanson/FOSS4Spectroscopy/issues) with the necessary information or submit a pull request at the [repo](https://github.com/bryanhanson/FOSS4Spectroscopy).
