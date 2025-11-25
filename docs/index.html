@@ -357,7 +357,7 @@ display: none;
 
 <h1 class="title toc-ignore">FOSS For Spectroscopy</h1>
 <h4 class="author">Bryan A. Hanson, DePauw University</h4>
-<h4 class="date">2025-05-23 18:07 UTC</h4>
+<h4 class="date">2025-11-25 16:48 UTC</h4>
 
 </div>
 
@@ -367,10 +367,7 @@ display: none;
 ;(function() {
 	'use strict';
 
-	if (window.goatcounter && window.goatcounter.vars)  // Compatibility with very old version; do not use.
-		window.goatcounter = window.goatcounter.vars
-	else
-		window.goatcounter = window.goatcounter || {}
+	window.goatcounter = window.goatcounter || {}
 
 	// Load settings from data-goatcounter-settings.
 	var s = document.querySelector('script[data-goatcounter]')
@@ -385,13 +382,14 @@ display: none;
 	var enc = encodeURIComponent
 
 	// Get all data we're going to send off to the counter endpoint.
-	var get_data = function(vars) {
+	window.goatcounter.get_data = function(vars) {
+		vars = vars || {}
 		var data = {
 			p: (vars.path     === undefined ? goatcounter.path     : vars.path),
 			r: (vars.referrer === undefined ? goatcounter.referrer : vars.referrer),
 			t: (vars.title    === undefined ? goatcounter.title    : vars.title),
 			e: !!(vars.event || goatcounter.event),
-			s: [window.screen.width, window.screen.height, (window.devicePixelRatio || 1)],
+			s: window.screen.width,
 			b: is_bot(),
 			q: location.search,
 		}
@@ -448,9 +446,7 @@ display: none;
 	// Get the endpoint to send requests to.
 	var get_endpoint = function() {
 		var s = document.querySelector('script[data-goatcounter]')
-		if (s && s.dataset.goatcounter)
-			return s.dataset.goatcounter
-		return (goatcounter.endpoint || window.counter)  // counter is for compat; don't use.
+		return (s && s.dataset.goatcounter) ? s.dataset.goatcounter : goatcounter.endpoint
 	}
 
 	// Get current path.
@@ -475,7 +471,7 @@ display: none;
 	}
 
 	// Filter some requests that we (probably) don't want to count.
-	goatcounter.filter = function() {
+	window.goatcounter.filter = function() {
 		if ('visibilityState' in document && document.visibilityState === 'prerender')
 			return 'visibilityState'
 		if (!goatcounter.allow_frame && location !== parent.location)
@@ -491,7 +487,7 @@ display: none;
 
 	// Get URL to send to GoatCounter.
 	window.goatcounter.url = function(vars) {
-		var data = get_data(vars || {})
+		var data = window.goatcounter.get_data(vars || {})
 		if (data.p === null)  // null from user callback.
 			return
 		data.rnd = Math.random().toString(36).substr(2, 5)  // Browsers don't always listen to Cache-Control.
@@ -595,7 +591,7 @@ display: none;
 
 			var p = document.querySelector(opt.append)
 			if (!p)
-				return warn('visit_count: append not found: ' + opt.append)
+				return warn('visit_count: element to append to not found: ' + opt.append)
 			p.appendChild(d)
 		})
 	}
@@ -697,23 +693,23 @@ As a general guide, the excellent checklist provided by <a href="https://onlinel
 starting point)</em></li>
 <li><a href="#abbreviations">Abbreviations</a> &amp; terms below the
 table</li>
-<li>The table currently has 406 entries; the majority are <code>R</code>
-(65) or <code>Python</code> (309).</li>
+<li>The table currently has 405 entries; the majority are <code>R</code>
+(65) or <code>Python</code> (308).</li>
 </ul>
-<div id="sjpxiphvfd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#sjpxiphvfd table {
+<div id="cecstocrvm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cecstocrvm table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#sjpxiphvfd thead, #sjpxiphvfd tbody, #sjpxiphvfd tfoot, #sjpxiphvfd tr, #sjpxiphvfd td, #sjpxiphvfd th {
+#cecstocrvm thead, #cecstocrvm tbody, #cecstocrvm tfoot, #cecstocrvm tr, #cecstocrvm td, #cecstocrvm th {
 border-style: none;
 }
-#sjpxiphvfd p {
+#cecstocrvm p {
 margin: 0;
 padding: 0;
 }
-#sjpxiphvfd .gt_table {
+#cecstocrvm .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -738,11 +734,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#sjpxiphvfd .gt_caption {
+#cecstocrvm .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#sjpxiphvfd .gt_title {
+#cecstocrvm .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -753,7 +749,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#sjpxiphvfd .gt_subtitle {
+#cecstocrvm .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -764,7 +760,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#sjpxiphvfd .gt_heading {
+#cecstocrvm .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -775,12 +771,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#sjpxiphvfd .gt_bottom_border {
+#cecstocrvm .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #0076BA;
 }
-#sjpxiphvfd .gt_col_headings {
+#cecstocrvm .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #0076BA;
@@ -794,7 +790,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#sjpxiphvfd .gt_col_heading {
+#cecstocrvm .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -813,7 +809,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#sjpxiphvfd .gt_column_spanner_outer {
+#cecstocrvm .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -824,13 +820,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#sjpxiphvfd .gt_column_spanner_outer:first-child {
+#cecstocrvm .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#sjpxiphvfd .gt_column_spanner_outer:last-child {
+#cecstocrvm .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#sjpxiphvfd .gt_column_spanner {
+#cecstocrvm .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #0076BA;
@@ -841,10 +837,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#sjpxiphvfd .gt_spanner_row {
+#cecstocrvm .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#sjpxiphvfd .gt_group_heading {
+#cecstocrvm .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -869,7 +865,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#sjpxiphvfd .gt_empty_group_heading {
+#cecstocrvm .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -883,13 +879,13 @@ border-bottom-width: 2px;
 border-bottom-color: #0076BA;
 vertical-align: middle;
 }
-#sjpxiphvfd .gt_from_md > :first-child {
+#cecstocrvm .gt_from_md > :first-child {
 margin-top: 0;
 }
-#sjpxiphvfd .gt_from_md > :last-child {
+#cecstocrvm .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#sjpxiphvfd .gt_row {
+#cecstocrvm .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -907,7 +903,7 @@ border-right-color: #89D3FE;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#sjpxiphvfd .gt_stub {
+#cecstocrvm .gt_stub {
 color: #FFFFFF;
 background-color: #0076BA;
 font-size: 100%;
@@ -919,7 +915,7 @@ border-right-color: #0076BA;
 padding-left: 5px;
 padding-right: 5px;
 }
-#sjpxiphvfd .gt_stub_row_group {
+#cecstocrvm .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -932,13 +928,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#sjpxiphvfd .gt_row_group_first td {
+#cecstocrvm .gt_row_group_first td {
 border-top-width: 2px;
 }
-#sjpxiphvfd .gt_row_group_first th {
+#cecstocrvm .gt_row_group_first th {
 border-top-width: 2px;
 }
-#sjpxiphvfd .gt_summary_row {
+#cecstocrvm .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -947,14 +943,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#sjpxiphvfd .gt_first_summary_row {
+#cecstocrvm .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #0076BA;
 }
-#sjpxiphvfd .gt_first_summary_row.thick {
+#cecstocrvm .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#sjpxiphvfd .gt_last_summary_row {
+#cecstocrvm .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -963,7 +959,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #0076BA;
 }
-#sjpxiphvfd .gt_grand_summary_row {
+#cecstocrvm .gt_grand_summary_row {
 color: #333333;
 background-color: #89D3FE;
 text-transform: inherit;
@@ -972,7 +968,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#sjpxiphvfd .gt_first_grand_summary_row {
+#cecstocrvm .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -981,7 +977,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #0076BA;
 }
-#sjpxiphvfd .gt_last_grand_summary_row_top {
+#cecstocrvm .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -990,10 +986,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #0076BA;
 }
-#sjpxiphvfd .gt_striped {
+#cecstocrvm .gt_striped {
 background-color: #F4F4F4;
 }
-#sjpxiphvfd .gt_table_body {
+#cecstocrvm .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #0076BA;
@@ -1001,7 +997,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #0076BA;
 }
-#sjpxiphvfd .gt_footnotes {
+#cecstocrvm .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -1014,7 +1010,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#sjpxiphvfd .gt_footnote {
+#cecstocrvm .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -1022,7 +1018,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#sjpxiphvfd .gt_sourcenotes {
+#cecstocrvm .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -1035,68 +1031,68 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#sjpxiphvfd .gt_sourcenote {
+#cecstocrvm .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#sjpxiphvfd .gt_left {
+#cecstocrvm .gt_left {
 text-align: left;
 }
-#sjpxiphvfd .gt_center {
+#cecstocrvm .gt_center {
 text-align: center;
 }
-#sjpxiphvfd .gt_right {
+#cecstocrvm .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#sjpxiphvfd .gt_font_normal {
+#cecstocrvm .gt_font_normal {
 font-weight: normal;
 }
-#sjpxiphvfd .gt_font_bold {
+#cecstocrvm .gt_font_bold {
 font-weight: bold;
 }
-#sjpxiphvfd .gt_font_italic {
+#cecstocrvm .gt_font_italic {
 font-style: italic;
 }
-#sjpxiphvfd .gt_super {
+#cecstocrvm .gt_super {
 font-size: 65%;
 }
-#sjpxiphvfd .gt_footnote_marks {
+#cecstocrvm .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#sjpxiphvfd .gt_asterisk {
+#cecstocrvm .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#sjpxiphvfd .gt_indent_1 {
+#cecstocrvm .gt_indent_1 {
 text-indent: 5px;
 }
-#sjpxiphvfd .gt_indent_2 {
+#cecstocrvm .gt_indent_2 {
 text-indent: 10px;
 }
-#sjpxiphvfd .gt_indent_3 {
+#cecstocrvm .gt_indent_3 {
 text-indent: 15px;
 }
-#sjpxiphvfd .gt_indent_4 {
+#cecstocrvm .gt_indent_4 {
 text-indent: 20px;
 }
-#sjpxiphvfd .gt_indent_5 {
+#cecstocrvm .gt_indent_5 {
 text-indent: 25px;
 }
-#sjpxiphvfd .katex-display {
+#cecstocrvm .katex-display {
 display: inline-flex !important;
 margin-bottom: 0.75em !important;
 }
-#sjpxiphvfd div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#cecstocrvm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
 height: 0px !important;
 }
 </style>
-<table class="gt_table sortable" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
   <thead>
     <tr class="gt_col_headings">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Name">Name</th>
@@ -1111,7 +1107,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Various data processing and visualization tools for aerosol science</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">XRF</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-04-13</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-07-15</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/agilent-format/">agilent-format</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">File reader for Agilent Resolutions Pro FT-IR images</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -1121,7 +1117,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Agilent file format handling for infrared spectroscopy</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing (IR)</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-05-30</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-08-14</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/agilentaspparser-egonik/">agilentaspparser-egonik</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Parse Agilent FT-IR asp files</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -1131,17 +1127,17 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Surface nuclear magnetic resonance workbench</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2021-10-26</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-04-09</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://cran.r-project.org/package=albatross">albatross</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">PARAFAC of EEM</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">EEM</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-05-06</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-09-01</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://sipss.github.io/AlpsNMR/index.html">AlpsNMR</a> (<a href="https://academic.oup.com/bioinformatics/article/36/9/2943/5701646">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Untargeted NMR Metabolomics</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-08-09</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-09-23</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/fperras/AMES-Fit">AMES-Fit</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Automatic fitting of multiple-field solid-state NMR spectra</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">C++</span></td>
@@ -1166,12 +1162,12 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">General spectroscopic data handling</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-12-21</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-12-11</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/cylammarco/ASPIRED">ASPIRED</a> (<a href="https://arxiv.org/abs/2111.02127">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Automated SpectroPhotometric Image REDuction (ASPIRED)</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">UV-Vis</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2023-12-17</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-10-17</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/autoenrich/">autoenrich</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Computational NMR Library</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -1201,7 +1197,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Baseline correction</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-05-25</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-06-17</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/StatguyUser/BaselineRemoval">BaselineRemoval</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Baseline removal, baseline correction &amp; baseline subtraction</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -1231,22 +1227,22 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Benchmarking framework for machine learning with fNIRS</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">fNIR</span></td>
-<td headers="Status" class="gt_row gt_right">NA</td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-04-26</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/bfit/">bfit</a> (<a href="https://arxiv.org/abs/2004.10395">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">β-NMR &amp; β-NQR Data Analysis</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-04-27</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-06-03</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/biceps/">BICePs</a> (<a href="https://pubs.acs.org/doi/10.1021/acs.jpcb.7b11871">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Bayesian inference of conformational populations from NMR data</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2023-06-12</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-06-10</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/bio-phys/BioEn">BioEn</a> (<a href="https://pubs.aip.org/aip/jcp/article-abstract/143/24/243150/966123/Bayesian-ensemble-refinement-by-replica?redirectedFrom=fulltext">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">BioEn - Bayesian Inference Of ENsembles</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-02-05</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-06-04</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/bionmr-utils/">bionmr-utils</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Biological NMR utilities</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -1276,7 +1272,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">BRIXS is a python package for processing and analysis of XAS and RIXS spectra</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XAS, RIXS</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-15</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-12</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/RyanMan56/Bruker-OPUS-to-.DPT-bulk-file-converter">Bruker-OPUS-to-.DPT-bulk-file-converter</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Convert many binary format OPUS files to .dpt (Data Point Table) file format</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -1291,7 +1287,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Work with Bruker OPUS spectroscopy software and read its binary file format.</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing (IR)</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-11</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-13</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/qedsoftware/brukeropusreader">brukeropusreader</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python package for reading Bruker OPUS files.</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -1321,12 +1317,12 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Analysis of chemical exchange by NMR</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-19</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-23</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://bryanhanson.github.io/ChemoSpec/">ChemoSpec</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Exploratory data analysis of 1D spectra</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-04-14</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-09-07</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://bryanhanson.github.io/ChemoSpec2D/">ChemoSpec2D</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Exploratory data analysis of 2D NMR</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
@@ -1341,12 +1337,12 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Python package for site-directed spin labeling of proteins</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">DEER</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-20</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-10-12</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/lidawei1975/colmarvista/wiki">colmarvista</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Web-based NMR viewer</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">JavaScript</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-05</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-19</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/coloured-spectra/">coloured-spectra</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Got a spectra? Use this to find what is the observed colour.</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -1406,12 +1402,12 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Compressed Sensing library for 1D Spectroscopic Profiling Data</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Raman</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-11-27</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/prajwel/curvit">curvit</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Create light curves from UV imaging telescope data</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">UV</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-01-28</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-02</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/OE-FET/customxepr">customxepr</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Instrument control suite for Bruker E500, MercuryiTC and Keithley 2600.</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -1426,7 +1422,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">2D NMR peak picker using ANN</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR (2D)</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-04-30</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-07-29</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/Kongsea/DeepSpectroscopy">DeepSpectroscopy</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Spectroscopy with deep learning</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -1436,7 +1432,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Analysis of dipolar EPR spectroscopy</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">EPR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-03-19</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-10-08</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/DEERPREdict/">DEERPREdict</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">A package for DEER and PRE predictions based on molecular dynamics ensembles</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -1461,17 +1457,17 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">DNPLab - Bringing the power of Python to DNP-NMR Spectroscopy</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-19</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-06-24</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/drawnmr/">drawnmr</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A module for displaying NMR data with bokeh in Python or Jupyter Notebooks.</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2017-12-01</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/edrixs/">edrixs</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">An open source toolkit for simulating RIXS spectra based on ED</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">XAS</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-04-29</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-05</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://cran.r-project.org/package=EEM">EEM</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Analysis of EEM data</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
@@ -1516,17 +1512,17 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">EPRPy is a python library to streamline routine analysis of Electron Paramagnetic Resonance data.</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">EPR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-02-16</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-09-03</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/jatanRT/eprscope">eprscope</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">R  package to process and analyze data and spectra in Electron Paramagnetic Resonance spectroscopy for chemists</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">EPR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-16</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-10-20</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/EPRsim/">EPRsim</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Simulation Package for cw-EPR spectra</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">EPR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2019-11-24</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/EPRsimGUI/">EPRsimGUI</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">GUI for simulating cw-EPR spectra</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -1536,7 +1532,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">EDS and EELS data analysis with HyperSpy</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">EELS, EDS</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-04</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-16</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/hyperspy/exspy-demos">exspy-demos</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">eXSpy Jupyter Notebook demos</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -1576,7 +1572,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Quantitative X-Ray Fluorescence Analysis Support Library</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">C++</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XRF</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-01-21</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-10-09</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/fitpy/">fitpy</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Framework for fitting models to (spectroscopic) data</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -1671,7 +1667,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Import SPC files into hyperSpec</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2023-12-10</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-06-15</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://r-hyperspec.github.io/index.html">hySpc.read.spe</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Import spe formatted files to hyperSpec</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
@@ -1721,7 +1717,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Raman &amp; IR processing</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">IR, Raman</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2021-03-04</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2021-02-23</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://cran.r-project.org/package=iSTATS">iSTATS</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Shiny app for STOCSY of 1D NMR</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
@@ -1736,7 +1732,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Read JCAMP-DX files</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Data Sharing</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-01-07</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-09-11</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/fracpete/jcamp-dx">jcamp-dx</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Reference implemention of the IUPAC JCAMP-DX spectroscopy data standard.</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Java</span></td>
@@ -1756,12 +1752,12 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Kernel Approximation to Raman Spectra</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Raman</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2021-12-15</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/klassez/">klassez</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">A collection of functions for NMR data handling.</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-03-25</span></td></tr>
+<td headers="Status" class="gt_row gt_right">NA</td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/larixite/">larixite</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Convert CIF data to inputs for XAS calculations Feff, FDMNES, etc</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -1786,7 +1782,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Import spectral data into R</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Data Sharing</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-02-04</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-10-25</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/lingress/">lingress</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Metabolomics data analysis with univariate (linear regression) and visualization tools.</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -1811,17 +1807,17 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Luminescence data analysis with HyperSpy.</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Raman</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-04-06</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-16</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://www.madbyte.org/">MADByTE</a> (<a href="https://pubs.acs.org/doi/10.1021/acs.jnatprod.0c01076">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Dereplication of natural product 2D NMR spectra</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR (2D)</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-10-17</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-07-22</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/BDomzal/magnetstein">magnetstein</a> (<a href="https://pubs.acs.org/doi/10.1021/acs.analchem.3c03594">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Analysis of NMR spectra using the Wasserstein metric</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-05-01</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-10-26</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/mapstorch/">mapstorch</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A differentiable modeling package for automating X-ray fluorescence (XRF) analysis</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -1861,12 +1857,12 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Python package for data processing of NMR 1D &amp; 2D metabolomics and metabolism tracing data</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-19</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-16</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/metabolabpytools/">metabolabpytools</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Tools for metabolomics and metabolism tracing data</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-19</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-16</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/CMET-UGent/MicroRaman">MicroRaman</a> (<a href="https://onlinelibrary.wiley.com/doi/10.1002/cyto.a.23952">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">MicroRaman is an R package to process microbial Raman Spectroscopy data</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
@@ -1881,7 +1877,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Dereplication of 13C NMR data</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2022-02-01</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-06-22</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/ml-jdp4/">ml-jdp4</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">An integrated quantum mechanics-machine learning approach for ultra-fast NMR structural elucidation.</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -1891,7 +1887,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">An MNE compatible package for processing near-infrared spectroscopy data</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NIR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-20</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-24</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/modelfree-protein15n/">modelfree-protein15n</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Model free analysis of protein backbone amide 15N spin relaxation rates.</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -1901,17 +1897,17 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Package for simulating XRF spectra to better understand them</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">XRF</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-04-29</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-24</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/mpes/">mpes</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Distributed data processing routines for multidimensional photoemission spectroscopy (MPES)</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">PES</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2023-01-22</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="http://www.kleinomicslab.com/software">mrbin</a> (<a href="https://pubs.acs.org/doi/10.1021/acs.jproteome.0c00684">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">NMR binning, normalization (1D &amp; 2D)</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-19</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-07-15</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/mrinversion/">mrinversion</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python based statistical learning of NMR tensor parameters distribution from 2D isotropic/anisotropic NMR correlation spectra.</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -1921,7 +1917,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">A fast solid-state NMR spectrum simulation and analysis library.</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR (SS)</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-20</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-20</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/mrsprint/">mrsprint</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Magnetic resonance experiment simulator &amp; visualization tool</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -1931,7 +1927,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Muon Data file reader</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing (NMR)</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-01-16</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-06-22</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/multinmrfit/">multinmrfit</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Fitting 1D NMR spectra</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -1951,7 +1947,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Parser for mwtab files from the Metabolomics Workbench</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing (NMR)</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-02-11</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-15</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/nanofinderparser/">nanofinderparser</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Parse and process Raman and photoluminescence (PL) data files generated by Nanofinder instruments</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -2006,17 +2002,17 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A simple Python wrapper around the NIST Chemistry WebBook</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Data Sharing</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-07</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-07-24</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://foroozandehgroup.github.io/NMR-EsPy/">NMR-EsPy</a> (<a href="https://www.sciencedirect.com/science/article/pii/S1090780722000313">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Estimation of NMR parameters</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-07-29</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-09-08</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/Mabso1/NMR-onion">NMR-onion</a> (<a href="https://www.sciencedirect.com/science/article/pii/S2405844024130290">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">1D NMR deconvolution</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-12</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-07-02</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/cheminfo/nmr-parser">nmr-parser</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Parse 1D &amp; 2D NMR files to JSON</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">JavaScript</span></td>
@@ -2041,7 +2037,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">NMR-EsPy: Nuclear Magnetic Resonance Estimation in Python</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-07-29</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-09-08</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/stefhk3/nmrfilter">nmrFilter</a> (<a href="https://pubs.rsc.org/en/content/articlelanding/2019/fd/c8fd00227d#!divAbstract">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Integrated MS &amp; NMR analysis</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -2066,12 +2062,12 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR data processing, analysis, visualization &amp; conversion</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR (nD)</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-04-23</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-04</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/nmrgnn/">nmrgnn</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Chemical shift predictor</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2021-08-30</span></td></tr>
+<td headers="Status" class="gt_row gt_right">NA</td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/nmrgnn-data/">nmrgnn-data</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Chemical shift prediction dataset</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -2081,7 +2077,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">React component to display and process NMR spectra.</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">TypeScript</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-22</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-24</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/nmrlineshapeanalyser/">nmrlineshapeanalyser</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">ss-NMR peak deconvolution and lineshape analysis</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -2126,7 +2122,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A suite of tools for processing &amp; analysing NMR spectra in Python</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-22</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-24</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/nmrPype/">nmrPype</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Python implementation of Nuclear Magnetic Resonance (NMR) signal analysis program “nmrPipe”</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -2151,7 +2147,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">A Python library for NMR simulation</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-13</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-08-04</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/nmrstarlib/">nmrstarlib</a> (<a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-017-1580-5">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Convert NMR-STAR files to JSON used by BMRB</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -2161,37 +2157,37 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">simple utility for parsing and working with NMR peak tables, including ROC analysis</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2023-06-04</span></td></tr>
+<td headers="Status" class="gt_row gt_right">NA</td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://juliapackages.com/p/nmrtools">NMRTools</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Import and plot NMR spectra</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Julia</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-03-12</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-19</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/NFDI4Chem/nmrxiv">nmrxiv</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">FAIR, consensus-driven NMR data repository and computational platform</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">JavaScript</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing (NMR)</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-19</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-24</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/ctroein/octavvs">octavvs</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Vibrational spectroscopy</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">IR, Raman</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-04</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-06-04</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/pavijovi3/OMNIC-FT-IR-data-processing-tool">OMNIC-FT-IR-data-processing-tool</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">OMNIC FT-IR data processing tool</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">FT-IR</span></td>
 <td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/NFDI4Chem/nmrxiv">OpenLIBS</a></span></td>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/Bluejee/OpenLIBS">OpenLIBS</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">OpenLIBS is a package that provides functionality to analyse Laser Induced Breakdown Spectroscopic Spectras</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">LIBS</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-19</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2023-08-30</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://www.openanalysis.org/openspecy">OpenSpecy</a> (<a href="https://pubs.acs.org/doi/10.1021/acs.analchem.1c00123">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Process Raman, IR data</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">FT-IR, Raman</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-07</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-03</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/openspi/">openspi</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Interface with the OpenSpecy package for R</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -2211,7 +2207,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Read Bruker OPUS files</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing (IR)</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-18</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-10-19</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/oranchada/">oranchada</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Orange add-on for Raman spectroscopy</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -2221,7 +2217,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Open Raman Processing Library</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Raman</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2023-11-20</span></td></tr>
+<td headers="Status" class="gt_row gt_right">NA</td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/delsuc/PALMA">PALMA</a> (<a href="https://pubs.rsc.org/en/content/articlelanding/2017/AN/C6AN01902A">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">DOSY signal processing</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -2236,12 +2232,12 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A pipeline for data processing of XAS spectra</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XRF</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-03-12</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://CRAN.R-project.org/package=pavo">pavo</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Perceptual analysis, visualization &amp; organization of spectral color data (including images)</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">UV-Vis</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-02-09</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-08-29</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/olive-groves/pdz-extractor">pdz-extractor</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">User interface to convert XRF spectral data PDZ files to open CSV and JPEG formats</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -2256,12 +2252,12 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Reader module for .PDZ binary spectral file format used by Bruker pXRF Instruments</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Data Sharing (XRF)</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-03-02</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-06</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://peakaboo.org">Peakaboo</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">XRF analysis</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Java</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">XRF</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-12-01</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-17</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/peakfit/">peakfit</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">PeakFit allow for lineshape fitting in pseudo-3D NMR spectra.</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -2271,7 +2267,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Deconvolution of 2D NMR peaks</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR (2D)</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-02-23</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-09-16</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/SKMikee/PeakIt">PEAKIT</a> (<a href="https://www.sciencedirect.com/science/article/pii/S1090780721002111">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Analyze chemical exchange saturation transfer spectra</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -2286,7 +2282,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Photobiology workflow tools</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">UV-Vis</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-01-22</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-08-18</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pint-nmr.github.io/PINT/">PINT</a> (<a href="https://link.springer.com/article/10.1007/s10858-017-0141-6">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">NMR line shape fitting &amp; analysis</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Qt</span></td>
@@ -2301,7 +2297,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">NMR analysis tools for pocketchemist</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2022-04-27</span></td></tr>
+<td headers="Status" class="gt_row gt_right">NA</td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/pierrel55/pol_sim">pol_sim</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Simulation of a local polarizer model in an EPR experiment</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">C</span></td>
@@ -2326,7 +2322,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">R package: Misc. Functions for Processing and Sample Selection of Spectroscopic Data</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-03-17</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-10-16</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/Protomix/">Protomix</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">A Python package for NMR preprocessing</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -2351,27 +2347,27 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Python package for read-only accessing the wdf Raman spectroscopy from Ranishaw WiRE software</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing (Raman)</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2023-08-28</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-08-05</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/pybaselines/">pybaselines</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A library of algorithms for the baseline correction of experimental data</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-21</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-09-30</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/pybmrb/">PyBMRB</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Visualizations based on BMRB data</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR (1D)</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2021-11-22</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-08-20</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://gitlab.com/chemsoftware/python/pycaltransfer">pycaltransfer</a> (<a href="https://www.sciencedirect.com/science/article/abs/pii/S0003267022007255">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Calibration transfer for chemometrics and spectral data applications</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">UV-Vis, NIR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-22</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-24</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/kev-m/pyCoilGen">pyCoilGen</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Magnetic Field Coil Generator for Python, ported from CoilGen</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-03-31</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-06-26</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/pycoilgen_data/">pycoilgen_data</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Extra data for pyCoilGen, the Open source Magnetic Resonance Coil Generator.</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -2396,7 +2392,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A CPU &amp; GPU compatible Python package for Electron Paramagnetic Resonance Imaging</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">EPR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-17</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-23</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/pyexafs/">pyexafs</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">A simple package for fast analysis of EXAFS data</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -2436,12 +2432,12 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Parse &amp; Process NMR data.</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-04-01</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-05</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/pynmrstar/">PyNMR-STAR</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">I/O NMR-STAR files from BMRB</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing (NMR)</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-01-01</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-09-10</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/pynmranalysis/">pynmranalysis</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">python library for NMR preprocessing &amp; analysis</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -2451,7 +2447,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">PyNMR-STAR provides tools for reading, writing, modifying, &amp; interacting with NMR-STAR files</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing (NMR nD)</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-01-01</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-09-10</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/pynxtools-raman/">pynxtools-raman</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A reader for transferring raman data from vendor formats to NeXus and NOMAD.</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -2466,7 +2462,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Analysis and manipulation of hyperspectral data sets</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-04-23</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-10-01</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/pyPreprocessing/">pyPreprocessing</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Preprocessing of datasets, especially from spectroscopy</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -2501,12 +2497,12 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Python tools for Cassini UVis data</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">UV-Vis</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-08-01</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-10</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/qtmetabolabpy/">qtmetabolabpy</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python package for data processing of NMR 1D and 2D metabolomics and metabolism tracing data</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-19</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-16</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/quakesranalysis-tspspi/">quakesranalysis-tspspi</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Analysis package for QUAK/ESR runs</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -2526,7 +2522,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">General spectroscopic data handling running on Orange</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-22</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-12</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/LauraSp/QUIDDIT3">QUIDDIT3</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">QUIDDIT is a software tool for automated processing of diamond IR spectra</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -2536,7 +2532,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Compute IR spectra</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">FT-IR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-14</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-23</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/DerekKaknes/raman">raman</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Deep CNN for Raman Applications</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -2556,7 +2552,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A Python framework for the batch processing and deconvolution of Raman spectra of carbonaceous materials.</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Raman</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-04-20</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-09-03</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/raman-hypmap/">raman-hypmap</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Raman hyperspectral processing for Horiba instrument</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -2581,7 +2577,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Harmonising Raman Spectroscopy</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Raman</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-13</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-04</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/ramanfitter/">ramanfitter</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A Raman peak finder and model fitter</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -2591,12 +2587,12 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Compute off-resonance Raman spectra from first principles calculations</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Raman</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-03-30</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-09</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/ramanspy/">ramanspy</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">RamanSPy: An open-source Python package for integrative Raman spectroscopy data analysis</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Raman</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-04-03</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-08</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/ramantools/">ramantools</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Tools for analyzing Raman spectroscopy data, measured by a Witec confocal Raman microscope.</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -2621,7 +2617,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Processing Raman, IR, XAS spectra</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-11</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-06-29</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://cran.r-project.org/package=RBMRB">RBMRB</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Interface to BMRB database</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
@@ -2656,7 +2652,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Analytic and automatic NMR relaxation theory</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-03-06</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-08-18</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/relaxNMR/">relaxNMR</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">1D Proton NMR relaxometry analysis</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -2676,12 +2672,12 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Reading wdf Raman spectroscopy file from Renishaw WiRE</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Data Sharing (Raman)</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2023-08-28</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-08-05</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="http://l-ramirez-lopez.github.io/resemble/">resemble</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Non-linear modeling of Vis &amp; IR spectra</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">IR, Vis</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-21</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-10-16</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="http://rnmr.nmrfam.wisc.edu/">rNMR</a> (<a href="https://www.ncbi.nlm.nih.gov/pubmed/19821464">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Visualization of 1D &amp; 2D NMR</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
@@ -2691,7 +2687,7 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">1D NMR processing for metabolomics</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR (1D)</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-04-23</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-07-28</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/zebhall/S1Control">S1Control</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">XRF Spectral Analysis and control of Bruker pXRF Instruments - S1 TITAN, TRACER, CTX, XMS</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
@@ -2706,17 +2702,17 @@ height: 0px !important;
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python interface module for Ocean Optics spectrometers</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">UV-Vis</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-22</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-23</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://mooresm.github.io/serrsBayes/">serrsBayes</a> (<a href="https://arxiv.org/abs/1604.07299">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Modeling of surface enhanced Raman spectra (SERS)</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Raman</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2021-06-27</span></td></tr>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-05</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/MKastek/simLIBS">simLIBS</a></span></td>
 <td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">simLIBS provides Python class to simulate LIBS spectra with NIST LIBS Database interface.</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">LIBS</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-03-27</span></td></tr>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-07-31</span></td></tr>
     <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/simos/">simos</a></span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Spin simulations in Python (NMR, EPR/ESR as well as ODMR).</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
@@ -2727,418 +2723,412 @@ height: 0px !important;
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">MIR, NIR</span></td>
 <td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-08-08</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/MKastek/SimulatedLIBS">SimulatedLIBS</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">SimulatedLIBS provides Python class to simulate LIBS spectra with NIST LIBS Database interface.</span></td>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/simulateIRAS/">simulateIRAS</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">A python package for simulating Infrared Reflection Absorption Spectroscopy(IRAS) measurements</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">LIBS</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-03-27</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/simulateIRAS/">simulateIRAS</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A python package for simulating Infrared Reflection Absorption Spectroscopy(IRAS) measurements</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">IR</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2023-05-03</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/sleepy-nmr/">sleepy-nmr</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Spins in Liouville-space for rElaxation and Exchange in PYthon</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">IR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2023-05-03</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/sleepy-nmr/">sleepy-nmr</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Spins in Liouville-space for rElaxation and Exchange in PYthon</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/Gianfrasso/SmoothDeconvolutionNMR">SmoothDeconvolutionNMR</a> (<a href="https://www.sciencedirect.com/science/article/abs/pii/S0003267023010292?via%3Dihub">pub</a>)</span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR data processing</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-02-18</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/lerkoah/spa-on-python">spa-on-python</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Read Nicolet/Thermo Omnic files on python (.spa).</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-04-11</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/spc-io/">spc-io</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">SPC file format parser</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Data Sharing</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-04-29</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://juliapackages.com/p/spcspectra">SPCSpectra</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Module for working with .SPC spectra</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Julia</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2022-07-14</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/JensKrumsieck/SPCViewer">SPCViewer</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">SPCViewer (fka. BluEPRint) is a versatile Tool for NMR, EPR and UV/Vis Spectroscopy</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">C#</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR, EPR, UV-Vis</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2023-08-15</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://cran.r-project.org/package=speaq">speaq</a> (<a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006018">pub</a>)</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/Gianfrasso/SmoothDeconvolutionNMR">SmoothDeconvolutionNMR</a> (<a href="https://www.sciencedirect.com/science/article/abs/pii/S0003267023010292?via%3Dihub">pub</a>)</span></td>
 <td headers="Description" class="gt_row gt_left"><span class="gt_from_md">NMR data processing</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR (nD)</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2022-05-22</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://griffithdan.github.io/pages/code_and_data/plantspec.html">Spec</a> (<a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13143">pub</a>)</span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Spectral analysis of plant stoichiometry</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NIR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-06-06</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://specio.readthedocs.io/en/stable/">specio</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">I/O spectroscopic files</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-09-25</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/BioSystemsUM/specmine">specmine</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">General spectroscopic data handling</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2021-09-20</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/astropy/specreduce">specreduce</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Reduce &amp; calibrate spectroscopic data</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">IR, UV-Vis</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-19</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://cran.r-project.org/package=spectacles">spectacles</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Storing, manipulation &amp; analysis of spectroscopic data sets</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2023-11-01</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/habeeb3579/Spectoprep">Spectoprep</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Bayesian optimization of spectroscopic preprocessing</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-04</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://cheminfo-js.github.io/spectra/packages/spectra-data/docs/">spectra</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Library for UV, IR, 1D &amp; 2D NMR</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-02-18</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/lerkoah/spa-on-python">spa-on-python</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Read Nicolet/Thermo Omnic files on python (.spa).</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2020-09-08</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/charlesll/Spectra.jl">Spectra</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Treatment of spectra (Raman, infrared, XAS, NMR) data</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Julia</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-02</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://clerk67.github.io/spectra-formatter/">spectra-formatter</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Tool to write out NMR data for publication summaries</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">html</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR (1D)</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2019-02-10</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/spectradb/">spectradb</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">A Lightweight Spectroscopic Data Manager</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Data Sharing</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-08-01</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/spc-io/">spc-io</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">SPC file format parser</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing</span></td>
-<td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/SpectraFP/">SpectraFP</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A package to perform fingerprints from spectroscopy datas.</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-04-29</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://juliapackages.com/p/spcspectra">SPCSpectra</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Module for working with .SPC spectra</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Julia</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Data Sharing</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2022-07-14</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/JensKrumsieck/SPCViewer">SPCViewer</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">SPCViewer (fka. BluEPRint) is a versatile Tool for NMR, EPR and UV/Vis Spectroscopy</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">C#</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR, EPR, UV-Vis</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2023-08-15</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://cran.r-project.org/package=speaq">speaq</a> (<a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006018">pub</a>)</span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR data processing</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR (nD)</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2022-05-22</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://griffithdan.github.io/pages/code_and_data/plantspec.html">Spec</a> (<a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13143">pub</a>)</span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Spectral analysis of plant stoichiometry</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NIR</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-06-06</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://specio.readthedocs.io/en/stable/">specio</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">I/O spectroscopic files</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-07-24</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/spectrai/">spectrai</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">spectrai: a deep learning framework for spectral data.</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-09-25</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/BioSystemsUM/specmine">specmine</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">General spectroscopic data handling</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Any</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2021-09-20</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/astropy/specreduce">specreduce</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Reduce &amp; calibrate spectroscopic data</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">IR, UV-Vis</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-18</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://cran.r-project.org/package=spectacles">spectacles</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Storing, manipulation &amp; analysis of spectroscopic data sets</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Any</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-10-19</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/habeeb3579/Spectoprep">Spectoprep</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Bayesian optimization of spectroscopic preprocessing</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-09-27</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://cheminfo-js.github.io/spectra/packages/spectra-data/docs/">spectra</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Library for UV, IR, 1D &amp; 2D NMR</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-06-19</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/zebhall/Spectral-Anomaly-Checker">Spectral-Anomaly-Checker</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Tool to identify anomalous peaks in XRF spectra</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XRF</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-04-23</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/jgmotta98/spectral-nexus">spectral-nexus</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Spectral Nexus is a web application for data analysis, spectra classification and visualization.</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">FT-IR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-04-23</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://cran.r-project.org/package=spectralAnalysis">spectralAnalysis</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Exploratory data analysis of 1D spectra</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2020-09-08</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/charlesll/Spectra.jl">Spectra</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Treatment of spectra (Raman, infrared, XAS, NMR) data</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Julia</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-01-29</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/spectramap/">spectramap</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Hyperspectral package for spectroscopists</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Raman</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-02-20</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/spectrapepper/">spectrapepper</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A Python package to simplify &amp; accelerate analysis of spectroscopy data</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-09-06</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/SpectraSimulation/">SpectraSimulation</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Simulation Program for calculating synthetic spectra from theoretical data.</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">XRF</span></td>
-<td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://www.spectrochempy.fr/latest/">SpectroChemPy</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">General spectroscopic data handling</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-06</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/spectrocrunch/">spectrocrunch</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Spectroscopic imaging library (XRF/XAS)</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">XRF</span></td>
-<td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://spectroscopyx.readthedocs.io/en/latest/">SpectroscoPyx</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Atomic/Plasma spectroscopy</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">UV-Vis</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2021-05-28</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/spectroview/">spectroview</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">A Tool for Spectroscopic Data Processing and Visualization.</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Raman</span></td>
-<td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/spectrum-image/">spectrum-image</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python Package for EELS (Electron Energy Loss Spectroscopy) Analysis</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">EELS</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://specutils.readthedocs.io/en/stable/">specutils</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Toolbox for astronomical spectroscopic data</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">UV-Vis</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-05-22</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/speview/">speview</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Program to display binary SPE files containing Raman spectra</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Data Sharing (Raman)</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2017-07-05</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="http://softwares.casc4de.eu/spike/spikedoc/">spike</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">FT-spectroscopy processing</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-09-02</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/spike-py/">spike-py</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">The SPIKE program. A collaborative development for a FT-spectroscopy processing program</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR (1D, 2D)</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-09-02</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/spinpy/">spinpy</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Package for simulating EPR data.</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">EPR</span></td>
-<td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/spinsolveproc/">spinsolveproc</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python library to process Spinsolve NMR experiments.</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/SRPAstro/">SRPAstro</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Astronomical Data Analysis Tools</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NIR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-04-29</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/SRPAstro.FITS/">SRPAstro.FITS</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Tools for handling FITS files under SRP</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NIR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-07-28</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/SRPAstro.GW/">SRPAstro.GW</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Tools for handling GW EM transient search under SRP</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NIR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2019-08-25</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/SRPAstro.REM/">SRPAstro.REM</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Tools for the REM telescope under SRP</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NIR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2023-05-18</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/SRPAstro.STATS/">SRPAstro.STATS</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Statistical tools under SRP</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NIR</span></td>
-<td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/SRPAstro.TNG/">SRPAstro.TNG</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Tools for the TNG telescope under SRP</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NIR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2021-05-11</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/ssfp/">ssfp</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Simple steady-state free precession simulation</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/smeerten/ssnake/">ssNAKE</a> (<a href="https://doi.org/10.1016/j.jmr.2019.02.006">pub</a>)</span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">SS NMR processing &amp; fitting</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR (SS)</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-06-25</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/PGB-LIV/tameNMR">tameNMR</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">1H NMR metabolomics</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-02</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://clerk67.github.io/spectra-formatter/">spectra-formatter</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Tool to write out NMR data for publication summaries</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">html</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR (1D)</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2021-09-02</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/TheresiaQuintes/teacups">teacups</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Simulation of timeresolved transient EPR spectra of spinpolarised spin species</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Time Series (EPR)</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-02-24</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/tesliper/">tesliper</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Bbatch processing of spectra-related Gaussian output files</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Raman, FT-IR, UV</span></td>
-<td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/thorondor/">thorondor</a> (<a href="https://scripts.iucr.org/cgi-bin/paper?S1600577520011388">pub</a>)</span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">XANES package using jupyter widgets</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XAS</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2022-07-18</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/AlphaPrime7/tidyDenovix">tidyDenovix</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Cleans spectrophotometry data from the Denovix DS-X</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">UV-Vis</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-07-13</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/marceelrf/tidyspec">tidyspec</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Analyze spectroscopy data using tidy-data philosophy</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-19</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="http://timpgui.org/">TIMP</a> (<a href="https://www.jstatsoft.org/article/view/v049i03">pub</a>)</span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Time-resolved spectroscopy</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Time Series</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2023-02-09</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://docs.trepr.de/v0.2/index.html">trEPR</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Time-resolved EPR spectroscopy</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Time Series (EPR)</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2023-07-15</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/r-hyperspec/unmixR">unmixR</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Unmixing of hyperspectral data sets</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-03-20</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/uvvispy/">uvvispy</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Package for handling optical absorption data</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">UV-Vis</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2021-07-14</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://htmlpreview.github.io/?https://github.com/solarchemist/uvvistauc/blob/master/doc/intro.html">uvvistauc</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Optical band gap plots for semiconductors</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">UV-Vis</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2023-03-24</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/VespucciProject/Vespucci">Vespucci</a> (<a href="https://openresearchsoftware.metajnl.com/articles/10.5334/jors.91/">pub</a>)</span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Tools for spectroscopic data analysis &amp; imaging</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">C++</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Raman</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2020-02-17</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/vibrav/">vibrav</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Vibrational averaging of molecular properties</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">FT-IR</span></td>
-<td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/wai-spectralio/">wai-spectralio</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python library for reading/writing various NIR, MIR, XRF spectroscopy data formats.</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2019-02-10</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/spectradb/">spectradb</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A Lightweight Spectroscopic Data Manager</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Data Sharing</span></td>
 <td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/wasatch/">wasatch</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">This package is a driver for Wasatch Photonics spectrometers</span></td>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/SpectraFP/">SpectraFP</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">A package to perform fingerprints from spectroscopy datas.</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Raman</span></td>
-<td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/GoreLab/waves">waves</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">General spectroscopic data handling</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Any</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-06-21</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/spectrai/">spectrai</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">spectrai: a deep learning framework for spectral data.</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-10-23</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://arfberkeley.shinyapps.io/web_geochemistry/">web_geochemistry</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Shiny app for visualizing XRF &amp; NAA geochemistry concentrations</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-06-19</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/zebhall/Spectral-Anomaly-Checker">Spectral-Anomaly-Checker</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Tool to identify anomalous peaks in XRF spectra</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">XRF</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2021-04-28</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://mrsimulator.readthedocs.io/en/stable/">whose</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A fast solid-state NMR spectrum simulation and analysis library.</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-07-15</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/jgmotta98/spectral-nexus">spectral-nexus</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Spectral Nexus is a web application for data analysis, spectra classification and visualization.</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">FT-IR</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-10-06</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://cran.r-project.org/package=spectralAnalysis">spectralAnalysis</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Exploratory data analysis of 1D spectra</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Any</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-06-01</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/spectramap/">spectramap</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Hyperspectral package for spectroscopists</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Raman</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-02-20</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/spectrapepper/">spectrapepper</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">A Python package to simplify &amp; accelerate analysis of spectroscopy data</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Any</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-09-06</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/SpectraSimulation/">SpectraSimulation</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Simulation Program for calculating synthetic spectra from theoretical data.</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XRF</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://www.spectrochempy.fr/latest/">SpectroChemPy</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">General spectroscopic data handling</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Any</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-23</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/spectrocrunch/">spectrocrunch</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Spectroscopic imaging library (XRF/XAS)</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XRF</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://spectroscopyx.readthedocs.io/en/latest/">SpectroscoPyx</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Atomic/Plasma spectroscopy</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">UV-Vis</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2021-05-28</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/spectroview/">spectroview</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A Tool for Spectroscopic Data Processing and Visualization.</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Raman</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/spectrum-image/">spectrum-image</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Python Package for EELS (Electron Energy Loss Spectroscopy) Analysis</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">EELS</span></td>
+<td headers="Status" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://specutils.readthedocs.io/en/stable/">specutils</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Toolbox for astronomical spectroscopic data</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">UV-Vis</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-24</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/speview/">speview</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Program to display binary SPE files containing Raman spectra</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing (Raman)</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2017-07-05</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="http://softwares.casc4de.eu/spike/spikedoc/">spike</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">FT-spectroscopy processing</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-05-20</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/bmorris3/whoseline">whoseline</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Interactive tool for identifying atomic spectral lines</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-02</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/spike-py/">spike-py</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">The SPIKE program. A collaborative development for a FT-spectroscopy processing program</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">UV-Vis, NIR</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-02-26</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://wobble.readthedocs.io/en/latest/">wobble</a> (<a href="https://arxiv.org/abs/1901.00503">pub</a>)</span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Analysis of stellar spectra time series</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR (1D, 2D)</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-02</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/spinpy/">spinpy</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Package for simulating EPR data.</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Time Series</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-08-06</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="http://wright.tools/en/stable/">WrightTools</a> (<a href="https://pubs.acs.org/doi/10.1021/acs.analchem.7b02917">pub</a>)</span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Toolbox for coherent multidimensional spectroscopy</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">EPR</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/spinsolveproc/">spinsolveproc</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Python library to process Spinsolve NMR experiments.</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Raman</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-02-16</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/xanespy/">xanespy</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Tools for analyzing X-ray absorbance spectroscopy data</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
+<td headers="Status" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/SRPAstro/">SRPAstro</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Astronomical Data Analysis Tools</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XAS</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2023-07-07</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/xas-pipeline/">xas-pipeline</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">A data pipeline for processing XAS data</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NIR</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-04-29</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/SRPAstro.FITS/">SRPAstro.FITS</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Tools for handling FITS files under SRP</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NIR</span></td>
+<td headers="Status" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/SRPAstro.GW/">SRPAstro.GW</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Tools for handling GW EM transient search under SRP</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NIR</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2019-08-25</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/SRPAstro.REM/">SRPAstro.REM</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Tools for the REM telescope under SRP</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NIR</span></td>
+<td headers="Status" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/SRPAstro.STATS/">SRPAstro.STATS</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Statistical tools under SRP</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NIR</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/SRPAstro.TNG/">SRPAstro.TNG</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Tools for the TNG telescope under SRP</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NIR</span></td>
+<td headers="Status" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/ssfp/">ssfp</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Simple steady-state free precession simulation</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/smeerten/ssnake/">ssNAKE</a> (<a href="https://doi.org/10.1016/j.jmr.2019.02.006">pub</a>)</span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">SS NMR processing &amp; fitting</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR (SS)</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-06-25</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/PGB-LIV/tameNMR">tameNMR</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">1H NMR metabolomics</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">NMR (1D)</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2021-09-02</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/TheresiaQuintes/teacups">teacups</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Simulation of timeresolved transient EPR spectra of spinpolarised spin species</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Time Series (EPR)</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-02-24</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/tesliper/">tesliper</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Bbatch processing of spectra-related Gaussian output files</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Raman, FT-IR, UV</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/thorondor/">thorondor</a> (<a href="https://scripts.iucr.org/cgi-bin/paper?S1600577520011388">pub</a>)</span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">XANES package using jupyter widgets</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">XAS</span></td>
 <td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/xaspy/">xaspy</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Analysis of experimental xray absorption spectroscopy data</span></td>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/AlphaPrime7/tidyDenovix">tidyDenovix</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Cleans spectrophotometry data from the Denovix DS-X</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">UV-Vis</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-10-16</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/marceelrf/tidyspec">tidyspec</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Analyze spectroscopy data using tidy-data philosophy</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Any</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-08-28</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="http://timpgui.org/">TIMP</a> (<a href="https://www.jstatsoft.org/article/view/v049i03">pub</a>)</span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Time-resolved spectroscopy</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Time Series</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2023-02-09</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://docs.trepr.de/v0.2/index.html">trEPR</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Time-resolved EPR spectroscopy</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Time Series (EPR)</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2023-07-15</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/r-hyperspec/unmixR">unmixR</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Unmixing of hyperspectral data sets</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Any</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-09-25</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/uvvispy/">uvvispy</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Package for handling optical absorption data</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">UV-Vis</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2021-07-14</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://htmlpreview.github.io/?https://github.com/solarchemist/uvvistauc/blob/master/doc/intro.html">uvvistauc</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Optical band gap plots for semiconductors</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">UV-Vis</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2023-03-24</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/VespucciProject/Vespucci">Vespucci</a> (<a href="https://openresearchsoftware.metajnl.com/articles/10.5334/jors.91/">pub</a>)</span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Tools for spectroscopic data analysis &amp; imaging</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">C++</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Raman</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2020-02-17</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/vibrav/">vibrav</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Vibrational averaging of molecular properties</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">FT-IR</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/wai-spectralio/">wai-spectralio</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Python library for reading/writing various NIR, MIR, XRF spectroscopy data formats.</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing</span></td>
+<td headers="Status" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/wasatch/">wasatch</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">This package is a driver for Wasatch Photonics spectrometers</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Raman</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/GoreLab/waves">waves</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">General spectroscopic data handling</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">R</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Any</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-18</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://arfberkeley.shinyapps.io/web_geochemistry/">web_geochemistry</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Shiny app for visualizing XRF &amp; NAA geochemistry concentrations</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">R</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XRF</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2021-04-28</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://mrsimulator.readthedocs.io/en/stable/">whose</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">A fast solid-state NMR spectrum simulation and analysis library.</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">NMR</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-11-20</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/bmorris3/whoseline">whoseline</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Interactive tool for identifying atomic spectral lines</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">UV-Vis, NIR</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-02-26</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://wobble.readthedocs.io/en/latest/">wobble</a> (<a href="https://arxiv.org/abs/1901.00503">pub</a>)</span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Analysis of stellar spectra time series</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Time Series</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-08-06</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="http://wright.tools/en/stable/">WrightTools</a> (<a href="https://pubs.acs.org/doi/10.1021/acs.analchem.7b02917">pub</a>)</span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Toolbox for coherent multidimensional spectroscopy</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Raman</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-11-09</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/xanespy/">xanespy</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Tools for analyzing X-ray absorbance spectroscopy data</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">XAS</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2023-07-07</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/xas-pipeline/">xas-pipeline</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">A data pipeline for processing XAS data</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XAS</span></td>
 <td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/xcal_raman/">xcal_raman</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Module for x-axis calibration of Raman spectrometers</span></td>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/xaspy/">xaspy</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Analysis of experimental xray absorption spectroscopy data</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Raman</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">XAS</span></td>
 <td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/xfit/">xfit</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Package for fitting XRF spectra</span></td>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/xcal_raman/">xcal_raman</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Module for x-axis calibration of Raman spectrometers</span></td>
 <td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XRF</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Raman</span></td>
 <td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/wcchu/XL-e">XL-e</a> (<a href="https://journals.aps.org/pra/abstract/10.1103/PhysRevA.89.033427">pub</a>)</span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Simulate photoelectron spectra driven by laser pulses</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Fortran</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">PES</span></td>
-<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2015-10-29</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/xmimsim/">xmimsim</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Toolkit for making &amp; processing X-ray fluoresence simulations via XMI-MSIM</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XRF</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/XPlotLib/">XPlotLib</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Libary to plot experimental and theoretical XRay data.</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">XRF, XAS</span></td>
-<td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/zebhall/Xray-Fluorescence-Depth">Xray-Fluorescence-Depth</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Estimate the theoretical maximum depth at which an element will be detectable through a solid layer of a different element via XRF analysis. ex: coatings calibration</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XRF</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-11-11</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/xraylarch/">xraylarch</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Synchrotron X-ray data analysis in python</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">XRF, XAS</span></td>
-<td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/AdamNissen/xrf_cluster">xrf_cluster</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Producing mineral maps from μXRF geochemistry using KMeans clustering</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XRF</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2025-02-15</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/brianlevay/xrf_filetools">xrf_filetools</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">XRF file tools</span></td>
-<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Go</span></td>
-<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing (XRF)</span></td>
-<td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/dylarm/xrf_parser">xrf_parser</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Parse files from handheld XRF spectrometers</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Data Sharing (XRF)</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2019-07-21</span></td></tr>
-    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/xrf-tomo/">xrf-tomo</a></span></td>
-<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">XRF Tomography Reconstruction</span></td>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/xfit/">xfit</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Package for fitting XRF spectra</span></td>
 <td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
 <td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">XRF</span></td>
 <td headers="Status" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/yokochi47/xyza2pipe">xyza2pipe</a></span></td>
-<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">File conversion for NMR data formats</span></td>
-<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">C</span></td>
-<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Data Sharing (NMR nD)</span></td>
-<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2024-07-10</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/wcchu/XL-e">XL-e</a> (<a href="https://journals.aps.org/pra/abstract/10.1103/PhysRevA.89.033427">pub</a>)</span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Simulate photoelectron spectra driven by laser pulses</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Fortran</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">PES</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped"><span class="gt_from_md">2015-10-29</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://pypi.org/project/xmimsim/">xmimsim</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Toolkit for making &amp; processing X-ray fluoresence simulations via XMI-MSIM</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">XRF</span></td>
+<td headers="Status" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/XPlotLib/">XPlotLib</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Libary to plot experimental and theoretical XRay data.</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XRF, XAS</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/zebhall/Xray-Fluorescence-Depth">Xray-Fluorescence-Depth</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Estimate the theoretical maximum depth at which an element will be detectable through a solid layer of a different element via XRF analysis. ex: coatings calibration</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">XRF</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-06-27</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/xraylarch/">xraylarch</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">Synchrotron X-ray data analysis in python</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XRF, XAS</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/AdamNissen/xrf_cluster">xrf_cluster</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Producing mineral maps from μXRF geochemistry using KMeans clustering</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">XRF</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2025-02-15</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://github.com/brianlevay/xrf_filetools">xrf_filetools</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">XRF file tools</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Go</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">Data Sharing (XRF)</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/dylarm/xrf_parser">xrf_parser</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">Parse files from handheld XRF spectrometers</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing (XRF)</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2019-07-21</span></td></tr>
+    <tr><td headers="Name" class="gt_row gt_left gt_striped"><span class="gt_from_md"><a href="https://pypi.org/project/xrf-tomo/">xrf-tomo</a></span></td>
+<td headers="Description" class="gt_row gt_left gt_striped"><span class="gt_from_md">XRF Tomography Reconstruction</span></td>
+<td headers="Lang" class="gt_row gt_left gt_striped"><span class="gt_from_md">Python</span></td>
+<td headers="Focus" class="gt_row gt_left gt_striped"><span class="gt_from_md">XRF</span></td>
+<td headers="Status" class="gt_row gt_right gt_striped">NA</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left"><span class="gt_from_md"><a href="https://github.com/yokochi47/xyza2pipe">xyza2pipe</a></span></td>
+<td headers="Description" class="gt_row gt_left"><span class="gt_from_md">File conversion for NMR data formats</span></td>
+<td headers="Lang" class="gt_row gt_left"><span class="gt_from_md">C</span></td>
+<td headers="Focus" class="gt_row gt_left"><span class="gt_from_md">Data Sharing (NMR nD)</span></td>
+<td headers="Status" class="gt_row gt_right"><span class="gt_from_md">2024-07-10</span></td></tr>
   </tbody>
-  
   
 </table>
 </div>
@@ -3191,7 +3181,7 @@ platforms</a></li>
 <div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
-<li id="fn1"><p>We made 522 inquiries to Github to produce this
+<li id="fn1"><p>We made 520 inquiries to Github to produce this
 report.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
